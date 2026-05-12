@@ -11,7 +11,7 @@ LDFLAGS += -lm -lredisx -fprofile-arcs -ftest-coverage
 
 # Check if a Redis / Valkey server is running for us
 # to test on.
-ONLINE = 0
+ONLINE ?= 0
 
 REDIS = $(shell pidof redis-server)
 ifneq ($(REDIS),)

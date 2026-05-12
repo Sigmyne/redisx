@@ -140,7 +140,10 @@ int rConfirmMasterRoleAsync(Redis *redis) {
   prop_error(fn, status);
 
   reply = redisxReadReplyAsync(redis->interactive, &status);
-  prop_error(fn, status);
+  if(status) {
+    redisxDestroyRESP(reply);
+    x_trace(fn, "ROLE", status);
+  }
 
   if(redisxCheckDestroyRESP(reply, RESP_ARRAY, 0) != X_SUCCESS) {
     // Fallback to using INFO replication...
@@ -148,10 +151,16 @@ int rConfirmMasterRoleAsync(Redis *redis) {
     const XField *role;
 
     status = redisxSendRequestAsync(redis->interactive, "INFO", "replication", NULL, NULL);
-    prop_error(fn, status);
+    if(status) {
+      redisxDestroyRESP(reply);
+      x_trace(fn, "sendRequestAsync(INFO)", status);
+    }
 
     reply = redisxReadReplyAsync(redis->interactive, &status);
-    prop_error(fn, status);
+    if(status) {
+      redisxDestroyRESP(reply);
+      x_trace(fn, "readReplyAsync(INFO)", status);
+    }
 
     info = rConsumeInfoReply(reply);
     if(!info) return x_trace(fn, NULL, X_FAILURE);
@@ -216,7 +225,10 @@ int rDiscoverSentinelAsync(Redis *redis) {
     if(status) continue;
 
     reply = redisxReadReplyAsync(redis->interactive, &status);
-    if(status) continue;
+    if(status) {
+      redisxDestroyRESP(reply);
+      continue;
+    }
 
     if(redisxCheckDestroyRESP(reply, RESP_ARRAY, 2) == X_SUCCESS) {
       RESP **component = (RESP **) reply->value;

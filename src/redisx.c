@@ -423,10 +423,7 @@ static int redisxSelectDBAsync(RedisClient *cl, int idx, boolean confirm) {
   if(confirm) {
     int status = X_SUCCESS;
     RESP *reply = redisxReadReplyAsync(cl, &status);
-
-    prop_error(fn, status);
-
-    status = redisxCheckRESP(reply, RESP_SIMPLE_STRING, 0);
+    if(!status) status = redisxCheckRESP(reply, RESP_SIMPLE_STRING, 0);
     if(!status) if(strcmp("OK", (char *) reply->value) != 0)
       status = x_error(REDIS_UNEXPECTED_RESP, ENOMSG, fn, "expected 'OK', got '%s'", (char *) reply->value);
     redisxDestroyRESP(reply);
@@ -881,7 +878,7 @@ XLookupTable *rConsumeInfoReply(RESP *reply) {
 
   // Parse key:value lines into a structure.
   while(line) {
-    char *sep = strchr(line, ':');
+    char *sep = strchr((char *) line, ':');
     if(sep) {
       *sep = '\0';
       xSetField(s, xCreateStringField(line, sep + 1));

@@ -10,12 +10,11 @@ LIB ?= ../lib
 
 ifdef XCHANGE
   CPPFLAGS += -I$(XCHANGE)/include
-  LDFLAGS += -L$(XCHANGE)/lib
+  LDFLAGS += -L$(XCHANGE)/lib -lxchange
 endif
 
 CPPFLAGS += -I../include
-LDFLAGS += -L$(LIB) -lredisx -lxchange -lpthread
-
+LDFLAGS += -L$(LIB) -lredisx -lpthread
 
 .PHONY: all
 all: $(EXAMPLES)

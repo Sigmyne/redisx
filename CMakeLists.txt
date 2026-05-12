@@ -36,16 +36,18 @@ include(FeatureSummary)
 # Build options
 option(BUILD_SHARED_LIBS "Build as shared libraries instead of static" OFF)
 option(BUILD_DOC "Build HTML documetation" OFF)
-option(BUILD_TESTING "Build regression test suite" ON)
+option(BUILD_TESTING "Build regression test suite" OFF)
 option(BUILD_EXAMPLES "Build example programs" OFF)
+option(CHECK_BUILD "Basic build integrity checking during tests" OFF)
 option(ENABLE_OPENMP "Build with OpenMP support" OFF)
 option(ENABLE_TLS "Build with TLS support" OFF)
 
 # Set feature descriptions for summary
 add_feature_info(SharedLibs BUILD_SHARED_LIBS "Build as shared libraries")
 add_feature_info(Documentation BUILD_DOC "Developer documentation (HTML)")
-add_feature_info(Testing BUILD_TESTING "Run regression testing")
+add_feature_info(Testing BUILD_TESTING "Run regression testing (needs Redis/Valkey server)")
 add_feature_info(Examples BUILD_EXAMPLES "Build and test example programs")
+add_feature_info(Examples CHECK_BUILD "Basic functionality checking of the build")
 add_feature_info(OpenMP ENABLE_OPENMP "OpenMP support")
 add_feature_info(TLS ENABLE_TLS "TLS support")
 
@@ -147,6 +149,10 @@ endif()
 # Examples
 if(BUILD_DOC)
     add_subdirectory(doc)
+endif()
+
+if(CHECK_BUILD)
+    add_test(NAME cli-check COMMAND ${CMAKE_BINARY_DIR}/bin/redisx-cli --help)
 endif()
 
 

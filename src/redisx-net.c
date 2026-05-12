@@ -256,11 +256,10 @@ static int rAuthAsync(RedisClient *cl) {
   prop_error(fn, status);
 
   reply = redisxReadReplyAsync(cl, &status);
-  prop_error(fn, status);
+  if(!status)
+    status = redisxCheckRESP(reply, RESP_SIMPLE_STRING, -1);
 
-  status = redisxCheckRESP(reply, RESP_SIMPLE_STRING, -1);
   redisxDestroyRESP(reply);
-
   prop_error(fn, status);
 
   return X_SUCCESS;

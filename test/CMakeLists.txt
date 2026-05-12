@@ -12,7 +12,7 @@ FILE(GLOB TEST_PROGRAMS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c)
 # Test programs, matching the test sources
 list(TRANSFORM TEST_PROGRAMS REPLACE "[.]c$" "")
 
-# Build each example
+# Build each test program
 foreach(TEST ${TEST_PROGRAMS})
     set(TEST_SOURCE ${TEST}.c)
 

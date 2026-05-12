@@ -739,7 +739,10 @@ XField *redisxRESP2XField(const char *name, const RESP *resp) {
  * @sa redisxPrintJSON()
  */
 char *redisxRESP2JSON(const char *name, const RESP *resp) {
-  return xjsonFieldToString(redisxRESP2XField(name, resp));
+  XField *f = redisxRESP2XField(name, resp);
+  char *s = xjsonFieldToString(f);
+  xDestroyField(f);
+  return s;
 }
 
 /**
