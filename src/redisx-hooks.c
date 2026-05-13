@@ -27,10 +27,8 @@ Hook *rCopyHooks(const Hook *list, Redis *owner) {
 
   if(!list) return NULL;
 
-  from = (Hook *) list;
-
-  copy = to = createHook(owner, from->call);
-  for(; from->next; from = from->next) to->next = createHook(owner, from->call);
+  copy = to = createHook(owner, list->call);
+  for(from = (Hook *) list; from->next; from = from->next) to->next = createHook(owner, from->call);
 
   return copy;
 }

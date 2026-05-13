@@ -816,7 +816,7 @@ static void rPushMessageAsync(RedisClient *cl, RESP *resp) {
     int status = X_SUCCESS;
     RESP *r = redisxReadReplyAsync(cl, &status);
     if(status) {
-      redisxDestroyRESP(resp);
+      redisxDestroyRESP(r);
       x_trace_null("rPushMessageAsync", NULL);
       return;
     }
