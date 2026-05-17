@@ -105,7 +105,7 @@ $(function(){initNavTree('index.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
-<p><a href="https://doi.org/10.5281/zenodo.14639302"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.14639302.svg" alt="DOI" style="pointer-events: none;" class="inline"/></a></p>
+<p><a href="https://doi.org/10.5281/zenodo.14639302"><img src="zenodo.14639302.svg" alt="DOI: 10.5281/zenodo.14639302" style="pointer-events: none;" class="inline"/> </a></p>
 <p>A free, simple, and light-weight C/C++ <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> / Valkey client library.</p>
 <ul>
 <li><a href="https://sigmyne.github.io/redisx/apidoc/html/files.html">API documentation</a></li>
@@ -175,11 +175,11 @@ A simple example</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Free up the resources used by the &#39;redis&#39; instance.</span></div>
 <div class="line"><a class="code hl_function" href="redisx-net_8c.html#ac54dd4c46d8615db4da02702c18f062b">redisxDestroy</a>(redis);</div>
-<div class="ttc" id="aredisx-net_8c_html_a5c78c2189a76a077231016564a0cecd5"><div class="ttname"><a href="redisx-net_8c.html#a5c78c2189a76a077231016564a0cecd5">redisxInit</a></div><div class="ttdeci">Redis * redisxInit(const char *server)</div><div class="ttdef"><b>Definition</b> redisx-net.c:830</div></div>
-<div class="ttc" id="aredisx-net_8c_html_ac54dd4c46d8615db4da02702c18f062b"><div class="ttname"><a href="redisx-net_8c.html#ac54dd4c46d8615db4da02702c18f062b">redisxDestroy</a></div><div class="ttdeci">void redisxDestroy(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx-net.c:899</div></div>
-<div class="ttc" id="aredisx-net_8c_html_acae5ab8af4db1c4ab13c4069aa744a44"><div class="ttname"><a href="redisx-net_8c.html#acae5ab8af4db1c4ab13c4069aa744a44">redisxDisconnect</a></div><div class="ttdeci">void redisxDisconnect(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx-net.c:506</div></div>
-<div class="ttc" id="aredisx-net_8c_html_ad71822356ffd40ed4b1c71d065f48809"><div class="ttname"><a href="redisx-net_8c.html#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a></div><div class="ttdeci">int redisxConnect(Redis *redis, boolean usePipeline)</div><div class="ttdef"><b>Definition</b> redisx-net.c:1080</div></div>
-<div class="ttc" id="aredisx_8c_html_a09092bd97eead5c5fa73fa0d9241018c"><div class="ttname"><a href="redisx_8c.html#a09092bd97eead5c5fa73fa0d9241018c">redisxRequest</a></div><div class="ttdeci">RESP * redisxRequest(Redis *redis, const char *command, const char *arg1, const char *arg2, const char *arg3, int *status)</div><div class="ttdef"><b>Definition</b> redisx.c:655</div></div>
+<div class="ttc" id="aredisx-net_8c_html_a5c78c2189a76a077231016564a0cecd5"><div class="ttname"><a href="redisx-net_8c.html#a5c78c2189a76a077231016564a0cecd5">redisxInit</a></div><div class="ttdeci">Redis * redisxInit(const char *server)</div><div class="ttdef"><b>Definition</b> redisx-net.c:829</div></div>
+<div class="ttc" id="aredisx-net_8c_html_ac54dd4c46d8615db4da02702c18f062b"><div class="ttname"><a href="redisx-net_8c.html#ac54dd4c46d8615db4da02702c18f062b">redisxDestroy</a></div><div class="ttdeci">void redisxDestroy(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx-net.c:898</div></div>
+<div class="ttc" id="aredisx-net_8c_html_acae5ab8af4db1c4ab13c4069aa744a44"><div class="ttname"><a href="redisx-net_8c.html#acae5ab8af4db1c4ab13c4069aa744a44">redisxDisconnect</a></div><div class="ttdeci">void redisxDisconnect(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx-net.c:505</div></div>
+<div class="ttc" id="aredisx-net_8c_html_ad71822356ffd40ed4b1c71d065f48809"><div class="ttname"><a href="redisx-net_8c.html#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a></div><div class="ttdeci">int redisxConnect(Redis *redis, boolean usePipeline)</div><div class="ttdef"><b>Definition</b> redisx-net.c:1079</div></div>
+<div class="ttc" id="aredisx_8c_html_a09092bd97eead5c5fa73fa0d9241018c"><div class="ttname"><a href="redisx_8c.html#a09092bd97eead5c5fa73fa0d9241018c">redisxRequest</a></div><div class="ttdeci">RESP * redisxRequest(Redis *redis, const char *command, const char *arg1, const char *arg2, const char *arg3, int *status)</div><div class="ttdef"><b>Definition</b> redisx.c:652</div></div>
 <div class="ttc" id="aredisx_8h_html"><div class="ttname"><a href="redisx_8h.html">redisx.h</a></div></div>
 <div class="ttc" id="aredisx_8h_html_afa5c90630d37c2f77e5d7985932941a0a36dd81166f9ba91db70b1571b25fec9f"><div class="ttname"><a href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a36dd81166f9ba91db70b1571b25fec9f">RESP_BULK_STRING</a></div><div class="ttdeci">@ RESP_BULK_STRING</div><div class="ttdoc">RESP bulk string type.</div><div class="ttdef"><b>Definition</b> redisx.h:115</div></div>
 <div class="ttc" id="aresp_8c_html_a4b5674d08da07250c0ca6116a4c48ccf"><div class="ttname"><a href="resp_8c.html#a4b5674d08da07250c0ca6116a4c48ccf">redisxCheckRESP</a></div><div class="ttdeci">int redisxCheckRESP(const RESP *resp, enum resp_type expectedType, int expectedSize)</div><div class="ttdef"><b>Definition</b> resp.c:150</div></div>
@@ -426,7 +426,7 @@ Initializing</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// (optional) configure a non-standard port number to use</span></div>
 <div class="line"><a class="code hl_function" href="redisx-net_8c.html#a37f39ede48014a2463e4c72bf6eb5a3e">redisxSetPort</a>(redis, 7089);</div>
-<div class="ttc" id="aredisx-net_8c_html_a37f39ede48014a2463e4c72bf6eb5a3e"><div class="ttname"><a href="redisx-net_8c.html#a37f39ede48014a2463e4c72bf6eb5a3e">redisxSetPort</a></div><div class="ttdeci">int redisxSetPort(Redis *redis, int port)</div><div class="ttdef"><b>Definition</b> redisx-net.c:1012</div></div>
+<div class="ttc" id="aredisx-net_8c_html_a37f39ede48014a2463e4c72bf6eb5a3e"><div class="ttname"><a href="redisx-net_8c.html#a37f39ede48014a2463e4c72bf6eb5a3e">redisxSetPort</a></div><div class="ttdeci">int redisxSetPort(Redis *redis, int port)</div><div class="ttdef"><b>Definition</b> redisx-net.c:1011</div></div>
 </div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
 Sentinel</h3>
 <p>Alternatively, instead of <span class="tt"><a class="el" href="redisx-net_8c.html#a5c78c2189a76a077231016564a0cecd5">redisxInit()</a></span> above you may initialize the client for a high-availability configuration with a set of <a href="https://redis.io/docs/latest/develop/reference/sentinel-clients/">Redis Sentinel</a> servers, using <span class="tt"><a class="el" href="redisx-sentinel_8c.html#a993ae780daeae021fba1866d752ba9c5">redisxInitSentinel()</a></span>, e.g.:</p>
@@ -443,8 +443,8 @@ Sentinel</h3>
 <div class="line"> </div>
 <div class="line"><span class="comment">// (optional) set a sentinel discovery timeout in ms...</span></div>
 <div class="line"><a class="code hl_function" href="redisx-sentinel_8c.html#a192ba03de94c1e8a1876d7c533b4df9a">redisxSetSentinelTimeout</a>(redis, 30);</div>
-<div class="ttc" id="aredisx-sentinel_8c_html_a192ba03de94c1e8a1876d7c533b4df9a"><div class="ttname"><a href="redisx-sentinel_8c.html#a192ba03de94c1e8a1876d7c533b4df9a">redisxSetSentinelTimeout</a></div><div class="ttdeci">int redisxSetSentinelTimeout(Redis *redis, int millis)</div><div class="ttdef"><b>Definition</b> redisx-sentinel.c:338</div></div>
-<div class="ttc" id="aredisx-sentinel_8c_html_a993ae780daeae021fba1866d752ba9c5"><div class="ttname"><a href="redisx-sentinel_8c.html#a993ae780daeae021fba1866d752ba9c5">redisxInitSentinel</a></div><div class="ttdeci">Redis * redisxInitSentinel(const char *serviceName, const RedisServer *serverList, int nServers)</div><div class="ttdef"><b>Definition</b> redisx-sentinel.c:292</div></div>
+<div class="ttc" id="aredisx-sentinel_8c_html_a192ba03de94c1e8a1876d7c533b4df9a"><div class="ttname"><a href="redisx-sentinel_8c.html#a192ba03de94c1e8a1876d7c533b4df9a">redisxSetSentinelTimeout</a></div><div class="ttdeci">int redisxSetSentinelTimeout(Redis *redis, int millis)</div><div class="ttdef"><b>Definition</b> redisx-sentinel.c:350</div></div>
+<div class="ttc" id="aredisx-sentinel_8c_html_a993ae780daeae021fba1866d752ba9c5"><div class="ttname"><a href="redisx-sentinel_8c.html#a993ae780daeae021fba1866d752ba9c5">redisxInitSentinel</a></div><div class="ttdeci">Redis * redisxInitSentinel(const char *serviceName, const RedisServer *serverList, int nServers)</div><div class="ttdef"><b>Definition</b> redisx-sentinel.c:304</div></div>
 <div class="ttc" id="astructRedisServer_html"><div class="ttname"><a href="structRedisServer.html">RedisServer</a></div><div class="ttdef"><b>Definition</b> redisx.h:222</div></div>
 </div><!-- fragment --><p>After successful initialization, you may proceed with the configuration the same way as for the regular standalone server connection.</p>
 <p>One thing to keep in mind about Sentinel is that once the connection to the master is established, it works just like a regular server connection, including the possibility of that connection being broken. It is up to the application to initiate reconnection and recovery as appropriate in case of errors. (See more in on <a class="el" href="#redisx-reconnecting" title="redisx-reconnecting">Reconnecting</a> further below).</p>
@@ -474,7 +474,7 @@ Configuring</h2>
 </div><!-- fragment --><p>You may also select the database index to use now (or later, after connecting), if not the default (index 0):</p>
 <div class="fragment"><div class="line"><span class="comment">// (optional) Select the database index 2</span></div>
 <div class="line"><a class="code hl_function" href="redisx_8c.html#aec99fb8b19d6751038bf9c4c6d04f8d0">redisxSelectDB</a>(redis, 2); </div>
-<div class="ttc" id="aredisx_8c_html_aec99fb8b19d6751038bf9c4c6d04f8d0"><div class="ttname"><a href="redisx_8c.html#aec99fb8b19d6751038bf9c4c6d04f8d0">redisxSelectDB</a></div><div class="ttdeci">int redisxSelectDB(Redis *redis, int idx)</div><div class="ttdef"><b>Definition</b> redisx.c:460</div></div>
+<div class="ttc" id="aredisx_8c_html_aec99fb8b19d6751038bf9c4c6d04f8d0"><div class="ttname"><a href="redisx_8c.html#aec99fb8b19d6751038bf9c4c6d04f8d0">redisxSelectDB</a></div><div class="ttdeci">int redisxSelectDB(Redis *redis, int idx)</div><div class="ttdef"><b>Definition</b> redisx.c:457</div></div>
 </div><!-- fragment --><p>Note, that you can switch the database index any time, with the caveat that it's not possible to change it for the subscription client when there are active subscriptions.</p>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 TLS configuration</h3>
@@ -531,8 +531,8 @@ Socket-level configuration</h3>
 <div class="line"> </div>
 <div class="line"><span class="comment">// (optional) Set the TCP send/rcv buffer sizes to use if not default values.</span></div>
 <div class="line"><a class="code hl_function" href="redisx-net_8c.html#a648557774b354ff99e279d3dcf94d240">redisxSetTcpBuf</a>(redis, 65536);</div>
-<div class="ttc" id="aredisx-net_8c_html_a648557774b354ff99e279d3dcf94d240"><div class="ttname"><a href="redisx-net_8c.html#a648557774b354ff99e279d3dcf94d240">redisxSetTcpBuf</a></div><div class="ttdeci">int redisxSetTcpBuf(Redis *redis, int size)</div><div class="ttdef"><b>Definition</b> redisx-net.c:947</div></div>
-<div class="ttc" id="aredisx-net_8c_html_aaa87635d37e5d348b7dbb12952b39183"><div class="ttname"><a href="redisx-net_8c.html#aaa87635d37e5d348b7dbb12952b39183">redisxSetSocketTimeout</a></div><div class="ttdeci">int redisxSetSocketTimeout(Redis *redis, int millis)</div><div class="ttdef"><b>Definition</b> redisx-net.c:1048</div></div>
+<div class="ttc" id="aredisx-net_8c_html_a648557774b354ff99e279d3dcf94d240"><div class="ttname"><a href="redisx-net_8c.html#a648557774b354ff99e279d3dcf94d240">redisxSetTcpBuf</a></div><div class="ttdeci">int redisxSetTcpBuf(Redis *redis, int size)</div><div class="ttdef"><b>Definition</b> redisx-net.c:946</div></div>
+<div class="ttc" id="aredisx-net_8c_html_aaa87635d37e5d348b7dbb12952b39183"><div class="ttname"><a href="redisx-net_8c.html#aaa87635d37e5d348b7dbb12952b39183">redisxSetSocketTimeout</a></div><div class="ttdeci">int redisxSetSocketTimeout(Redis *redis, int millis)</div><div class="ttdef"><b>Definition</b> redisx-net.c:1047</div></div>
 </div><!-- fragment --><p>If you want, you can perform further customization of the client sockets via a user-defined callback function, e.g.:</p>
 <div class="fragment"><div class="line"><span class="keywordtype">int</span> my_socket_config(<span class="keywordtype">int</span> sock, <span class="keyword">enum</span> <a class="code hl_enumeration" href="redisx_8h.html#a5349b7340813fbd1e32d04ed650bc3d9">redisx_channel</a> channel) {</div>
 <div class="line">   <span class="comment">// Set up the socket any way you like...</span></div>
@@ -634,7 +634,7 @@ Interactive transactions</h2>
 <div class="line"><span class="comment">// Send &quot;HGET my_table my_key&quot; request with an array of 3 components...</span></div>
 <div class="line">resp = <a class="code hl_function" href="redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75">redisxArrayRequest</a>(redis, cmd, NULL, 3, &amp;status);</div>
 <div class="line">...</div>
-<div class="ttc" id="aredisx_8c_html_ac6767cea95b4cc90348796c61ebdac75"><div class="ttname"><a href="redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75">redisxArrayRequest</a></div><div class="ttdeci">RESP * redisxArrayRequest(Redis *redis, const char **args, const int *lengths, int n, int *status)</div><div class="ttdef"><b>Definition</b> redisx.c:714</div></div>
+<div class="ttc" id="aredisx_8c_html_ac6767cea95b4cc90348796c61ebdac75"><div class="ttname"><a href="redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75">redisxArrayRequest</a></div><div class="ttdeci">RESP * redisxArrayRequest(Redis *redis, const char **args, const int *lengths, int n, int *status)</div><div class="ttdef"><b>Definition</b> redisx.c:711</div></div>
 </div><!-- fragment --><p>The 3rd argument in the list is an optional <span class="tt">int[]</span> array defining the individual string lengths of the parameters (if need be, or else readily available). Here, we used <span class="tt">NULL</span> instead, which will use <span class="tt">strlen()</span> on each supplied string-terminated parameter to determine its length automatically. Specifying the length may be necessary if the individual parameters are not 0-terminated strings.</p>
 <p>In interactive mode, each request is sent to the <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> server, and the response is collected before the call returns with that response (or <span class="tt">NULL</span> if there was an error).</p>
 <p><a class="anchor" id="attributes"></a> </p>
@@ -650,7 +650,7 @@ Bundled Attributes</h2>
 <div class="line"><a class="code hl_struct" href="structRESP.html">RESP</a> *attributes = <a class="code hl_function" href="redisx_8c.html#a48b6b8949276f59cd2f13d6b13384996">redisxGetAttributes</a>(redis);</div>
 <div class="line"> </div>
 <div class="line">...</div>
-<div class="ttc" id="aredisx_8c_html_a48b6b8949276f59cd2f13d6b13384996"><div class="ttname"><a href="redisx_8c.html#a48b6b8949276f59cd2f13d6b13384996">redisxGetAttributes</a></div><div class="ttdeci">RESP * redisxGetAttributes(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx.c:786</div></div>
+<div class="ttc" id="aredisx_8c_html_a48b6b8949276f59cd2f13d6b13384996"><div class="ttname"><a href="redisx_8c.html#a48b6b8949276f59cd2f13d6b13384996">redisxGetAttributes</a></div><div class="ttdeci">RESP * redisxGetAttributes(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx.c:783</div></div>
 </div><!-- fragment --><p><a class="anchor" id="push-notifications"></a> </p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md35"></a>
 Push notifications</h2>
@@ -667,7 +667,7 @@ Push notifications</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Use my_push_processor and pass along the owner as a parameter</span></div>
 <div class="line"><a class="code hl_function" href="redisx_8c.html#a2caca9bc8a09225edb88699fdda10602">redisxSetPushProcessor</a>(redis, my_push_processor, owner);</div>
-<div class="ttc" id="aredisx_8c_html_a2caca9bc8a09225edb88699fdda10602"><div class="ttname"><a href="redisx_8c.html#a2caca9bc8a09225edb88699fdda10602">redisxSetPushProcessor</a></div><div class="ttdeci">int redisxSetPushProcessor(Redis *redis, RedisPushProcessor func, void *arg)</div><div class="ttdef"><b>Definition</b> redisx.c:825</div></div>
+<div class="ttc" id="aredisx_8c_html_a2caca9bc8a09225edb88699fdda10602"><div class="ttname"><a href="redisx_8c.html#a2caca9bc8a09225edb88699fdda10602">redisxSetPushProcessor</a></div><div class="ttdeci">int redisxSetPushProcessor(Redis *redis, RedisPushProcessor func, void *arg)</div><div class="ttdef"><b>Definition</b> redisx.c:822</div></div>
 </div><!-- fragment --><p>There are some things to look out for in your <span class="tt"><a class="el" href="redisx_8h.html#ac819fe43d592df70e8bbc6b25f4d090b">RedisPushProcessor</a></span> implementation:</p>
 <ul>
 <li>The call should not block (except perhaps for a quick mutex lock) and should return quickly. If blocking calls, or extensive processing is required, you should place a copy of the PUSH notification onto a queue and let an asynchronous thread take it from there.</li>
@@ -775,7 +775,7 @@ RESP data type</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Clean up</span></div>
 <div class="line">redisxDestroyRESP(resp);</div>
-<div class="ttc" id="aredisx_8c_html_a89fd65118ba731931fe281c83f6fa8ba"><div class="ttname"><a href="redisx_8c.html#a89fd65118ba731931fe281c83f6fa8ba">redisxGetHelloData</a></div><div class="ttdeci">RESP * redisxGetHelloData(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx.c:849</div></div>
+<div class="ttc" id="aredisx_8c_html_a89fd65118ba731931fe281c83f6fa8ba"><div class="ttname"><a href="redisx_8c.html#a89fd65118ba731931fe281c83f6fa8ba">redisxGetHelloData</a></div><div class="ttdeci">RESP * redisxGetHelloData(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx.c:846</div></div>
 <div class="ttc" id="aresp_8c_html_a7f4e74ee03cebf38eb9c1fb873784a35"><div class="ttname"><a href="resp_8c.html#a7f4e74ee03cebf38eb9c1fb873784a35">redisxRESP2JSON</a></div><div class="ttdeci">char * redisxRESP2JSON(const char *name, const RESP *resp)</div><div class="ttdef"><b>Definition</b> resp.c:741</div></div>
 </div><!-- fragment --><p>All <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> can be represented in JSON format. This is trivial for map entries, which have strings as their keywords &ndash; which is the case for all <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> sent by <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a>. And, it is also possible for map entries with non-string keys, albeit via a more tedious (and less standard) JSON representation, stored under the <span class="tt">.non-string-keys</span> keyword.</p>
 <hr  />
