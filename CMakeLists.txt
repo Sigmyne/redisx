@@ -38,7 +38,7 @@ option(BUILD_SHARED_LIBS "Build as shared libraries instead of static" OFF)
 option(BUILD_DOC "Build HTML documetation" OFF)
 option(BUILD_TESTING "Build regression test suite" OFF)
 option(BUILD_EXAMPLES "Build example programs" OFF)
-option(CHECK_BUILD "Basic build integrity checking during tests" OFF)
+option(CHECK_BUILD "Basic build integrity checking during tests" ON)
 option(ENABLE_OPENMP "Build with OpenMP support" OFF)
 option(ENABLE_TLS "Build with TLS support" OFF)
 
