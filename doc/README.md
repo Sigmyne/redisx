@@ -278,7 +278,7 @@ Or, to stage the installation (to `/usr`) under a 'build root':
 <a name="redisx-cmake-build"></a>
 ### Build / install using CMake 
 
-As of v1.1.2, __xchange__ can be built using [CMake](https://cmake.org/) also. CMake allows for greater portability 
+As of v1.0.4, __RedisX__ can be built using [CMake](https://cmake.org/) also. CMake allows for greater portability 
 than the regular GNU `Makefile`. Note, however, that the CMake configuration does not support all of the build options 
 of the GNU `Makefile`, such as code coverage tracking. 
 
