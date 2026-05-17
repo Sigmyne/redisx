@@ -35,7 +35,7 @@ include(FeatureSummary)
 
 # Build options
 option(BUILD_SHARED_LIBS "Build as shared libraries instead of static" OFF)
-option(BUILD_DOC "Build HTML documetation" OFF)
+option(BUILD_DOC "Build HTML documentation" OFF)
 option(BUILD_TESTING "Build regression test suite" OFF)
 option(BUILD_EXAMPLES "Build example programs" OFF)
 option(CHECK_BUILD "Basic build integrity checking during tests" ON)
@@ -47,7 +47,7 @@ add_feature_info(SharedLibs BUILD_SHARED_LIBS "Build as shared libraries")
 add_feature_info(Documentation BUILD_DOC "Developer documentation (HTML)")
 add_feature_info(Testing BUILD_TESTING "Run regression testing (needs a running Redis/Valkey server)")
 add_feature_info(Examples BUILD_EXAMPLES "Build and test example programs")
-add_feature_info(Examples CHECK_BUILD "Basic functionality checking of the build")
+add_feature_info(BuildCheck CHECK_BUILD "Basic functionality checking of the build")
 add_feature_info(OpenMP ENABLE_OPENMP "OpenMP support")
 add_feature_info(TLS ENABLE_TLS "TLS support")
 
@@ -58,7 +58,7 @@ add_feature_info(TLS ENABLE_TLS "TLS support")
 # [.pc] Libs -- linker flags for apps
 set(PC_LIBS "-lredisx ")
 
-# [.pc] Libs.private -- linker flags for supernovas itself
+# [.pc] Libs.private -- linker flags for redisx itself
 set(PC_LIBS_PRIVATE "")
 
 # ----------------------------------------------------------------------------
