@@ -45,7 +45,7 @@ option(ENABLE_TLS "Build with TLS support" OFF)
 # Set feature descriptions for summary
 add_feature_info(SharedLibs BUILD_SHARED_LIBS "Build as shared libraries")
 add_feature_info(Documentation BUILD_DOC "Developer documentation (HTML)")
-add_feature_info(Testing BUILD_TESTING "Run regression testing (needs Redis/Valkey server)")
+add_feature_info(Testing BUILD_TESTING "Run regression testing (needs a running Redis/Valkey server)")
 add_feature_info(Examples BUILD_EXAMPLES "Build and test example programs")
 add_feature_info(Examples CHECK_BUILD "Basic functionality checking of the build")
 add_feature_info(OpenMP ENABLE_OPENMP "OpenMP support")

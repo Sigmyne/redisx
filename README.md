@@ -287,7 +287,7 @@ Or, to stage the installation (to `/usr`) under a 'build root':
 <a name="redisx-cmake-build"></a>
 ### Build / install using CMake 
 
-As of v1.1.2, __xchange__ can be built using [CMake](https://cmake.org/) also. CMake allows for greater portability 
+As of v1.0.4, __RedisX__ can be built using [CMake](https://cmake.org/) also. CMake allows for greater portability 
 than the regular GNU `Makefile`. Note, however, that the CMake configuration does not support all of the build options 
 of the GNU `Makefile`, such as code coverage tracking. 
 
@@ -300,17 +300,18 @@ The basic build recipe for CMake is:
   $ cmake --build build
 ```
 
-The __xchange__ CMake build supports the following options (in addition to the standard CMake options):
+The __RedisX__ CMake build supports the following options (in addition to the standard CMake options):
 
  - `BUILD_SHARED_LIBS=ON|OFF` (default: OFF) - Build shared libraries instead of static
  - `BUILD_DOC=ON|OFF` (default: OFF) - Compile HTML documentation. Requires `doxygen`.
  - `BUILD_EXAMPLES=ON|OFF` (default: OFF) - Build the included examples
- - `BUILD_TESTING=ON|OFF` (default: ON) - Build regression tests
+ - `BUILD_TESTING=ON|OFF` (default: OFF) - Build regression tests (needs a running Redis/Valkey server).
+ - `CHECK_BUILD=ON|OFF` (dfault: ON) - Basic offline integrity check of the build during testing.
  - `ENABLE_TLS` (default: OFF) - Build with TLS support
  - `ENABLE_OPENMP` (default: OFF) - Parallelize cluster connect / disconnect with OpenMP.
  - `xchange_DIR=<path>` - Path (absolute or relative) to the `xchange` CMake build directory.
 
-For example, to configure the build of __xchange__ with shared libraries and build local documentations
+For example, to configure the build of __RedisX__ with shared libraries and build local documentations
 
 ```bash
   $ cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_DOC=ON
