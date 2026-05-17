@@ -10,7 +10,7 @@
 #    $ cmake --build build
 #  
 #  And then to install, e.g. under '/usr/local':
-#    $ [sudo ] cmake --install --prefix=/usr/local
+#    $ [sudo] cmake --install build --prefix=/usr/local
 #
 #  You may install just a specific component via the --component option, such
 #  as 'Runtime' or 'Development'.
@@ -114,13 +114,13 @@ endif()
 # OpenMP dependency
 if(ENABLE_OPENMP)
     find_package(OpenMP REQUIRED COMPONENTS C)
-    string(APPEND PC_LIBS_PRIVATE "-lopenmp ")
+    string(APPEND PC_LIBS_PRIVATE "${OpenMP_C_LIBRARIES} ")
 endif()
 
 # OpenSSL dependency
 if(ENABLE_TLS)
     find_package(OpenSSL REQUIRED)
-    string(APPEND PC_LIBS_PRIVATE "-lopenssl ")
+    string(APPEND PC_LIBS_PRIVATE "-lssl -lcrypto ")
 endif()
 
 
