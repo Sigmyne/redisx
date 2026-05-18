@@ -342,9 +342,10 @@ Details</summary>
 <li><span class="tt">BUILD_CLI=ON|OFF</span> (default: OFF) - Build <span class="tt">redisx-cli</span> tool (requires <span class="tt">popt</span>, <span class="tt">bsd</span> and <span class="tt">readline</span> libraries).</li>
 <li><span class="tt">BUILD_DOC=ON|OFF</span> (default: OFF) - Compile HTML documentation. Requires <span class="tt">doxygen</span>.</li>
 <li><span class="tt">BUILD_EXAMPLES=ON|OFF</span> (default: OFF) - Build the included examples</li>
-<li><span class="tt">BUILD_TESTING=ON|OFF</span> (default: OFF) - Build regression tests (needs a running Redis/Valkey server).</li>
+<li><span class="tt">BUILD_TESTING=ON|OFF</span> (default: ON) - Build regression tests.</li>
 <li><span class="tt">ENABLE_TLS</span> (default: OFF) - Build with TLS support</li>
 <li><span class="tt">ENABLE_OPENMP</span> (default: OFF) - Parallelize cluster connect / disconnect with OpenMP.</li>
+<li><span class="tt">ENABLE_ONLINE_TESTING</span> (default: OFF) - Run tests with a running <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> / Valkey Server on <span class="tt">localhost</span>.</li>
 <li><span class="tt">xchange_DIR=&lt;path&gt;</span> - Path (absolute or relative) to the <span class="tt">xchange</span> CMake build directory.</li>
 </ul>
 <p>For example, to configure the build of <b>RedisX</b> with shared libraries and build local documentations</p>
@@ -356,7 +357,7 @@ Details</summary>
 </div><!-- fragment --><p>If a <span class="tt">CMAKE_BUILD_TYPE</span> is not set, the build will only use the <span class="tt">CFLAGS</span> (if any) that were set in the environment. This is ideal for those who want to have full control of the compiler flags used in the build. Specifying <span class="tt">Release</span> or <span class="tt">Debug</span> will append a particular set of appropriate compiler options which are suited for the given build type. (If you want to use the MinGW compiler on Windows, you'll want to set <span class="tt">-DCMAKE_C_COMPILER=gcc -G "MinGW Makefiles"</span> options also.)</p>
 <p>After a successful build, you can install the <span class="tt">Runtime</span> (libraries), and <span class="tt">Development</span> (headers, CMake config, and <span class="tt">pkg-config</span>) components, e.g. under <span class="tt">/usr/local</span>, as:</p>
 <div class="fragment"><div class="line">$ cmake --install build --prefix /usr/local </div>
-</div><!-- fragment --><p>Or, you can use the <span class="tt">--component</span> option to install just the selected components. For example to install just the <span class="tt">Runtime</span> component:</p>
+</div><!-- fragment --><p>Or, you can use the <span class="tt">--component</span> option to install just the selected components. For example, to install just the <span class="tt">Runtime</span> component:</p>
 <div class="fragment"><div class="line">$ cmake --install build --component Runtime --prefix /usr/local</div>
 </div><!-- fragment --> </details>
 <hr  />
