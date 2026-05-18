@@ -47,7 +47,7 @@ endif()
 if(ENABLE_OPENMP)
     target_compile_definitions(core PRIVATE WITH_OPENMP=1)
     target_link_libraries(core PUBLIC OpenMP::OpenMP_C)
-    if(POPT_LIBRARY)
+    if(BUILD_CLI)
        target_link_libraries(redisx-cli PRIVATE OpenMP::OpenMP_C)
     endif()
 endif()
@@ -55,11 +55,12 @@ endif()
 if(ENABLE_TLS)
     target_compile_definitions(core PRIVATE WITH_TLS=1)
     target_link_libraries(core PUBLIC OpenSSL::SSL)
-    if(POPT_LIBRARY)
+    if(BUILD_CLI)
        target_link_libraries(redisx-cli PRIVATE OpenSSL::SSL)
     endif()
 endif()
 
+# Uncomment below to enforce the C99 standard
 #set_property(TARGET core PROPERTY C_STANDARD 99)
 
 

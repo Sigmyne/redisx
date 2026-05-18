@@ -47,7 +47,7 @@ option(ENABLE_ONLINE_TESTING "Run tests with a running Redis / Valkey Server on 
 add_feature_info(SharedLibs BUILD_SHARED_LIBS "Build as shared libraries")
 add_feature_info(CLI BUILD_CLI "Build command line interface tools")
 add_feature_info(Documentation BUILD_DOC "Developer documentation (HTML)")
-add_feature_info(Testing BUILD_TESTING "Run regression testing (needs a running Redis/Valkey server)")
+add_feature_info(Testing BUILD_TESTING "Build regression testing suite")
 add_feature_info(Examples BUILD_EXAMPLES "Build and test example programs")
 add_feature_info(OpenMP ENABLE_OPENMP "OpenMP support")
 add_feature_info(TLS ENABLE_TLS "TLS support")

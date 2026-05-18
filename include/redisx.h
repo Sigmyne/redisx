@@ -30,7 +30,7 @@
 #define REDISX_PATCHLEVEL     4
 
 /// Additional release information in version, e.g. "-1", or "-rc1".
-#define REDISX_RELEASE_STRING "-rc2"
+#define REDISX_RELEASE_STRING "-devel"
 
 
 
@@ -140,8 +140,8 @@ enum resp_type {
 
 /**
  * RedisX channel IDs. RedisX uses up to three separate connections to the server: (1) an interactive client, in which
- * each query is a full round trip, (2) a pipeline clinet, in which queries are submitted in bulk, and responses
- * arrive asynchronously, and (3) a substription client devoted to PUB/SUB requests and push messages. Not all clients
+ * each query is a full round trip, (2) a pipeline client, in which queries are submitted in bulk, and responses
+ * arrive asynchronously, and (3) a subscription client devoted to PUB/SUB requests and push messages. Not all clients
  * are typically initialized at start. The interactive channel is always connected; the pipeline client can be selected
  * when connecting to the server; and the subscription client is connected as needed to process PUB/SUB requests.
  */
@@ -267,7 +267,7 @@ typedef struct Redis {
  * basic rules:
  *
  * <ul>
- * <li>The call should return promptly and never block for significant periors. If it has blocking
+ * <li>The call should return promptly and never block for significant periods. If it has blocking
  * calls or if extended processing is required, the function should simply place a copy of the
  * necessary information on a queue and process queued entries in a separate thread. (The call
  * arguments will not persist beyond the scope of the call, so don't attempt to place them
@@ -297,7 +297,7 @@ typedef struct Redis {
  *                 any persistent use.
  *
  * @param length   The number of bytes in the message. Since Redis messages can
- *                 be binary a '\0' termination should no be assumed. Instead, the
+ *                 be binary a '\0' termination should not be assumed. Instead, the
  *                 length of the message is specified explicitly.
  */
 typedef void (*RedisSubscriberCall)(const char *pattern, const char *channel, const char *msg, long length);
@@ -305,7 +305,7 @@ typedef void (*RedisSubscriberCall)(const char *pattern, const char *channel, co
 /**
  * User-specified callback function for handling RedisX errors from socket-level read / write calls.
  * It's mainly there for the application to perform any cleanup as necessary or to report the error. However,
- * it can also interacti with the Redis instance in limited ways. The implementation should follow a set of
+ * it can also interact with the Redis instance in limited ways. The implementation should follow a set of
  * basic rules:
  *
  * <ul>
