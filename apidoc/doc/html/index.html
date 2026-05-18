@@ -339,16 +339,16 @@ Details</summary>
 </div><!-- fragment --><p>The <b>RedisX</b> CMake build supports the following options (in addition to the standard CMake options):</p>
 <ul>
 <li><span class="tt">BUILD_SHARED_LIBS=ON|OFF</span> (default: OFF) - Build shared libraries instead of static</li>
+<li><span class="tt">BUILD_CLI=ON|OFF</span> (default: OFF) - Build <span class="tt">redisx-cli</span> tool (requires <span class="tt">popt</span>, <span class="tt">bsd</span> and <span class="tt">readline</span> libraries).</li>
 <li><span class="tt">BUILD_DOC=ON|OFF</span> (default: OFF) - Compile HTML documentation. Requires <span class="tt">doxygen</span>.</li>
 <li><span class="tt">BUILD_EXAMPLES=ON|OFF</span> (default: OFF) - Build the included examples</li>
 <li><span class="tt">BUILD_TESTING=ON|OFF</span> (default: OFF) - Build regression tests (needs a running Redis/Valkey server).</li>
-<li><span class="tt">CHECK_BUILD=ON|OFF</span> (dfault: ON) - Basic offline integrity check of the build during testing.</li>
 <li><span class="tt">ENABLE_TLS</span> (default: OFF) - Build with TLS support</li>
 <li><span class="tt">ENABLE_OPENMP</span> (default: OFF) - Parallelize cluster connect / disconnect with OpenMP.</li>
 <li><span class="tt">xchange_DIR=&lt;path&gt;</span> - Path (absolute or relative) to the <span class="tt">xchange</span> CMake build directory.</li>
 </ul>
 <p>For example, to configure the build of <b>RedisX</b> with shared libraries and build local documentations</p>
-<div class="fragment"><div class="line">$ cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_DOC=ON</div>
+<div class="fragment"><div class="line">$ cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_CLI=ON -DBUILD_DOC=ON</div>
 </div><!-- fragment --><p>and then perform the build:</p>
 <div class="fragment"><div class="line">$ cmake --build build</div>
 </div><!-- fragment --><p>Or, on Windows (Microsoft Visual C) you will want:</p>
