@@ -195,6 +195,8 @@ Additionally `redisx-cli` has the following dependencies on standard GNU/POSIX l
 
  - [Build / install using GNU make](#redisx-gnu-build)
  - [Build / install using CMake](#redisx-cmake-build)
+ - [Linux packages](#redisx-linux)
+ - [Homebrew package](#redisx-homebrew)
 
 The __RedisX__ library can be built either as a shared (`libredisx.so[.1]`) or as a static (`libredisx.a`) library, 
 depending on what suits your needs best. You can also compile HTML documentation, examples and test programs, using
@@ -350,6 +352,47 @@ the `Runtime` component:
   $ cmake --install build --component Runtime --prefix /usr/local
 ```
 </details>
+
+<a name="redisx-linux"></a>
+### Linux packages
+
+__RedisX__ is packaged for Fedora / EPEL and derivative Linux distros as `redisx`.
+<details>
+
+To install __RedisX__ Fedora / EPEL based distributions as:
+
+```bash
+  $ sudo dnf install redisx redisx-doc redisx-devel
+```
+
+The first package is the runtime library and `redisx-cli` tool, the second is documentation, and the last one is for 
+files needed for application development.
+
+</details>
+
+<a name="redisx-homebrew"></a>
+### Homebrew package
+
+As of version 1.0.4, there is also a [Homebrew](https://brew.sh/) package through the maintainer's own Tap.
+
+<details>
+
+To install `redisx` via Homebrew:
+
+```bash
+  $ brew tap attipaci/pub
+  $ brew install redisx
+```
+
+The above will build and install the __redisx__ runtime library, `redisx-cli` tool, and development files (headers and 
+unversioned shared library). However, you may add further options to customize your build:
+
+ - `--without-libomp` -- Build without OpenMP support for parallelized cluster operations.
+ - `--without-openssl` -- Build without TLS support. 
+ - `--with-doxygen` -- Install with local HTML documentation.
+
+</details>
+
 
 -----------------------------------------------------------------------------
 
