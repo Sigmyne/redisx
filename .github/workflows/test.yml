@@ -158,7 +158,7 @@ jobs:
 
       - name: Build
         run: |
-          cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_TESTING=ON -DBUILD_SHARED_LIBS=ON -DBUILD_EXAMPLES=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON
+          cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_TESTING=ON -DBUILD_SHARED_LIBS=ON -DBUILD_EXAMPLES=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON -DENABLE_ONLINE_TESTING=OM
           cmake --build build
 
       - name: Test

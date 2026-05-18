@@ -23,6 +23,8 @@ foreach(TEST ${TEST_PROGRAMS})
     # Link against the xchange library
     target_link_libraries(${TEST} PRIVATE core xchange::core ${MATHLIB})
 
-    add_test(NAME ${TEST} COMMAND ${TEST})
+    if(ENABLE_ONLINE_TESTING)
+        add_test(NAME ${TEST} COMMAND ${TEST})
+    endif()
 endforeach()
 

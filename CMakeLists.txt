@@ -35,21 +35,23 @@ include(FeatureSummary)
 
 # Build options
 option(BUILD_SHARED_LIBS "Build as shared libraries instead of static" OFF)
+option(BUILD_CLI "Build redisx-cli command line interface tool" OFF)
 option(BUILD_DOC "Build HTML documentation" OFF)
-option(BUILD_TESTING "Build regression test suite" OFF)
+option(BUILD_TESTING "Build regression test suite" ON)
 option(BUILD_EXAMPLES "Build example programs" OFF)
-option(CHECK_BUILD "Basic build integrity checking during tests" ON)
 option(ENABLE_OPENMP "Build with OpenMP support" OFF)
 option(ENABLE_TLS "Build with TLS support" OFF)
+option(ENABLE_ONLINE_TESTING "Run tests with a running Redis / Valkey Server on localhost" OFF)
 
 # Set feature descriptions for summary
 add_feature_info(SharedLibs BUILD_SHARED_LIBS "Build as shared libraries")
+add_feature_info(CLI BUILD_CLI "Build command line interface tools")
 add_feature_info(Documentation BUILD_DOC "Developer documentation (HTML)")
 add_feature_info(Testing BUILD_TESTING "Run regression testing (needs a running Redis/Valkey server)")
 add_feature_info(Examples BUILD_EXAMPLES "Build and test example programs")
-add_feature_info(BuildCheck CHECK_BUILD "Basic functionality checking of the build")
 add_feature_info(OpenMP ENABLE_OPENMP "OpenMP support")
 add_feature_info(TLS ENABLE_TLS "TLS support")
+add_feature_info(TestOnline ENABLE_ONLINE_TESTING "Test with local Redis / Valkey server")
 
 
 # ----------------------------------------------------------------------------
@@ -91,9 +93,11 @@ if(HAS_MATHLIB)
     string(APPEND PC_LIBS_PRIVATE -l${MATHLIB} " ")
 endif()
 
-find_library(POPT_LIBRARY popt OPTIONAL)
-find_library(READLINE_LIBRARY readline OPTIONAL)
-find_library(BSD_LIBRARY bsd OPTIONAL)
+if(BUILD_CLI)
+    find_library(POPT_LIBRARY popt REQUIRED)
+    find_library(READLINE_LIBRARY readline REQUIRED)
+    find_library(BSD_LIBRARY bsd REQUIRED)
+endif()
 
 # xchange dependency
 find_package(xchange REQUIRED)
@@ -124,6 +128,7 @@ if(ENABLE_TLS)
 endif()
 
 
+
 # ----------------------------------------------------------------------------
 # Build libraries from source
 
@@ -151,11 +156,6 @@ if(BUILD_DOC)
     add_subdirectory(doc)
 endif()
 
-if(CHECK_BUILD)
-    add_test(NAME cli-check COMMAND ${CMAKE_BINARY_DIR}/bin/redisx-cli --help)
-endif()
-
-
 # ----------------------------------------------------------------------------
 # Install Runtime component
 
@@ -165,6 +165,11 @@ install(FILES include/redisx.h
 )
 
 set(INSTALL_TARGETS core)
+
+if(BUILD_CLI)
+    list(APPEND INSTALL_TARGETS redisx-cli)
+endif()
+
 set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME Runtime)
 
 install(TARGETS ${INSTALL_TARGETS} EXPORT redisxTargets)
@@ -174,6 +179,13 @@ install(FILES CHANGELOG.md CONTRIBUTING.md
     TYPE DOC
     COMPONENT Development   
 )
+
+if(BUILD_CLI)
+    install(DIRECTORY man/man1
+        TYPE MAN
+        COMPONENT Runtime
+    ) 
+endif()
 
 # For examples/ dir, list just the directory, not the individual files installed.
 install(CODE "message(STATUS \"Installing: <prefix>/${CMAKE_INSTALL_DOCDIR}/examples/\")")

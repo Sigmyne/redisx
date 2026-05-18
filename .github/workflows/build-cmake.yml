@@ -97,7 +97,7 @@ jobs:
           cmake --build build
 
       - name: Configure CMake
-        run: cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_SHARED_LIBS=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON
+        run: cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_SHARED_LIBS=ON -DBUILD_CLI=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON
 
       - name: Build
         run: cmake --build build

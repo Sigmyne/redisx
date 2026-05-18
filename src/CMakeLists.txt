@@ -38,9 +38,10 @@ target_include_directories(core PUBLIC
 # Link with math libs as necessary
 target_link_libraries(core PUBLIC xchange::core ${MATHLIB} Threads::Threads)
 
-if(POPT_LIBRARY AND READLINE_LIBRARY AND BSD_LIBRARY)
+if(BUILD_CLI)
   add_executable(redisx-cli redisx-cli.c)
   target_link_libraries(redisx-cli PRIVATE core ${POPT_LIBRARY} ${READLINE_LIBRARY} ${BSD_LIBRARY})
+  add_test(NAME cli-check COMMAND ${CMAKE_BINARY_DIR}/bin/redisx-cli --help)
 endif()
 
 if(ENABLE_OPENMP)
