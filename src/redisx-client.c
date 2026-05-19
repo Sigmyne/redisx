@@ -156,7 +156,7 @@ static int rReadToCacheAsync(ClientPrivate *cp) {
   else if(pfd.revents & POLLIN) {
     cp->next = 0;
     cp->available = rReadBytesAsync(cp, cp->in, REDISX_RCVBUF_SIZE);
-    if(cp->available < 0) {
+    if(cp->available <= 0) {
       status = cp->available;
       cp->available = -1;
     }
@@ -227,6 +227,9 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
   }
 
   xmut_unlock(&cp->readLock);
+
+  // If the client was disabled already, then return error without trace.
+  if(!cp->isEnabled) return X_NO_SERVICE;
 
   // From here on L is the number of characters actually buffered (excluding termination).
   if(L > length) L = length;
