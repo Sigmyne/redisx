@@ -99,14 +99,37 @@ static int rTransmitErrorAsync(ClientPrivate *cp, const char *op) {
   return status;
 }
 
+static int rReadBytesAsync(ClientPrivate *cp, char *buf, int length) {
+  int n;
+
+#if WITH_TLS
+  if(cp->ssl) {
+    // For SSL we cannot have concurrent reads/writes...
+    xmut_lock(&cp->writeLock);
+    n = SSL_read(cp->ssl, buf, length);
+    xmut_unlock(&cp->writeLock);
+  }
+  else
+#endif
+    n = recv(cp->socket, buf, length, 0);
+  trprintf(" ... read %d bytes from client %d socket.\n", n, (int) cp->idx);
+
+  if(cp->socket >= 0 && n <= 0) {
+    n = rTransmitErrorAsync(cp, "read");
+    if(cp->available == 0) errno = ECONNRESET;        // 0 return is remote cleared connection. So set ECONNRESET...
+    if(cp->isEnabled) x_trace("rReadBytesAsync", NULL, n);
+  }
+
+  return n;
+}
+
 /**
  * Reads a chunk of data into the client's receive holding buffer.
  *
  * @param cp        Pointer to the private data of the client.
  * @return          X_SUCCESS (0) if successful, or else an appropriate error (see xchange.h).
  */
-static int rReadChunkAsync(ClientPrivate *cp) {
-  const int sock = cp->socket;      // Local copy of socket fd that won't possibly change mid-call.
+static int rReadToCacheAsync(ClientPrivate *cp) {
 #if WIN32
   WSAPOLLFD pfd;
 #else
@@ -116,42 +139,29 @@ static int rReadChunkAsync(ClientPrivate *cp) {
 
   memset(&pfd, 0, sizeof(pfd));
 
-  if(sock < 0) return x_error(X_NO_SERVICE, ENOTCONN, "rReadChunkAsync", "client %d: not connected", (int) cp->idx);
+  if(cp->socket < 0) return x_error(X_NO_SERVICE, ENOTCONN, "rReadChunkAsync", "client %d: not connected", (int) cp->idx);
 
   // Reset errno prior to the call.
   errno = 0;
 
   // Wait for data to be available on the input.
-  pfd.fd = sock;
+  pfd.fd = cp->socket;
   pfd.events = POLLIN;
 
   status = poll(&pfd, 1, cp->timeoutMillis > 0 ? cp->timeoutMillis : -1);
 
-
   if(status < 1) cp->available = status;
   else if(pfd.revents & POLLIN) {
     cp->next = 0;
-
-#if WITH_TLS
-    if(cp->ssl) {
-      // For SSL we cannot have concurrent reads/writes...
-      xmut_lock(&cp->writeLock);
-      cp->available = SSL_read(cp->ssl, cp->in, REDISX_RCVBUF_SIZE);
-      xmut_unlock(&cp->writeLock);
-    }
-    else
-#endif
-    cp->available = recv(sock, cp->in, REDISX_RCVBUF_SIZE, 0);
-    trprintf(" ... read %d bytes from client %d socket.\n", cp->available, (int) cp->idx);
+    cp->available = rReadBytesAsync(cp, cp->in, REDISX_RCVBUF_SIZE);
   }
   else cp->available = -1;
 
   if(cp->socket >= 0 && cp->available <= 0) {
-    status = rTransmitErrorAsync(cp, "read");
-    if(cp->available == 0) errno = ECONNRESET;        // 0 return is remote cleared connection. So set ECONNRESET...
-    if(cp->isEnabled) x_trace("rReadChunkAsync", NULL, status);
+    if(cp->isEnabled) x_trace("rReadToCacheAsync", NULL, status);
     return status;
   }
+
   return X_SUCCESS;
 }
 
@@ -185,7 +195,7 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
 
     // Read a chunk of available data from the socket...
     if(cp->next >= cp->available) {
-      int status = rReadChunkAsync(cp);
+      int status = rReadToCacheAsync(cp);
       if(status) {
         xmut_unlock(&cp->readLock);
         if(cp->isEnabled) return x_trace(fn, NULL, status);
@@ -235,7 +245,7 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
     return L;
   }
 
-  return foundTerms==2 ? L : x_error(REDIS_INCOMPLETE_TRANSFER, EBADMSG, fn, "missing \\r\\n termination");
+  return foundTerms == 2 ? L : x_error(REDIS_INCOMPLETE_TRANSFER, EBADMSG, fn, "missing \\r\\n termination");
 }
 
 /**
@@ -255,22 +265,35 @@ static int rReadBytes(ClientPrivate *cp, char *buf, int length) {
 
   xmut_lock(&cp->readLock);
 
+  // Use data already cached in client's buffer.
+  L = cp->next + length < cp->available ? length : cp->available - cp->next;
+  if(L) {
+    memcpy(buf, &cp->in[cp->next], L);
+    cp->next += L;
+  }
+
+  // Check if we need additional data
+  if(L == length) {
+    xmut_unlock(&cp->readLock);
+    return L;
+  }
+
+  // Read additional data directly from socket.
   if(!cp->isEnabled) {
     xmut_unlock(&cp->readLock);
     return x_error(X_NO_SERVICE, ENOTCONN, fn, "client not connected");
   }
 
-  for(L=0; cp->isEnabled && L<length; L++) {
-    // Read a chunk of available data from the socket...
-    if(cp->next >= cp->available) {
-      int status = rReadChunkAsync(cp);
-      if(status) {
+  while(cp->isEnabled && L < length) {
+    int n = rReadBytesAsync(cp, buf + L, length - L);
+    if(n <= 0) {
+      if(cp->isEnabled) {
         xmut_unlock(&cp->readLock);
-        if(cp->isEnabled) return x_trace(fn, NULL, status);
+        return x_trace(fn, NULL, n);
       }
+      else break;
     }
-
-    if(buf) buf[L] = cp->in[cp->next++];
+    L += n;
   }
 
   xmut_unlock(&cp->readLock);
