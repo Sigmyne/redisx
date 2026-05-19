@@ -1022,7 +1022,13 @@ RESP *redisxReadReplyAsync(RedisClient *cl, int *pStatus) {
     if(pStatus) *pStatus = X_NO_INIT;
     return NULL;
   }
+
   if(!cp->isEnabled) {
+    if(pStatus) *pStatus = X_SUCCESS;
+    return NULL;
+  }
+
+  if(cp->socket < 0) {
     x_error(0, ENOTCONN, fn, "client is not connected");
     if(pStatus) *pStatus = X_NO_SERVICE;
     return NULL;
