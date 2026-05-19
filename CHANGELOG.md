@@ -15,7 +15,7 @@ Upcoming maintenance release.
 
  - #29: Occasional segfaults when link is shut down.
  
- - Fix potential buffer overflow at build time in `docedit.c` (`sprintf()` to `snprintf()`).
+ - Fix potential buffer overflow at build time in `docedit.c` (changed `sprintf()` to `snprintf()`).
  
 ### Added
 
@@ -24,6 +24,8 @@ Upcoming maintenance release.
 ### Changed
 
  - #31: Portability to Windows / MSC.
+ 
+ - #33: More efficient reading of large string data, by skipping intermediate buffer when not necessary. 
 
  - `examples/Makefile` to work standalone, without `config.mk`.
 
