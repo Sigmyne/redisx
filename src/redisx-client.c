@@ -605,11 +605,6 @@ RESP *redisxExecBlockAsync(RedisClient *cl, int *pStatus) {
 
   if(rCheckClient(cl) != X_SUCCESS) return x_trace_null(fn, NULL);
 
-  if(cl->priv == NULL) {
-    x_error(0, EINVAL, fn, "client is not initialized");
-    return NULL;
-  }
-
   status = redisxSkipReplyAsync(cl);
   if(status) {
     if(pStatus) *pStatus = status;
