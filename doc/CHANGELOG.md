@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [1.0.4-rc2] - 2026-05-18
+## [Unreleased]
 
 Upcoming maintenance release.
 
@@ -15,11 +15,15 @@ Upcoming maintenance release.
 
  - #29: Occasional segfaults when link is shut down.
  
+ - Fix potential buffer overflow at build time in `docedit.c` (`sprintf()` to `snprintf()`).
+ 
 ### Added
 
  - #30: Added CMake build configuration and CI workflows.
  
 ### Changed
+
+ - #31: Portability to Windows / MSC.
 
  - `examples/Makefile` to work standalone, without `config.mk`.
 
