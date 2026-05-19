@@ -9,17 +9,21 @@
 #  define _POSIX_C_SOURCE  199309L    ///< for nanosleep()
 #endif
 
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 #include <popt.h>
-#include <time.h>
 #include <math.h>
-#include <pthread.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <bsd/readpassphrase.h>
+
+#if WIN32
+#  include <conio.h>
+#else
+#  include <bsd/readpassphrase.h>
+#endif
 
 #include "redisx-priv.h"
 #include <xjson.h>
@@ -39,7 +43,7 @@ static int attrib = 0;
 static Redis *redis;
 static RedisCluster *cluster;
 
-static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+static xmut_type mutex;
 
 
 static void printVersion(const char *name) {
@@ -96,7 +100,7 @@ static void printResult(const RESP *reply, const RESP *attr, const RESP *push) {
    }
 }
 
-static void *ListenerThread(void *nil) {
+static XTHREAD_RTN ListenerThread(XTHREAD_ARG nil) {
   (void) nil;
 
   while(TRUE) {
@@ -105,7 +109,7 @@ static void *ListenerThread(void *nil) {
     nap.tv_sec = POLL_MILLIS / 1000;
     nap.tv_nsec = 1000000 * (POLL_MILLIS % 1000);
 
-    pthread_mutex_lock(&mutex);
+    xmut_lock(&mutex);
 
     if(redis && redisxLockConnected(redis->interactive) == X_SUCCESS) {
       while(redisxGetAvailableAsync(redis->interactive) > 0) {
@@ -117,19 +121,24 @@ static void *ListenerThread(void *nil) {
       redisxUnlockClient(redis->interactive);
     }
 
-    pthread_mutex_unlock(&mutex);
+    xmut_unlock(&mutex);
 
     nanosleep(&nap, NULL);
   }
 
+#if WIN32
+  CloseHandle(GetCurrentThread());
+  return 0;    /* NOT REACHED */
+#else
   return NULL; /* NOT REACHED */
+#endif
 }
 
 static void process(const char **cmdargs, int nargs) {
   int status = X_SUCCESS;
   RESP *reply, *attr = NULL;
 
-  pthread_mutex_lock(&mutex);
+  xmut_lock(&mutex);
 
   if(cluster) {
     const char *key = NULL;
@@ -143,14 +152,14 @@ static void process(const char **cmdargs, int nargs) {
     redis = redisxClusterGetShard(cluster, key);
     if(!redis) {
       fprintf(stderr, "ERROR! No suitable cluster node found for transaction.");
-      pthread_mutex_unlock(&mutex);
+      xmut_unlock(&mutex);
       return;
     }
   }
 
   reply = redisxArrayRequest(redis, cmdargs, NULL, nargs, &status);
   if(!status && attrib) attr = redisxGetAttributes(redis);
-  pthread_mutex_unlock(&mutex);
+  xmut_unlock(&mutex);
 
   printResult(reply, attr, NULL);
 
@@ -166,13 +175,19 @@ static void PushProcessor(RedisClient *cl, RESP *resp, void *ptr) {
 }
 
 static int interactive(Redis *redis) {
-  pthread_t listenerTID;
+  XTHREAD_ID listenerTID;
   char *prompt = malloc(strlen(host) + 20);
   sprintf(prompt, "%s:%d> ", host, port);
 
   using_history();
 
-  if(pthread_create(&listenerTID, NULL, ListenerThread, NULL) < 0) {
+#if WIN32
+  listenerTID = CreateThread(NULL, 0, ListenerThread, NULL, 0, NULL);
+  if(listenerTID == NULL)
+#else
+  if(pthread_create(&listenerTID, NULL, ListenerThread, NULL) < 0)
+#endif
+  {
     perror("ERROR! launching listener thread");
     exit(1);
   }
@@ -264,6 +279,37 @@ static const char **setScriptArgs(const char *script, const char **args, int *na
   return a;
 }
 
+#if WIN32
+char *readpassphrase(const char *prompt, char *buf, size_t bufsiz, int flags) {
+    char c;
+    int pos = 0;
+
+    printf(prompt);
+
+    // Read until Enter (carriage return) is pressed
+    while ((c = _getch()) != '\r') {
+        // Handle Backspace
+        if (c == '\b') {
+            if (pos) {
+              printf("\b \b");
+              pos--;
+            }
+        }
+        // Ignore newline characters and strictly append valid input
+        else if (c >= 32 && c <= 126) {
+            if(pos < bufsiz) buf[pos] = c;
+            pos++;
+            printf("*");
+        }
+    }
+    printf("\n");
+
+    // Terminate the buffer
+    buf[pos < bufsiz ? pos : bufsiz - 1] = '\0';
+    return buf;
+}
+#endif
+
 int main(int argc, const char *argv[]) {
   static const char *fn = "redisx-cli";
 
@@ -354,6 +400,8 @@ int main(int argc, const char *argv[]) {
 
   poptContext optcon = poptGetContext(fn, argc, argv, options, 0);
   poptSetOtherOptionHelp(optcon, "[OPTIONS] [cmd [arg [arg ...]]]");
+
+  xmut_init(&mutex);
 
   while((rc = poptGetNextOpt(optcon)) != -1) {
     if(rc < -1) {

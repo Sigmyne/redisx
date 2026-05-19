@@ -11,13 +11,18 @@
  *
  */
 
+#if !defined(_MSC_VER) && __STDC_VERSION__ < 201112L
+#  define _POSIX_C_SOURCE 199309L   ///< struct timespec
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <arpa/inet.h>
 
 #include "redisx-priv.h"
+
+
 
 /// \cond PRIVATE
 
@@ -26,11 +31,15 @@
 #else
 #endif
 
-#define XPRIO_MIN                   (sched_get_priority_min(SCHED_RR))
-#define XPRIO_MAX                   (sched_get_priority_max(SCHED_RR))
-#define XPRIO_RANGE                 (XPRIO_MAX - XPRIO_MIN)
+#if WIN32
+#  define REDIX_LISTENER_PRIORITY     THREAD_PRIORITY_HIGHEST
+#else
+#  define XPRIO_MIN                   (sched_get_priority_min(SCHED_RR))
+#  define XPRIO_MAX                   (sched_get_priority_max(SCHED_RR))
+#  define XPRIO_RANGE                 (XPRIO_MAX - XPRIO_MIN)
 
-#define REDISX_LISTENER_PRIORITY    (XPRIO_MIN + (int) (REDISX_LISTENER_REL_PRIORITY * XPRIO_RANGE))
+#  define REDISX_LISTENER_PRIORITY    (XPRIO_MIN + (int) (REDISX_LISTENER_REL_PRIORITY * XPRIO_RANGE))
+#endif
 
 extern int debugTraffic;            ///< Whether to print excerpts of all traffic to/from the Redis server.
 
@@ -64,7 +73,7 @@ int rConfigLock(Redis *redis) {
   RedisPrivate *p;
   prop_error("rConfigLock", redisxCheckValid(redis));
   p = (RedisPrivate *) redis->priv;
-  pthread_mutex_lock(&p->configLock);
+  xmut_lock(&p->configLock);
   return X_SUCCESS;
 }
 
@@ -78,7 +87,7 @@ int rConfigUnlock(Redis *redis) {
   RedisPrivate *p;
   prop_error("rConfigUnlock", redisxCheckValid(redis));
   p = (RedisPrivate *) redis->priv;
-  pthread_mutex_unlock(&p->configLock);
+  xmut_unlock(&p->configLock);
   return X_SUCCESS;
 }
 

@@ -16,23 +16,37 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <errno.h>
-#include <pthread.h>
-#include <sys/utsname.h>
-#include <arpa/inet.h>
-#include <netinet/tcp.h>
+
+#if WIN32
+#  include <io.h>           // _close()
+#  include <process.h>      // _getpid()
+#  include <winsock2.h>     // inet_ntoa()
+#  include <ws2tcpip.h>     // inet_ntop() getaddrinfo()
+
+#  define close(fd)         _close(fd)      ///< map _close() to close()
+#  define getpid            _getpid         ///< map _getpid() to getpid()
+#  define sockopt_t         const char *    ///< pointer type for setsockopt() pointer arg
+#else
+#  include <unistd.h>       // close(), getpid()
+#  include <netinet/tcp.h>  // TCP_NODELAY
+#  include <arpa/inet.h>    // inet_*()
+#  include <sys/utsname.h>  // uname()
+#  include <netdb.h>        // getaddrinfo()
+
+#  define sockopt_t         void *          ///< pointer type for setsockopt() pointer arg
+#endif
+
 #if __Lynx__ && __powerpc__
 #  include <socket.h>
 #  include <time.h>
-#else
+#elif !WIN32
 #  include <sys/time.h>
 #  include <netinet/ip.h>
 #  include <sys/types.h>    // getaddrinfo()
 #  include <sys/socket.h>
 #endif
-#include <netdb.h>
 
 #include "redisx-priv.h"
 
@@ -61,7 +75,7 @@ typedef struct ServerLink {
 /// \endcond
 
 static ServerLink *serverList;
-static pthread_mutex_t serverLock = PTHREAD_MUTEX_INITIALIZER;
+static xmut_type serverLock;
 
 
 
@@ -186,7 +200,7 @@ static void rConfigSocket(int socket, int timeoutMillis, int tcpBufSize, boolean
   // It is faster than the 'proper' handshaking close if the server can handle it properly.
   linger.l_onoff = FALSE;
   linger.l_linger = 0;
-  if(setsockopt(socket, SOL_SOCKET, SO_LINGER, & linger, sizeof(struct linger)))
+  if(setsockopt(socket, SOL_SOCKET, SO_LINGER, (sockopt_t) &linger, sizeof(struct linger)))
     x_warn(fn, "socket linger not set: %s", strerror(errno));
 
   if(timeoutMillis > 0) {
@@ -195,7 +209,7 @@ static void rConfigSocket(int socket, int timeoutMillis, int tcpBufSize, boolean
     // Set a time limit for sending.
     timeout.tv_sec = timeoutMillis / 1000;
     timeout.tv_usec = 1000 * (timeoutMillis % 1000);
-    if(setsockopt(socket, SOL_SOCKET, SO_SNDTIMEO, & timeout, sizeof(struct timeval)))
+    if(setsockopt(socket, SOL_SOCKET, SO_SNDTIMEO, (sockopt_t) &timeout, sizeof(struct timeval)))
       x_warn(fn, "socket send timeout not set: %s", strerror(errno));
   }
 
@@ -205,19 +219,19 @@ static void rConfigSocket(int socket, int timeoutMillis, int tcpBufSize, boolean
 
     // Optimize service for latency or throughput
     // LynxOS 3.1 does not support IP_TOS option...
-    if(setsockopt(socket, IPPROTO_IP, IP_TOS, &tos, sizeof(tos)))
+    if(setsockopt(socket, IPPROTO_IP, IP_TOS, (sockopt_t) &tos, sizeof(tos)))
       x_warn(fn, "socket type-of-service not set: %s", strerror(errno));
   }
 #endif
 
 #if !(__Lynx__ && __powerpc__)
   // Send packets immediately even if small...
-  if(lowLatency) if(setsockopt(socket, IPPROTO_TCP, TCP_NODELAY, & enable, sizeof(int)))
+  if(lowLatency) if(setsockopt(socket, IPPROTO_TCP, TCP_NODELAY, (sockopt_t) &enable, sizeof(int)))
     x_warn(fn, "socket tcpnodelay not enabled: %s", strerror(errno));
 #endif
 
   // Check connection to remote every once in a while to detect if it's down...
-  if(setsockopt(socket, SOL_SOCKET, SO_KEEPALIVE, & enable, sizeof(int)))
+  if(setsockopt(socket, SOL_SOCKET, SO_KEEPALIVE, (sockopt_t) &enable, sizeof(int)))
     x_warn(fn, "socket keep-alive not enabled: %s", strerror(errno));
 
   // Allow to reconnect to closed RedisX sockets immediately
@@ -226,10 +240,10 @@ static void rConfigSocket(int socket, int timeoutMillis, int tcpBufSize, boolean
 
   // Set the TCP buffer size to use. Larger buffers facilitate more throughput.
   if(tcpBufSize > 0) {
-    if(setsockopt(socket, SOL_SOCKET, SO_SNDBUF, &tcpBufSize, sizeof(int)))
+    if(setsockopt(socket, SOL_SOCKET, SO_SNDBUF, (sockopt_t) &tcpBufSize, sizeof(int)))
       x_warn(fn, "socket send buf size not set: %s", strerror(errno));
 
-    if(setsockopt(socket, SOL_SOCKET, SO_RCVBUF, &tcpBufSize, sizeof(int)))
+    if(setsockopt(socket, SOL_SOCKET, SO_RCVBUF, (sockopt_t) &tcpBufSize, sizeof(int)))
       x_warn(fn, "socket send buf size not set: %s", strerror(errno));
   }
 }
@@ -270,10 +284,10 @@ static int rRegisterServer(Redis *redis) {
   x_check_alloc(l);
   l->redis = redis;
 
-  pthread_mutex_lock(&serverLock);
+  xmut_lock(&serverLock);
   l->next = serverList;
   serverList = l;
-  pthread_mutex_unlock(&serverLock);
+  xmut_unlock(&serverLock);
 
   return X_SUCCESS;
 }
@@ -371,8 +385,8 @@ static void rShutdownClientAsync(RedisClient *cl) {
   shutdown(sock, SHUT_RD);
 
   // The above should release any lock on read, so we can confirm that...
-  pthread_mutex_lock(&cp->readLock);
-  pthread_mutex_unlock(&cp->readLock);
+  xmut_lock(&cp->readLock);
+  xmut_unlock(&cp->readLock);
 }
 
 static void rDisconnectClientAsync(RedisClient *cl) {
@@ -404,9 +418,9 @@ static void rResetClientAsync(RedisClient *cl) {
 
   ClientPrivate *cp = (ClientPrivate *) cl->priv;
 
-  pthread_mutex_lock(&cp->pendingLock);
+  xmut_lock(&cp->pendingLock);
   cp->pendingRequests = 0;
-  pthread_mutex_unlock(&cp->pendingLock);
+  xmut_unlock(&cp->pendingLock);
 
   cp->isEnabled = FALSE;
   cp->available = 0;
@@ -542,7 +556,7 @@ int redisxReconnect(Redis *redis, boolean usePipeline) {
  * with atexit().
  *
  */
-static void rShutdownAsync() {
+static void rShutdownAsync(void) {
   ServerLink *l;
 
   // NOTE: Don't use any locks, as they may deadlock when trying to shut down...
@@ -566,7 +580,7 @@ static void rShutdownAsync() {
 static void rUnregisterServer(const Redis *redis) {
   ServerLink *s, *last = NULL;
 
-  pthread_mutex_lock(&serverLock);
+  xmut_lock(&serverLock);
 
   // remove this server from the open servers...
   for(s = serverList; s != NULL; ) {
@@ -581,7 +595,7 @@ static void rUnregisterServer(const Redis *redis) {
     s = next;
   }
 
-  pthread_mutex_unlock(&serverLock);
+  xmut_unlock(&serverLock);
 }
 
 /**
@@ -601,9 +615,9 @@ static void rInitClient(Redis *redis, enum redisx_channel idx) {
   cp->redis = redis;
   cp->idx = idx;
 
-  pthread_mutex_init(&cp->readLock, NULL);
-  pthread_mutex_init(&cp->writeLock, NULL);
-  pthread_mutex_init(&cp->pendingLock, NULL);
+  xmut_init(&cp->readLock);
+  xmut_init(&cp->writeLock);
+  xmut_init(&cp->pendingLock);
 
   cl->priv = cp;
 
@@ -703,7 +717,12 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
   } serverAddress = {};
   int addrlen = sizeof(struct sockaddr_in);
 
+#if WIN32
+  DWORD namelen;
+#else
   struct utsname u;
+#endif
+
   RedisPrivate *p;
   RedisClient *cl;
   ClientPrivate *cp;
@@ -758,7 +777,6 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
   else
 #endif
 
-
   if(connect(sock, (struct sockaddr *) &serverAddress, addrlen) < 0) {
     close(sock);
     return x_error(X_NO_INIT, errno, fn, "failed to connect to %s:%hu: %s", redis->id, port, strerror(errno));
@@ -767,8 +785,13 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
   xvprintf("Redis-X> client %d assigned socket fd %d.\n", channel, sock);
 
   // Set the client name in Redis.
+#if WIN32
+  namelen = sizeof(host) - 1;
+  GetComputerNameA(host, &namelen);
+#else
   uname(&u);
   strncpy(host, u.nodename, sizeof(host) - 1);
+#endif
 
   id = (char *) malloc(strlen(host) + 100);      // <host>:pid-<pid>:<channel> + termination;
   switch(cp->idx) {
@@ -777,7 +800,7 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
     case REDISX_SUBSCRIPTION_CHANNEL: channelID = "subscription"; break;
     default: channelID = "unknown";
   }
-  sprintf(id, "%s:pid-%d:%s", host, (int) getppid(), channelID);
+  sprintf(id, "%s:pid-%d:%s", host, (int) getpid(), channelID);
 
   redisxLockClient(cl);
 
@@ -842,6 +865,7 @@ Redis *redisxInit(const char *server) {
 
   if(!isInitialized) {
     // Initialize the thread attributes once only to avoid segfaulting...
+    xmut_init(&serverLock);
     atexit(rShutdownAsync);
     isInitialized = TRUE;
   }
@@ -863,8 +887,8 @@ Redis *redisxInit(const char *server) {
   }
 
   // Initialize mutexes
-  pthread_mutex_init(&p->configLock, NULL);
-  pthread_mutex_init(&p->subscriberLock, NULL);
+  xmut_init(&p->configLock);
+  xmut_init(&p->subscriberLock);
 
   config = &p->config;
   config->protocol = REDISX_RESP2;     // Default
@@ -910,9 +934,9 @@ void redisxDestroy(Redis *redis) {
     if(!cp) continue;
 
     redisxDestroyRESP(cp->attributes);
-    pthread_mutex_destroy(&cp->readLock);
-    pthread_mutex_destroy(&cp->writeLock);
-    pthread_mutex_destroy(&cp->pendingLock);
+    xmut_destroy(&cp->readLock);
+    xmut_destroy(&cp->writeLock);
+    xmut_destroy(&cp->pendingLock);
 
     free(cp);
   }
@@ -1113,7 +1137,7 @@ boolean redisxIsConnected(Redis *redis) {
  * \return              Always NULL.
  *
  */
-void *RedisPipelineListener(void *pRedis) {
+XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
   static long counter, lastError;
 
   Redis *redis = (Redis *) pRedis;
@@ -1122,18 +1146,28 @@ void *RedisPipelineListener(void *pRedis) {
   ClientPrivate *cp;
   RESP *reply = NULL;
   void (*consume)(RESP *response);
+  int status;
 
+#if !WIN32
   pthread_detach(pthread_self());
+#endif
 
   xvprintf("Redis-X> Started processing pipelined responses...\n");
 
-  if(redisxCheckValid(redis) != X_SUCCESS) return x_trace_null("RedisPipelineListener", NULL);
+  status = redisxCheckValid(redis);
+  if(status != X_SUCCESS) {
+#if WIN32
+    return x_trace("RedisPipelineListener", NULL, status);
+#else
+    return x_trace_null("RedisPipelineListener", NULL);
+#endif
+  }
 
   p = (RedisPrivate *) redis->priv;
   cl = redis->pipeline;
   cp = (ClientPrivate *) cl->priv;
 
-  while(cp->isEnabled && p->isPipelineListenerEnabled && pthread_equal(p->pipelineListenerTID, pthread_self())) {
+  while(cp->isEnabled && p->isPipelineListenerEnabled && XTHREAD_IS(p->pipelineListenerTID)) {
     // Discard the response from the prior iteration
     if(reply) redisxDestroyRESP(reply);
 
@@ -1164,18 +1198,23 @@ void *RedisPipelineListener(void *pRedis) {
 
   xvprintf("Redis-X> Stopped processing pipeline responses (%ld processed)...\n", counter);
 
-  pthread_mutex_lock(&cp->pendingLock);
+  xmut_lock(&cp->pendingLock);
   if(cp->pendingRequests > 0) x_warn("RedisX", "pipeline disabled with %d pending requests in queue.\n", cp->pendingRequests);
-  pthread_mutex_unlock(&cp->pendingLock);
+  xmut_unlock(&cp->pendingLock);
 
   rConfigLock(redis);
   // If we are the current listener thread, then mark the listener as disabled.
-  if(pthread_equal(p->pipelineListenerTID, pthread_self())) p->isPipelineListenerEnabled = FALSE;
+  if(XTHREAD_IS(p->pipelineListenerTID)) p->isPipelineListenerEnabled = FALSE;
   rConfigUnlock(redis);
 
   if(reply != NULL) redisxDestroyRESP(reply);
 
+#if WIN32
+  CloseHandle(GetCurrentThread());
+  return 0;
+#else
   return NULL;
+#endif
 }
 
 /**
@@ -1184,28 +1223,38 @@ void *RedisPipelineListener(void *pRedis) {
  * \param redis     Pointer to the Redis instance.
  * \param attr      The thread attributes to set for the pipeline listener thread.
  *
- * \return          0 if successful, or -1 if pthread_create() failed.
+ * \return          0 if successful, or -1 if the thread creation failed.
  *
  */
 static int rStartPipelineListenerAsync(Redis *redis) {
   RedisPrivate *p = (RedisPrivate *) redis->priv;
 
-#if SET_PRIORITIES
+#if SET_PRIORITIES && !WIN32
   struct sched_param param;
 #endif
 
   p->isPipelineListenerEnabled = TRUE;
 
-  if (pthread_create(&p->pipelineListenerTID, NULL, RedisPipelineListener, redis) == -1) {
-    perror("ERROR! Redis-X : pthread_create PipelineListener");
+#if WIN32
+  p->pipelineListenerTID = CreateThread(NULL, 0, RedisPipelineListener, redis, 0, NULL);
+  if(p->pipelineListenerTID == NULL)
+#else
+  if (pthread_create(&p->pipelineListenerTID, NULL, RedisPipelineListener, redis) == -1)
+#endif
+  {
+    perror("ERROR! Redis-X : create PipelineListener thread");
     p->isPipelineListenerEnabled = FALSE;
     return -1;
   }
 
 #if SET_PRIORITIES
+#  if WIN32
+  SetThreadPriority(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
+#  else
   param.sched_priority = REDISX_LISTENER_PRIORITY;
   pthread_attr_setschedparam(&threadConfig, &param);
   pthread_setschedparam(p->pipelineListenerTID, SCHED_RR, &param);
+#  endif
 #endif
 
   return 0;

@@ -13,12 +13,20 @@
 #include <errno.h>
 #include <limits.h>
 #include <ctype.h>
-#include <poll.h>
 #include <sys/types.h>
-#include <sys/ioctl.h>
+
+#if WIN32
+#  include <winsock2.h>
+#  define poll          WSAPoll
+#  define ioctl         ioctlsocket
+#else
+#  include <poll.h>
+#  include <sys/ioctl.h>
+#endif
+
 #if __Lynx__
 #  include <socket.h>
-#else
+#elif !WIN32
 #  include <sys/socket.h>
 #endif
 
@@ -99,7 +107,11 @@ static int rTransmitErrorAsync(ClientPrivate *cp, const char *op) {
  */
 static int rReadChunkAsync(ClientPrivate *cp) {
   const int sock = cp->socket;      // Local copy of socket fd that won't possibly change mid-call.
+#if WIN32
+  WSAPOLLFD pfd;
+#else
   struct pollfd pfd;
+#endif
   int status;
 
   memset(&pfd, 0, sizeof(pfd));
@@ -115,6 +127,7 @@ static int rReadChunkAsync(ClientPrivate *cp) {
 
   status = poll(&pfd, 1, cp->timeoutMillis > 0 ? cp->timeoutMillis : -1);
 
+
   if(status < 1) cp->available = status;
   else if(pfd.revents & POLLIN) {
     cp->next = 0;
@@ -122,9 +135,9 @@ static int rReadChunkAsync(ClientPrivate *cp) {
 #if WITH_TLS
     if(cp->ssl) {
       // For SSL we cannot have concurrent reads/writes...
-      pthread_mutex_lock(&cp->writeLock);
+      xmut_lock(&cp->writeLock);
       cp->available = SSL_read(cp->ssl, cp->in, REDISX_RCVBUF_SIZE);
-      pthread_mutex_unlock(&cp->writeLock);
+      xmut_unlock(&cp->writeLock);
     }
     else
 #endif
@@ -160,10 +173,10 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
 
   length--; // leave room for termination in incomplete tokens...
 
-  pthread_mutex_lock(&cp->readLock);
+  xmut_lock(&cp->readLock);
 
   if(!cp->isEnabled) {
-    pthread_mutex_unlock(&cp->readLock);
+    xmut_unlock(&cp->readLock);
     return x_error(X_NO_SERVICE, ENOTCONN, fn, "client is not connected");
   }
 
@@ -174,7 +187,7 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
     if(cp->next >= cp->available) {
       int status = rReadChunkAsync(cp);
       if(status) {
-        pthread_mutex_unlock(&cp->readLock);
+        xmut_unlock(&cp->readLock);
         if(cp->isEnabled) return x_trace(fn, NULL, status);
         return status;
       }
@@ -197,7 +210,7 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
     if(L < length) buf[L] = c;
   }
 
-  pthread_mutex_unlock(&cp->readLock);
+  xmut_unlock(&cp->readLock);
 
   // If client was disabled before we got everything, then simply return X_NO_SERVICE
   if(!cp->isEnabled) {
@@ -240,10 +253,10 @@ static int rReadBytes(ClientPrivate *cp, char *buf, int length) {
   static const char *fn = "rReadBytes";
   int L;
 
-  pthread_mutex_lock(&cp->readLock);
+  xmut_lock(&cp->readLock);
 
   if(!cp->isEnabled) {
-    pthread_mutex_unlock(&cp->readLock);
+    xmut_unlock(&cp->readLock);
     return x_error(X_NO_SERVICE, ENOTCONN, fn, "client not connected");
   }
 
@@ -252,7 +265,7 @@ static int rReadBytes(ClientPrivate *cp, char *buf, int length) {
     if(cp->next >= cp->available) {
       int status = rReadChunkAsync(cp);
       if(status) {
-        pthread_mutex_unlock(&cp->readLock);
+        xmut_unlock(&cp->readLock);
         if(cp->isEnabled) return x_trace(fn, NULL, status);
       }
     }
@@ -260,7 +273,7 @@ static int rReadBytes(ClientPrivate *cp, char *buf, int length) {
     if(buf) buf[L] = cp->in[cp->next++];
   }
 
-  pthread_mutex_unlock(&cp->readLock);
+  xmut_unlock(&cp->readLock);
 
   return L;
 }
@@ -386,7 +399,6 @@ RedisClient *redisxGetLockedConnectedClient(Redis *redis, enum redisx_channel ch
  * \param cl        Pointer to the Redis client instance.
  *
  * \return          X_SUCCESS           if the exclusive lock for the channel was successfully obtained, or
- *                  X_FAILURE           if pthread_mutex_lock() returned an error, or
  *                  X_NULL              if the client is NULL, or
  *                  X_NO_INIT           if the client was not initialized.
  *
@@ -396,14 +408,10 @@ RedisClient *redisxGetLockedConnectedClient(Redis *redis, enum redisx_channel ch
 int redisxLockClient(RedisClient *cl) {
   static const char *fn = "redisxLockClient";
   ClientPrivate *cp;
-  int status;
 
   prop_error(fn, rCheckClient(cl));
-
   cp = (ClientPrivate *) cl->priv;
-
-  status = pthread_mutex_lock(&cp->writeLock);
-  if(status) return x_error(X_FAILURE, errno, fn, "mutex error");
+  xmut_lock(&cp->writeLock);
 
   return X_SUCCESS;
 }
@@ -414,7 +422,6 @@ int redisxLockClient(RedisClient *cl) {
  * \param cl     Pointer to the Redis client instance
  *
  * \return       X_SUCCESS (0)          if an excusive lock to the channel has been granted, or
- *               X_FAILURE              if pthread_mutex_lock() returned an error, or
  *               X_NULL                 if the client is NULL, or
  *               X_NO_INIT              if the client was not initialized.
  *
@@ -444,7 +451,6 @@ int redisxLockConnected(RedisClient *cl) {
  * \param cl        Pointer to the Redis client instance
  *
  * \return          X_SUCCESS           if the exclusive lock for the channel was successfully obtained, or
- *                  X_FAILURE           if pthread_mutex_lock() returned an error, or
  *                  X_NULL              if the client is NULL, or
  *                  X_NO_INIT           if the client was not initialized.
  *
@@ -454,14 +460,10 @@ int redisxLockConnected(RedisClient *cl) {
 int redisxUnlockClient(RedisClient *cl) {
   static const char *fn = "redisxUnlockClient";
   ClientPrivate *cp;
-  int status;
 
   prop_error(fn, rCheckClient(cl));
-
   cp = (ClientPrivate *) cl->priv;
-
-  status = pthread_mutex_unlock(&cp->writeLock);
-  if(status) return x_error(X_FAILURE, errno, fn, "mutex error");
+  xmut_unlock(&cp->writeLock);
 
   return X_SUCCESS;
 }
@@ -746,9 +748,9 @@ int redisxSendArrayRequestAsync(RedisClient *cl, const char **args, const int *l
     prop_error(fn, rSendBytesAsync(cp, buf, L, TRUE));
   }
 
-  pthread_mutex_lock(&cp->pendingLock);
+  xmut_lock(&cp->pendingLock);
   cp->pendingRequests++;
-  pthread_mutex_unlock(&cp->pendingLock);
+  xmut_unlock(&cp->pendingLock);
 
   return X_SUCCESS;
 }
@@ -908,7 +910,11 @@ int redisxGetAvailableAsync(RedisClient *cl) {
   static const char *fn = "redisxGetAvailable";
 
   ClientPrivate *cp;
+#if WIN32
+  u_long n = 0;
+#else
   int n = 0;
+#endif
 
   prop_error(fn, rCheckClient(cl));
 
@@ -1210,9 +1216,9 @@ RESP *redisxReadReplyAsync(RedisClient *cl, int *pStatus) {
     return NULL;
   }
 
-  pthread_mutex_lock(&cp->pendingLock);
+  xmut_lock(&cp->pendingLock);
   cp->pendingRequests--;
-  pthread_mutex_unlock(&cp->pendingLock);
+  xmut_unlock(&cp->pendingLock);
 
   return resp;
 }

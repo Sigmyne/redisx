@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Check out RedisX
@@ -43,18 +43,13 @@ jobs:
       - name: Build xchange dependency
         run: |
           cd xchange
-          cmake -B build -DBUILD_SHARED_LIBS=ON
-          cmake --build build
+          cmake -B build
+          cmake --build build --config Release
 
-      - name: Configure CMake (Unix)
-        run: cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_SHARED_LIBS=ON
+      - name: Configure CMake
+        run: cmake -B build -Dxchange_DIR="xchange/build"
 
-      - name: Build (Unix)
-        if: runner.os != 'Windows'
-        run: cmake --build build
-
-      - name: Build (Windows)
-        if: runner.os == 'Windows'
+      - name: Build
         run: cmake --build build --config Release
 
       - name: Install

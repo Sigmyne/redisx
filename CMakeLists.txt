@@ -83,6 +83,7 @@ if(WIN32)
     message("Configuring for Windows...")
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+    set(WINSOCK2 ws2_32)
 endif()
 
 check_library_exists(m exp "" HAS_MATHLIB)
@@ -96,7 +97,9 @@ endif()
 if(BUILD_CLI)
     find_library(POPT_LIBRARY popt REQUIRED)
     find_library(READLINE_LIBRARY readline REQUIRED)
-    find_library(BSD_LIBRARY bsd REQUIRED)
+    if(NOT WIN32)
+        find_library(BSD_LIBRARY bsd REQUIRED)
+    endif()
 endif()
 
 # xchange dependency

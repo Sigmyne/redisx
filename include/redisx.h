@@ -15,8 +15,10 @@
 #define REDISX_H_
 
 #include <xchange.h>
-#include <pthread.h>
 #include <stdint.h>
+#include <time.h>
+
+
 
 // API version constants --------------------------------------------------------->
 

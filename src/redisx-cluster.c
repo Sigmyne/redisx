@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <pthread.h>
 
 #include "redisx-priv.h"
 
@@ -34,7 +33,7 @@ typedef struct {
  *
  */
 typedef struct {
-  pthread_mutex_t mutex;        ///< mutex for exclusive access to the cluster configuration
+  xmut_type mutex;              ///< mutex for exclusive access to the cluster configuration
   int n_shards;                 ///< the number of shards in the cluster
   RedisShard *shard;            ///< array containing information on each shard
   boolean usePipeline;          ///< Whether shards should have dedicated pipeline connections
@@ -286,7 +285,7 @@ static void rClusterSetShardsAsync(RedisCluster *cluster, RedisShard *shard, int
  *
  * @param pCluster
  */
-static void *ClusterRefreshThread(void *pCluster) {
+static XTHREAD_RTN ClusterRefreshThread(XTHREAD_ARG pCluster) {
   RedisCluster *cluster = (RedisCluster *) pCluster;
   ClusterPrivate *cp = (ClusterPrivate *) cluster->priv;
   int i;
@@ -307,9 +306,14 @@ static void *ClusterRefreshThread(void *pCluster) {
   }
 
   cp->reconfiguring = FALSE;
-  pthread_mutex_unlock(&cp->mutex);
+  xmut_unlock(&cp->mutex);
 
+#if WIN32
+  CloseHandle(GetCurrentThread());
+  return 0;
+#else
   return NULL;
+#endif
 }
 
 /**
@@ -322,24 +326,30 @@ static void *ClusterRefreshThread(void *pCluster) {
  */
 int rClusterRefresh(RedisCluster *cluster) {
   static const char *fn = "rClusterRefresh";
-  static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+  static xmut_type mutex;
+  static int initialized;
 
   ClusterPrivate *cp;
-  pthread_t tid;
+  XTHREAD_ID tid;
 
   if(!cluster) return x_error(X_NULL, EINVAL, fn, "cluster is NULL");
 
   cp = (ClusterPrivate *) cluster->priv;
   if(!cp) return x_error(X_NO_INIT, ENXIO, fn, "cluster is not initialized");
 
+  if(!initialized) {
+    xmut_init(&mutex);
+    initialized = 1;
+  }
+
   // Local mutex to prevent race to reconfiguring...
-  pthread_mutex_lock(&mutex);
+  xmut_lock(&mutex);
 
   // Return immediately if the cluster is being reconfigured at present.
   // This is important so we may process all pending MOVED responses while
   // the reconfiguration takes place.
   if(cp->reconfiguring) {
-    pthread_mutex_unlock(&mutex);
+    xmut_unlock(&mutex);
     return X_SUCCESS;
   }
 
@@ -349,14 +359,20 @@ int rClusterRefresh(RedisCluster *cluster) {
   cp->reconfiguring = TRUE;
 
   // Release the reconfigure mutex
-  pthread_mutex_unlock(&mutex);
+  xmut_unlock(&mutex);
 
   // Get exclusive access to the cluster configuration
-  pthread_mutex_lock(&cp->mutex);
+  xmut_lock(&cp->mutex);
 
   errno = 0;
-  if(pthread_create(&tid, NULL, ClusterRefreshThread, (void *) cluster) != 0) {
-    pthread_mutex_unlock(&cp->mutex);
+#if WIN32
+  tid = CreateThread(NULL, 0, ClusterRefreshThread, cluster, 0, NULL);
+  if(tid == NULL)
+#else
+  if(pthread_create(&tid, NULL, ClusterRefreshThread, cluster) != 0)
+#endif
+  {
+    xmut_unlock(&cp->mutex);
     return x_error(X_FAILURE, errno, fn, "failed to start refresher thread");
   }
 
@@ -407,7 +423,7 @@ Redis *redisxClusterGetShard(RedisCluster *cluster, const char *key) {
 
   hash = rCalcHash(key);
 
-  pthread_mutex_lock(&cp->mutex);
+  xmut_lock(&cp->mutex);
 
   for(i = 0; i < cp->n_shards; i++) {
     const RedisShard *s = &cp->shard[i];
@@ -423,13 +439,13 @@ Redis *redisxClusterGetShard(RedisCluster *cluster, const char *key) {
           continue;
         }
         rConfigUnlock(r);
-        pthread_mutex_unlock(&cp->mutex);
+        xmut_unlock(&cp->mutex);
         return r;
       }
     }
   }
 
-  pthread_mutex_unlock(&cp->mutex);
+  xmut_unlock(&cp->mutex);
 
   x_error(0, EAGAIN, fn, "no server found for hash %hu", hash);
   return NULL;
@@ -480,7 +496,7 @@ static Redis *rClusterGetShardByAddress(RedisCluster *cluster, const char *host,
     return NULL;
   }
 
-  pthread_mutex_lock(&cp->mutex);
+  xmut_lock(&cp->mutex);
 
   for(i = 0; i < cp->n_shards; i++) {
     const RedisShard *s = &cp->shard[i];
@@ -497,13 +513,13 @@ static Redis *rClusterGetShardByAddress(RedisCluster *cluster, const char *host,
           continue;
         }
         rConfigUnlock(r);
-        pthread_mutex_unlock(&cp->mutex);
+        xmut_unlock(&cp->mutex);
         return r;
       }
     }
   }
 
-  pthread_mutex_unlock(&cp->mutex);
+  xmut_unlock(&cp->mutex);
 
   if(refresh) {
     rClusterRefresh(cluster);
@@ -555,7 +571,7 @@ RedisCluster *redisxClusterInit(Redis *node) {
   cluster->priv = cp;
   cp->usePipeline = redisxHasPipeline(node);
 
-  pthread_mutex_init(&cp->mutex, NULL);
+  xmut_init(&cp->mutex);
 
   cp->shard = rClusterDiscoverAsync(node, &cp->n_shards);
   rClusterSetShardsAsync(cluster, cp->shard, cp->n_shards);
@@ -587,12 +603,12 @@ void redisxClusterDestroy(RedisCluster *cluster) {
 
   cp = (ClusterPrivate *) cluster->priv;
   if(cp) {
-    pthread_mutex_lock(&cp->mutex);
+    xmut_lock(&cp->mutex);
 
     rDiscardShards(cp->shard, cp->n_shards);
 
-    pthread_mutex_unlock(&cp->mutex);
-    pthread_mutex_destroy(&cp->mutex);
+    xmut_unlock(&cp->mutex);
+    xmut_destroy(&cp->mutex);
 
     free(cp);
   }
@@ -629,7 +645,7 @@ int redisxClusterConnect(RedisCluster *cluster) {
 
   xvprintf("Redis-X> Connecting to all cluster shards.\n");
 
-  pthread_mutex_lock(&p->mutex);
+  xmut_lock(&p->mutex);
 
 #ifdef _OPENMP
 #  pragma omp parallel for
@@ -645,7 +661,7 @@ int redisxClusterConnect(RedisCluster *cluster) {
     }
   }
 
-  pthread_mutex_unlock(&p->mutex);
+  xmut_unlock(&p->mutex);
 
   return status;
 }
@@ -675,7 +691,7 @@ int redisxClusterDisconnect(RedisCluster *cluster) {
 
   xvprintf("Redis-X> Disconnecting from all cluster shards.\n");
 
-  pthread_mutex_lock(&cp->mutex);
+  xmut_lock(&cp->mutex);
 
 #ifdef _OPENMP
 #  pragma omp parallel for
@@ -685,7 +701,7 @@ int redisxClusterDisconnect(RedisCluster *cluster) {
     while(--m >= 0) redisxDisconnect(cp->shard[i].redis[m]);
   }
 
-  pthread_mutex_unlock(&cp->mutex);
+  xmut_unlock(&cp->mutex);
 
   return X_SUCCESS;
 }
