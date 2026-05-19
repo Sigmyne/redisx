@@ -268,7 +268,7 @@ static int rReadBytes(ClientPrivate *cp, char *buf, int length) {
   // Use data already cached in client's buffer.
   L = cp->next + length < cp->available ? length : cp->available - cp->next;
   if(L) {
-    memcpy(buf, &cp->in[cp->next], L);
+    if(buf) memcpy(buf, &cp->in[cp->next], L);
     cp->next += L;
   }
 
@@ -285,7 +285,15 @@ static int rReadBytes(ClientPrivate *cp, char *buf, int length) {
   }
 
   while(cp->isEnabled && L < length) {
-    int n = rReadBytesAsync(cp, buf + L, length - L);
+    int n;
+
+    if(buf) n = rReadBytesAsync(cp, buf + L, length - L);
+    else {
+      n = length - L < REDISX_RCVBUF_SIZE ? length - L : REDISX_RCVBUF_SIZE;
+      n = rReadBytesAsync(cp, cp->in, n);
+      cp->available = 0;
+    }
+
     if(n <= 0) {
       if(cp->isEnabled) {
         xmut_unlock(&cp->readLock);
