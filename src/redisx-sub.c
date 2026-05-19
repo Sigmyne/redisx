@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pthread.h>
 #include <errno.h>
 
 #include "redisx-priv.h"
@@ -27,7 +26,7 @@ static int rSubscriberLock(Redis *redis) {
   RedisPrivate *p;
   prop_error("rSubscriberLock", redisxCheckValid(redis));
   p = (RedisPrivate *) redis->priv;
-  pthread_mutex_lock(&p->subscriberLock);
+  xmut_lock(&p->subscriberLock);
   return X_SUCCESS;
 }
 
@@ -41,7 +40,7 @@ static int rSubscriberUnlock(Redis *redis) {
   RedisPrivate *p;
   prop_error("rSubscriberLock", redisxCheckValid(redis));
   p = (RedisPrivate *) redis->priv;
-  pthread_mutex_unlock(&p->subscriberLock);
+  xmut_unlock(&p->subscriberLock);
   return X_SUCCESS;
 }
 
@@ -530,7 +529,7 @@ static void rNotifyConsumers(Redis *redis, char *pattern, char *channel, char *m
  * \return              Always NULL.
  *
  */
-void *RedisSubscriptionListener(void *pRedis) {
+XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
   static long counter, lastError;
 
   Redis *redis = (Redis *) pRedis;
@@ -538,19 +537,28 @@ void *RedisSubscriptionListener(void *pRedis) {
   RedisClient *cl;
   const ClientPrivate *cp;
   RESP *reply = NULL, **component;
-  int i;
+  int i, status;
 
+#if !WIN32
   pthread_detach(pthread_self());
+#endif
 
   xvprintf("Redis-X> Started processing subsciptions...\n");
 
-  if(redisxCheckValid(redis) != X_SUCCESS) return x_trace_null("RedisSubscriptionListener", NULL);
+  status = redisxCheckValid(redis);
+  if(status != X_SUCCESS) {
+#if WIN32
+    return x_trace("RedisSubscriptionListener", NULL, status);
+#else
+    return x_trace_null("RedisSubscriptionListener", NULL);
+#endif
+  }
 
   p = (RedisPrivate *) redis->priv;
   cl = redis->subscription;
   cp = (ClientPrivate *) cl->priv;
 
-  while(cp->isEnabled && p->isSubscriptionListenerEnabled && pthread_equal(p->subscriptionListenerTID, pthread_self())) {
+  while(cp->isEnabled && p->isSubscriptionListenerEnabled && XTHREAD_IS(p->subscriptionListenerTID)) {
     // Discard the response from the prior iteration
     if(reply) redisxDestroyRESP(reply);
 
@@ -619,7 +627,7 @@ void *RedisSubscriptionListener(void *pRedis) {
 
   if(rConfigLock(redis) == X_SUCCESS) {
     // If we are the current listener thread, then mark the listener as disabled.
-    if(pthread_equal(p->subscriptionListenerTID, pthread_self())) p->isSubscriptionListenerEnabled = FALSE;
+    if(XTHREAD_IS(p->subscriptionListenerTID)) p->isSubscriptionListenerEnabled = FALSE;
     rConfigUnlock(redis);
   }
 
@@ -627,7 +635,12 @@ void *RedisSubscriptionListener(void *pRedis) {
 
   redisxDestroyRESP(reply);
 
+#if WIN32
+  CloseHandle(GetCurrentThread());
+  return 0;
+#else
   return NULL;
+#endif
 }
 
 /// \endcond
@@ -638,28 +651,38 @@ void *RedisSubscriptionListener(void *pRedis) {
  * \param redis     Pointer to the Redis instance.
  * \param attr      The thread attributes to set for the PUB/SUB listener thread.
  *
- * \return          0 if successful, or -1 if pthread_create() failed.
+ * \return          0 if successful, or -1 if the thread creation failed.
  *
  */
 static int rStartSubscriptionListenerAsync(Redis *redis) {
   RedisPrivate *p = (RedisPrivate *) redis->priv;
 
-#if SET_PRIORITIES
+#if SET_PRIORITIES && !WIN32
   struct sched_param param;
 #endif
 
   p->isSubscriptionListenerEnabled = TRUE;
 
-  if (pthread_create(&p->subscriptionListenerTID, NULL, RedisSubscriptionListener, redis) == -1) {
-    perror("ERROR! Redis-X : pthread_create SubscriptionListener");
+#if WIN32
+  p->subscriptionListenerTID = CreateThread(NULL, 0, RedisSubscriptionListener, redis, 0, NULL);
+  if(p->subscriptionListenerTID == NULL)
+#else
+  if (pthread_create(&p->subscriptionListenerTID, NULL, RedisSubscriptionListener, redis) == -1)
+#endif
+  {
+    perror("ERROR! Redis-X : create SubscriptionListener thread");
     p->isSubscriptionListenerEnabled = FALSE;
     return -1;
   }
 
 #if SET_PRIORITIES
+#  if WIN32
+  SetThreadPriority(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
+#  else
   param.sched_priority = REDISX_LISTENER_PRIORITY;
   pthread_attr_setschedparam(&threadConfig, &param);
   pthread_setschedparam(p->subscriptionListenerTID, SCHED_RR, &param);
+#  endif
 #endif
 
   return 0;

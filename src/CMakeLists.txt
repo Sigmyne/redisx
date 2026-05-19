@@ -36,7 +36,7 @@ target_include_directories(core PUBLIC
 )
 
 # Link with math libs as necessary
-target_link_libraries(core PUBLIC xchange::core ${MATHLIB} Threads::Threads)
+target_link_libraries(core PUBLIC xchange::core ${MATHLIB} ${WINSOCK2} Threads::Threads)
 
 if(BUILD_CLI)
   add_executable(redisx-cli redisx-cli.c)

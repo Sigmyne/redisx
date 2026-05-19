@@ -6,24 +6,24 @@
  */
 
 #include <stdio.h>
-#include <unistd.h>
+#if WIN32
+#  include <io.h>       // _access()
+#  define access(path, mode) _access(path, mode)    ///< map _access() to access()
+#  define X_OK          0   ///< for _access()
+#  define R_OK          4   ///< for _access()
+#else
+#  include <unistd.h>   // access(), R_OK, X_OK
+#endif
 #include <string.h>
 #include <errno.h>
-#include <pthread.h>
 
 #include "redisx-priv.h"
+
 
 #if WITH_TLS
 #  include <openssl/decoder.h>    // For DH parameters
 #  include <openssl/err.h>
-#endif
-
-#if WITH_TLS
 /// \cond PRIVATE
-
-static int initialized = FALSE;
-
-#if WITH_TLS
 
 /**
  * Clear TLS configuration settings, freeing resources used.
@@ -86,7 +86,6 @@ void rDestroyClientTLS(ClientPrivate *cp) {
     cp->ctx = NULL;
   }
 }
-#endif
 
 /**
  * Loads parameters from a file for DH-based ciphers.
@@ -150,22 +149,28 @@ void rDestroyClientTLS(ClientPrivate *cp) {
  */
 int rConnectTLSClientAsync(ClientPrivate *cp, const TLSConfig *tls) {
   static const char *fn = "rConnectClientTLS";
-  static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+  static xmut_type mutex;
+  static int initialized;
 
   const SSL_METHOD *method;
   X509 *server_cert;
 
   if(!tls->certificate) return x_error(X_NULL, EINVAL, fn, "certificate is NULL");
 
+  if(!initialized) {
+    xmut_init(&mutex);
+    initialized = TRUE;
+  }
+
   // Initialize SSL lib only once...
-  pthread_mutex_lock(&mutex);
+  xmut_lock(&mutex);
   if(!initialized) {
     SSL_library_init();
     SSL_load_error_strings();
     SSLeay_add_ssl_algorithms();
     initialized = TRUE;
   }
-  pthread_mutex_unlock(&mutex);
+  xmut_unlock(&mutex);
 
   method = TLS_client_method();
 
@@ -278,7 +283,7 @@ int rConnectTLSClientAsync(ClientPrivate *cp, const TLSConfig *tls) {
 }
 
 /// \endcond
-#endif
+#endif // WITH_TLS
 
 /**
  * Configures a TLS-encrypted connection to Redis with the specified CA certificate file. Normally you

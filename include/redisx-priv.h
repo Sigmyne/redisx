@@ -13,20 +13,45 @@
 
 /// \cond PRIVATE
 
-#include <pthread.h>
 #include <stdint.h>
+
+#if WIN32
+#  include <winsock2.h>   // in_addr
+#  include <in6addr.h>    // in6_addr
+#else
 #include <netinet/in.h>
+#endif
 
 #if WITH_TLS
 #  include <openssl/ssl.h>
 #endif
 
+#if WIN32
+#  include <windows.h>
+#  define XTHREAD_ID                  HANDLE      ///< The thread handle
+#  define XTHREAD_IS(handle)          ( handle == GetCurrentThread() )
+#  define XTHREAD_ARG                 LPVOID
+#  define XTHREAD_RTN                 DWORD WINAPI
+
+#  define sched_yield                 SwitchToThread
+#else
+#  include <pthread.h>
+#  define XTHREAD_ID                  pthread_t   ///< The thread ID
+#  define XTHREAD_IS(tid)             ( tid == pthread_self() )
+#  define XTHREAD_ARG                 void *
+#  define XTHREAD_RTN                 void *
+#endif
+
+
 #define __XCHANGE_INTERNAL_API__
+#include <xmutex.h>
 #include "redisx.h"
+
 
 #define IP_ADDRESS_LENGTH             40  ///< IPv6: 39 chars + termination.
 
 #define REDISX_LISTENER_YIELD_COUNT   10  ///< yield after this many processed listener messages, <= 0 to disable yielding
+
 
 typedef struct MessageConsumer {
   Redis *redis;
@@ -48,9 +73,9 @@ typedef struct {
   enum redisx_channel idx;      ///< e.g. REDISX_INTERACTIVE_CHANNEL, REDISX_PIPELINE_CHANNEL, or REDISX_SUBSCRIPTION_CHANNEL
   volatile boolean isEnabled;   ///< Whether the client is currecntly enabled for sending/receiving data
   int timeoutMillis;            ///< [ms] Timeout for reads, or 0 (default) or negative for indefinite.
-  pthread_mutex_t writeLock;    ///< A lock for writing and requests through this channel...
-  pthread_mutex_t readLock;     ///< A lock for reading from the channel...
-  pthread_mutex_t pendingLock;  ///< A lock for updating pendingRequests...
+  xmut_type writeLock;          ///< A lock for writing and requests through this channel...
+  xmut_type readLock;           ///< A lock for reading from the channel...
+  xmut_type pendingLock;        ///< A lock for updating pendingRequests...
   char in[REDISX_RCVBUF_SIZE];  ///< Local input buffer
   int available;                ///< Number of bytes available in the buffer.
   int next;                     ///< Index of next unconsumed byte in buffer.
@@ -129,20 +154,20 @@ typedef struct {
   } addr;                       ///< IP address
 
   RedisConfig config;
-  pthread_mutex_t configLock;
+  xmut_type configLock;
 
   RESP *helloData;              ///< RESP data received from server during last connection.
 
   RedisClient *clients;
   int scanCount;                ///< Count argument to use in SCAN commands, or <= 0 for default
 
-  pthread_t pipelineListenerTID;
-  pthread_t subscriptionListenerTID;
+  XTHREAD_ID pipelineListenerTID;
+  XTHREAD_ID subscriptionListenerTID;
 
   boolean isPipelineListenerEnabled;
   boolean isSubscriptionListenerEnabled;
 
-  pthread_mutex_t subscriberLock;
+  xmut_type subscriberLock;
   MessageConsumer *subscriberList;
 
 } RedisPrivate;

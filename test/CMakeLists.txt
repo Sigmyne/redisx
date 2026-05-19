@@ -21,7 +21,7 @@ foreach(TEST ${TEST_PROGRAMS})
     target_include_directories(${TEST} PRIVATE ${PROJECT_SOURCE_DIR}/include)
         
     # Link against the xchange library
-    target_link_libraries(${TEST} PRIVATE core xchange::core ${MATHLIB})
+    target_link_libraries(${TEST} PRIVATE core)
 
     if(ENABLE_ONLINE_TESTING)
         add_test(NAME ${TEST} COMMAND ${TEST})
