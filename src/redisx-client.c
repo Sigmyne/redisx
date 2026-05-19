@@ -130,6 +130,8 @@ static int rReadBytesAsync(ClientPrivate *cp, char *buf, int length) {
  * @return          X_SUCCESS (0) if successful, or else an appropriate error (see xchange.h).
  */
 static int rReadToCacheAsync(ClientPrivate *cp) {
+  static const char *fn = "rReadToCacheAsync";
+
 #if WIN32
   WSAPOLLFD pfd;
 #else
@@ -139,7 +141,7 @@ static int rReadToCacheAsync(ClientPrivate *cp) {
 
   memset(&pfd, 0, sizeof(pfd));
 
-  if(cp->socket < 0) return x_error(X_NO_SERVICE, ENOTCONN, "rReadChunkAsync", "client %d: not connected", (int) cp->idx);
+  if(cp->socket < 0) return x_error(X_NO_SERVICE, ENOTCONN, fn, "client %d: not connected", (int) cp->idx);
 
   // Reset errno prior to the call.
   errno = 0;
@@ -162,7 +164,7 @@ static int rReadToCacheAsync(ClientPrivate *cp) {
   else cp->available = -1;
 
   if(cp->socket >= 0 && cp->available <= 0) {
-    if(cp->isEnabled) x_trace("rReadToCacheAsync", NULL, status);
+    if(cp->isEnabled) x_trace(fn, NULL, status);
     return status;
   }
 
@@ -328,7 +330,7 @@ static int rSendBytesAsync(ClientPrivate *cp, const char *buf, int length, boole
 #endif
 
   const int sock = cp->socket;      // Local copy of socket fd that won't possibly change mid-call.
-  char *from = (char *) buf;                 // Pointer to the next byte to send from buf...
+  const char *from = buf;            // Pointer to the next byte to send from buf...
 
   if(!buf) return x_error(X_NULL, EINVAL, fn, "buffer is NULL");
 
