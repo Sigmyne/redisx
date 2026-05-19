@@ -15,6 +15,8 @@ Upcoming maintenance release.
 
  - #29: Occasional segfaults when link is shut down.
  
+ - Deadlock in `redisxGetAvailable()`.
+ 
  - Fix potential buffer overflow at build time in `docedit.c` (changed `sprintf()` to `snprintf()`).
  
 ### Added

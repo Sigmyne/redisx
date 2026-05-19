@@ -63,7 +63,7 @@ int debugTraffic = FALSE;    ///< Whether to print excerpts of all traffic to/fr
  *                is NULL, or else X_NO_INIT (errno = ENXIO) if the redis instance is not initialized.
  */
 int rCheckClient(const RedisClient *cl) {
-  static const char *fn = "rCheckRedis";
+  static const char *fn = "rCheckClient";
   if(!cl) return x_error(X_NULL, EINVAL, fn, "Redis client is NULL");
   if(!cl->priv) return x_error(X_NO_INIT, ENXIO, fn, "Redis client is not initialized");
   return X_SUCCESS;
@@ -73,7 +73,7 @@ int rCheckClient(const RedisClient *cl) {
 
 /**
  * Specific call for dealing with socket level transmit (send/rcv) errors. It prints a descriptive message to
- * sdterr, and calls the configured user transmit error handler routine, and either exists the program
+ * stderr, and calls the configured user transmit error handler routine, and either exits the program
  * (if redisExitOnConnectionError() is set), or returns X_NO_SERVICE.
  *
  * @param cp    Pointer to the client's private data structure on which the error occurred.
@@ -190,7 +190,7 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
     return x_error(X_NO_SERVICE, ENOTCONN, fn, "client is not connected");
   }
 
-  for(L=0; cp->isEnabled && foundTerms < 2; L++) {
+  for(L = 0; cp->isEnabled && foundTerms < 2; L++) {
     char c;
 
     // Read a chunk of available data from the socket...
@@ -229,8 +229,8 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
     return X_NO_SERVICE;
   }
 
-  // From here on L is the number of characters actually buffered.
-  if(L > length) L = length-1;
+  // From here on L is the number of characters actually buffered (excluding termination).
+  if(L > length) L = length;
 
   // Discard "\r\n"
   if(foundTerms == 2) L -= 2;
@@ -390,7 +390,7 @@ RedisClient *redisxGetClient(Redis *redis, enum redisx_channel channel) {
 
   p = (RedisPrivate *) redis->priv;
   if(channel < 0 || channel >= REDISX_CHANNELS) {
-    x_error(0, EINVAL, fn, "channel %d is our of range", channel);
+    x_error(0, EINVAL, fn, "channel %d is out of range", channel);
     return NULL;
   }
   return &p->clients[channel];
@@ -504,12 +504,12 @@ int redisxUnlockClient(RedisClient *cl) {
  *                      if not connected to the Redis server on the requested channel, or if send()
  *                      failed, or else X_NO_INIT if the client was not initialized.
  *
- * @sa redixSendRequestAsync()
+ * @sa redisxSendRequestAsync()
  * @sa redisxSendArrayRequestAsync()
  * @sa redisxGetLockedConnected()
  */
 int redisxSkipReplyAsync(RedisClient *cl) {
-  static const char *fn = "redisSkipReplyAsync";
+  static const char *fn = "redisxSkipReplyAsync";
   static const char cmd[] = "*3\r\n$6\r\nCLIENT\r\n$5\r\nREPLY\r\n$4\r\nSKIP\r\n";
 
   prop_error(fn, rCheckClient(cl));
@@ -559,7 +559,7 @@ int redisxStartBlockAsync(RedisClient *cl) {
  * \param cl    Pointer to a Redis client
  *
  * \return      X_SUCCESS (0)   if successful, or X_NULL if the client is NULL, or
- *              X_NO_SERVICE    if not connected ot the client or if send() failed, or
+ *              X_NO_SERVICE    if not connected to the client or if send() failed, or
  *              X_NO_INIT       if the client was not initialized.
  *
  * @sa redisxStartBlockAsync()
@@ -867,7 +867,7 @@ static void rPushMessageAsync(RedisClient *cl, RESP *resp) {
  * </ul>
  *
  * Normally the user would typically call this function right after a redisxReadReplyAsync()
- * call, for which atributes are expected. The caller might also want to call
+ * call, for which attributes are expected. The caller might also want to call
  * redisxClearAttributeAsync() before attempting to read the response to ensure that
  * the attributes returned are for the same reply from the server.
  *
@@ -900,7 +900,7 @@ static void rSetAttributeAsync(ClientPrivate *cp, RESP *resp) {
  * Clears the attributes for the specified client. The caller should have an exclusive lock
  * on the client's mutex prior to making this call.
  *
- * Typically a user migh call this function prior to calling redisxReadReplyAsync() on the
+ * Typically a user might call this function prior to calling redisxReadReplyAsync() on the
  * same client, to ensure that any attributes that are available after the read will be the
  * ones that were sent with the last response from the server.
  *
@@ -930,7 +930,7 @@ int redisxClearAttributesAsync(RedisClient *cl) {
  * @sa redisxReadReplyAsync()
  */
 int redisxGetAvailableAsync(RedisClient *cl) {
-  static const char *fn = "redisxGetAvailable";
+  static const char *fn = "redisxGetAvailableAsync";
 
   ClientPrivate *cp;
 #if WIN32
@@ -962,7 +962,7 @@ int redisxGetAvailable(RedisClient *cl) {
   int n;
 
   prop_error(fn, redisxLockConnected(cl));
-  n = redisxGetAvailable(cl);
+  n = redisxGetAvailableAsync(cl);
   redisxUnlockClient(cl);
 
   prop_error(fn, n);
@@ -972,7 +972,7 @@ int redisxGetAvailable(RedisClient *cl) {
 /**
  * Reads a response from Redis and returns it. It should be used with an exclusive lock on a connected
  * client, to collect responses for requests sent previously. It is up to the caller to keep track of
- * what request the response is for. The responses arrive in the same order (and same nummber) as
+ * what request the response is for. The responses arrive in the same order (and same number) as
  * the requests that were sent out.
  *
  * To follow cluster MOVED or ASK redirections, the caller should check the reponse for redirections
@@ -982,7 +982,7 @@ int redisxGetAvailable(RedisClient *cl) {
  * \param cl         Pointer to a Redis channel
  * \param pStatus    Pointer to int in which to return an error status, or NULL if not required.
  *
- * \return      The RESP structure for the reponse received from Redis, or NULL if an error was encountered
+ * \return      The RESP structure for the response received from Redis, or NULL if an error was encountered
  *              (errno will be set to describe the error, which may either be an errno produced by recv()
  *              or EBADMSG if the message was corrupted and/or unparseable. If the error is irrecoverable
  *              i.e., other than a timeout, the client will be disabled.)
@@ -1049,7 +1049,7 @@ RESP *redisxReadReplyAsync(RedisClient *cl, int *pStatus) {
           if(r->type != RESP3_CONTINUED) {
             int type = r->type;
             redisxDestroyRESP(r);
-            fprintf(stderr, "WARNIG! Redis-X: expected type '%c', got type '%c'.", resp->type, type);
+            fprintf(stderr, "WARNING! Redis-X: expected type '%c', got type '%c'.", resp->type, type);
             return resp;
           }
 
