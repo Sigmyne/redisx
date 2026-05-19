@@ -154,6 +154,10 @@ static int rReadToCacheAsync(ClientPrivate *cp) {
   else if(pfd.revents & POLLIN) {
     cp->next = 0;
     cp->available = rReadBytesAsync(cp, cp->in, REDISX_RCVBUF_SIZE);
+    if(cp->available < 0) {
+      status = cp->available;
+      cp->available = -1;
+    }
   }
   else cp->available = -1;
 
