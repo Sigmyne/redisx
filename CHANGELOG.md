@@ -15,6 +15,8 @@ Upcoming maintenance release.
 
  - #29: Occasional segfaults when link is shut down.
  
+ - Fix potential buffer overflow at build time in `docedit.c` (`sprintf()` to `snprintf()`).
+ 
 ### Added
 
  - #30: Added CMake build configuration and CI workflows.
