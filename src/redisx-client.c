@@ -226,13 +226,6 @@ static int rReadToken(ClientPrivate *cp, char *buf, int length) {
 
   xmut_unlock(&cp->readLock);
 
-  // If client was disabled before we got everything, then simply return X_NO_SERVICE
-  if(!cp->isEnabled) {
-    *buf = '\0';
-    if(L > 0) return x_trace(fn, NULL, X_NO_SERVICE);
-    return X_NO_SERVICE;
-  }
-
   // From here on L is the number of characters actually buffered (excluding termination).
   if(L > length) L = length;
 

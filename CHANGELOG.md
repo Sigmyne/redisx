@@ -28,6 +28,8 @@ Upcoming maintenance release.
  - #31: Portability to Windows / MSC.
  
  - #33: More efficient reading of large string data, by skipping intermediate buffer when not necessary. 
+ 
+ - Removed superfluous (and potentially problemtatic) error check in `rReadToken()`.
 
  - `examples/Makefile` to work standalone, without `config.mk`.
 
