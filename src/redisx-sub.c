@@ -539,7 +539,7 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
   RESP *reply = NULL, **component;
   int i, status;
 
-#if !WIN32
+#if !defined(_MSC_VER)
   pthread_detach(pthread_self());
 #endif
 
@@ -547,7 +547,7 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
 
   status = redisxCheckValid(redis);
   if(status != X_SUCCESS) {
-#if WIN32
+#if defined(_MSC_VER)
     return x_trace("RedisSubscriptionListener", NULL, status);
 #else
     return x_trace_null("RedisSubscriptionListener", NULL);
@@ -635,7 +635,7 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
 
   redisxDestroyRESP(reply);
 
-#if WIN32
+#if defined(_MSC_VER)
   CloseHandle(GetCurrentThread());
   return 0;
 #else
@@ -657,13 +657,13 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
 static int rStartSubscriptionListenerAsync(Redis *redis) {
   RedisPrivate *p = (RedisPrivate *) redis->priv;
 
-#if SET_PRIORITIES && !WIN32
+#if SET_PRIORITIES && !defined(_MSC_VER)
   struct sched_param param;
 #endif
 
   p->isSubscriptionListenerEnabled = TRUE;
 
-#if WIN32
+#if defined(_MSC_VER)
   p->subscriptionListenerTID = CreateThread(NULL, 0, RedisSubscriptionListener, redis, 0, NULL);
   if(p->subscriptionListenerTID == NULL)
 #else
@@ -676,7 +676,7 @@ static int rStartSubscriptionListenerAsync(Redis *redis) {
   }
 
 #if SET_PRIORITIES
-#  if WIN32
+#  if defined(_MSC_VER)
   SetThreadPriority(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
 #  else
   param.sched_priority = REDISX_LISTENER_PRIORITY;

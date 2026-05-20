@@ -308,7 +308,7 @@ static XTHREAD_RTN ClusterRefreshThread(XTHREAD_ARG pCluster) {
   cp->reconfiguring = FALSE;
   xmut_unlock(&cp->mutex);
 
-#if WIN32
+#if defined(_MSC_VER)
   CloseHandle(GetCurrentThread());
   return 0;
 #else
@@ -365,7 +365,7 @@ int rClusterRefresh(RedisCluster *cluster) {
   xmut_lock(&cp->mutex);
 
   errno = 0;
-#if WIN32
+#if defined(_MSC_VER)
   tid = CreateThread(NULL, 0, ClusterRefreshThread, cluster, 0, NULL);
   if(tid == NULL)
 #else

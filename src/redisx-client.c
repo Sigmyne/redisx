@@ -15,7 +15,7 @@
 #include <ctype.h>
 #include <sys/types.h>
 
-#if WIN32
+#if defined(_MSC_VER)
 #  include <winsock2.h>
 #  define poll          WSAPoll
 #  define ioctl         ioctlsocket
@@ -26,7 +26,7 @@
 
 #if __Lynx__
 #  include <socket.h>
-#elif !WIN32
+#elif !defined(_MSC_VER)
 #  include <sys/socket.h>
 #endif
 
@@ -132,7 +132,7 @@ static int rReadBytesAsync(ClientPrivate *cp, char *buf, int length) {
 static int rReadToCacheAsync(ClientPrivate *cp) {
   static const char *fn = "rReadToCacheAsync";
 
-#if WIN32
+#if defined(_MSC_VER)
   WSAPOLLFD pfd;
 #else
   struct pollfd pfd;
@@ -938,7 +938,7 @@ int redisxGetAvailableAsync(RedisClient *cl) {
   static const char *fn = "redisxGetAvailableAsync";
 
   ClientPrivate *cp;
-#if WIN32
+#if defined(_MSC_VER)
   u_long n = 0;
 #else
   int n = 0;

@@ -19,7 +19,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#if WIN32
+#if defined(_MSC_VER)
 #  include <conio.h>
 #else
 #  include <bsd/readpassphrase.h>
@@ -126,7 +126,7 @@ static XTHREAD_RTN ListenerThread(XTHREAD_ARG nil) {
     nanosleep(&nap, NULL);
   }
 
-#if WIN32
+#if defined(_MSC_VER)
   CloseHandle(GetCurrentThread());
   return 0;    /* NOT REACHED */
 #else
@@ -181,7 +181,7 @@ static int interactive(Redis *redis) {
 
   using_history();
 
-#if WIN32
+#if defined(_MSC_VER)
   listenerTID = CreateThread(NULL, 0, ListenerThread, NULL, 0, NULL);
   if(listenerTID == NULL)
 #else
@@ -279,7 +279,7 @@ static const char **setScriptArgs(const char *script, const char **args, int *na
   return a;
 }
 
-#if WIN32
+#if defined(_MSC_VER)
 char *readpassphrase(const char *prompt, char *buf, size_t bufsiz, int flags) {
     char c;
     int pos = 0;

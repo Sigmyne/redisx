@@ -6,7 +6,7 @@
  */
 
 #include <stdio.h>
-#if WIN32
+#if defined(_MSC_VER)
 #  include <io.h>       // _access()
 #  define access(path, mode) _access(path, mode)    ///< map _access() to access()
 #  define X_OK          0   ///< for _access()

@@ -19,7 +19,7 @@
 #include <string.h>
 #include <errno.h>
 
-#if WIN32
+#if defined(_MSC_VER)
 #  include <io.h>           // _close()
 #  include <process.h>      // _getpid()
 #  include <winsock2.h>     // inet_ntoa()
@@ -41,7 +41,7 @@
 #if __Lynx__ && __powerpc__
 #  include <socket.h>
 #  include <time.h>
-#elif !WIN32
+#elif !defined(_MSC_VER)
 #  include <sys/time.h>
 #  include <netinet/ip.h>
 #  include <sys/types.h>    // getaddrinfo()
@@ -717,7 +717,7 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
   } serverAddress = {};
   int addrlen = sizeof(struct sockaddr_in);
 
-#if WIN32
+#if defined(_MSC_VER)
   DWORD namelen;
 #else
   struct utsname u;
@@ -785,7 +785,7 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
   xvprintf("Redis-X> client %d assigned socket fd %d.\n", channel, sock);
 
   // Set the client name in Redis.
-#if WIN32
+#if defined(_MSC_VER)
   namelen = sizeof(host) - 1;
   GetComputerNameA(host, &namelen);
 #else
@@ -1148,7 +1148,7 @@ XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
   void (*consume)(RESP *response);
   int status;
 
-#if !WIN32
+#if !defined(_MSC_VER)
   pthread_detach(pthread_self());
 #endif
 
@@ -1156,7 +1156,7 @@ XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
 
   status = redisxCheckValid(redis);
   if(status != X_SUCCESS) {
-#if WIN32
+#if defined(_MSC_VER)
     return x_trace("RedisPipelineListener", NULL, status);
 #else
     return x_trace_null("RedisPipelineListener", NULL);
@@ -1209,7 +1209,7 @@ XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
 
   if(reply != NULL) redisxDestroyRESP(reply);
 
-#if WIN32
+#if defined(_MSC_VER)
   CloseHandle(GetCurrentThread());
   return 0;
 #else
@@ -1229,13 +1229,13 @@ XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
 static int rStartPipelineListenerAsync(Redis *redis) {
   RedisPrivate *p = (RedisPrivate *) redis->priv;
 
-#if SET_PRIORITIES && !WIN32
+#if SET_PRIORITIES && !defined(_MSC_VER)
   struct sched_param param;
 #endif
 
   p->isPipelineListenerEnabled = TRUE;
 
-#if WIN32
+#if defined(_MSC_VER)
   p->pipelineListenerTID = CreateThread(NULL, 0, RedisPipelineListener, redis, 0, NULL);
   if(p->pipelineListenerTID == NULL)
 #else
@@ -1248,7 +1248,7 @@ static int rStartPipelineListenerAsync(Redis *redis) {
   }
 
 #if SET_PRIORITIES
-#  if WIN32
+#  if defined(_MSC_VER)
   SetThreadPriority(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
 #  else
   param.sched_priority = REDISX_LISTENER_PRIORITY;

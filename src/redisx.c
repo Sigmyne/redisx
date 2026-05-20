@@ -31,7 +31,7 @@
 #else
 #endif
 
-#if WIN32
+#if defined(_MSC_VER)
 #  define REDIX_LISTENER_PRIORITY     THREAD_PRIORITY_HIGHEST
 #else
 #  define XPRIO_MIN                   (sched_get_priority_min(SCHED_RR))
