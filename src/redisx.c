@@ -135,8 +135,8 @@ void redisxDebugTraffic(boolean value) {
  * your Redis instance to have the desired effect.
  *
  * @param redis     Pointer to the Redis instance for which to set credentials
- * @param username  the password to use for authenticating on the server, or NULL to clear a
- *                  previously configured password.
+ * @param username  the  user name to use for authenticating on the server, or NULL to clear a
+ *                  previously configured user name.
  * @return          X_SUCCESS (0) if successful, X_NULL if the redis argument is NULL, or
  *                  X_ALREADY_OPEN if called after Redis was already connected.
  *
@@ -295,12 +295,12 @@ int redisxSetSocketConfigurator(Redis *redis, RedisSocketConfigurator func) {
  *
  * \param redis     The Redis instance to configure.
  * \param f         The error handler function, which is called with the pointer to the redis
- *                  instance that had the errror, the redis channel index
+ *                  instance that had the error, the redis channel index
  *                  (e.g. REDIS_INTERACTIVE_CHANNEL) and the operation (e.g. 'send' or 'read')
  *                  that failed. Note, that the call may be made with the affected Redis
  *                  channel being in a locked state. As such the handler should not directly
  *                  attempt to change the connection state of the Redis instance. Any calls
- *                  that require exlusive access to the affected channel should instead be
+ *                  that require exclusive access to the affected channel should instead be
  *                  spawn off into a separate thread, which can obtain the necessary lock
  *                  when it is released.
  *
@@ -466,13 +466,14 @@ static void rAffirmDB(Redis *redis) {
 int redisxSelectDB(Redis *redis, int idx) {
   static const char *fn = "redisxSelectDB";
 
-  const RedisPrivate *p;
+  RedisPrivate *p;
   enum redisx_channel c;
   int dbIdx, status = X_SUCCESS;
 
   prop_error(fn, rConfigLock(redis));
   p = (RedisPrivate *) redis->priv;
   dbIdx = p->config.dbIndex;
+  p->config.dbIndex = idx;
   rConfigUnlock(redis);
 
   if(dbIdx == idx) return X_SUCCESS;
@@ -488,7 +489,7 @@ int redisxSelectDB(Redis *redis, int idx) {
 
     // We can't switch unconnected clients or the existing subscription client
     if(s != X_SUCCESS || c == REDISX_SUBSCRIPTION_CHANNEL) {
-      if(!s) status = X_INCOMPLETE;
+      status = X_INCOMPLETE;
       redisxUnlockClient(cl);
       continue;
     }
@@ -500,7 +501,7 @@ int redisxSelectDB(Redis *redis, int idx) {
       char str[20];
       sprintf(str, "%d", idx);
 
-      status = X_INCOMPLETE;
+      status = s;
       x_trace(fn, str, status);
     }
   }
@@ -818,7 +819,7 @@ RESP *redisxGetAttributes(Redis *redis) {
  * simply place a copy of the RESP on a queue and then return quickly, and then process the message
  * asynchronously in a background thread.</li>
  * <li>The client on which the push is originated will be locked, thus the implementation should
- * avoid getting explusive access to the client</li>
+ * avoid getting exclusive access to the client</li>
  * </ul>
  *
  * @param redis   Redis instance
@@ -872,7 +873,7 @@ RESP *redisxGetHelloData(Redis *redis) {
  * @return        An allocated lookup table containing the key/value pairs extracted
  */
 XLookupTable *rConsumeInfoReply(RESP *reply) {
-  static const char *fn = "rProcessInfoReply";
+  static const char *fn = "rConsumeInfoReply";
   static const char *delims = "\r\n";
 
   XStructure *s;
@@ -900,6 +901,10 @@ XLookupTable *rConsumeInfoReply(RESP *reply) {
   redisxDestroyRESP(reply);
 
   lookup = xCreateLookup(s, FALSE);
+
+  // The lookup contains references to the structure fields, so we
+  // just need to destroy the structure container here, without destroying
+  // the fields contained within.
   free(s);
 
   return lookup;

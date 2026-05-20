@@ -19,6 +19,8 @@ Upcoming maintenance release.
  
  - Fix potential buffer overflow at build time in `docedit.c` (changed `sprintf()` to `snprintf()`).
  
+ - `redisxSelectDB()` to store updated DB index (it did not before).
+ 
 ### Added
 
  - #30: Added CMake build configuration and CI workflows.
