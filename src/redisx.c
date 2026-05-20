@@ -27,12 +27,13 @@
 /// \cond PRIVATE
 
 #if DEBUG
-#define SET_PRIORITIES              FALSE       ///< Disable if you want to use gdb to debug...
-#else
+#  define SET_PRIORITIES              FALSE       ///< Disable if you want to use gdb to debug...
 #endif
 
 #if defined(_MSC_VER)
-#  define REDIX_LISTENER_PRIORITY     THREAD_PRIORITY_HIGHEST
+#  define REDISX_LISTENER_PRIORITY    THREAD_PRIORITY_HIGHEST
+
+#  define strtok_r                    strtok_s    ///< MSC equivalent
 #else
 #  define XPRIO_MIN                   (sched_get_priority_min(SCHED_RR))
 #  define XPRIO_MAX                   (sched_get_priority_max(SCHED_RR))
@@ -55,7 +56,7 @@ extern int debugTraffic;            ///< Whether to print excerpts of all traffi
  *                is not initialized.
  */
 int redisxCheckValid(const Redis *redis) {
-  static const char *fn = "rCheckRedis";
+  static const char *fn = "redisxCheckValid";
   if(!redis) return x_error(X_NULL, EINVAL, fn, "Redis instance is NULL");
   if(!redis->priv) return x_error(X_NO_INIT, ENXIO, fn, "Redis instance is not initialized");
   return X_SUCCESS;
@@ -64,7 +65,7 @@ int redisxCheckValid(const Redis *redis) {
 /// \cond PROTECTED
 
 /**
- * Waits to get exlusive access to configuring the properties of a Redis instance.
+ * Waits to get exclusive access to configuring the properties of a Redis instance.
  *
  * \param redis         Pointer to a Redis instance.
  *
@@ -107,7 +108,7 @@ void redisxSetVerbose(boolean value) {
 }
 
 /**
- * Checks id verbose reporting is enabled.
+ * Checks if verbose reporting is enabled.
  *
  * \return          TRUE if verbose reporting is enabled, otherwise FALSE.
  */
@@ -190,7 +191,7 @@ int redisxSetPassword(Redis *redis, const char *passwd) {
 
 
 /**
- * Sets the RESP prorocol version to use for future client connections. The protocol is set with the
+ * Sets the RESP protocol version to use for future client connections. The protocol is set with the
  * HELLO command, which was introduced in Redis 6.0.0 only. For older Redis server instances, the
  * protocol will default to RESP2. Calling this function will enable using HELLO to handshake with
  * the server.
@@ -256,7 +257,7 @@ enum redisx_protocol redisxGetProtocol(Redis *redis) {
 int redisxSetReplyTimeout(Redis *redis, int timeoutMillis) {
   ClientPrivate *cp;
 
-  prop_error("redisxSetTcpBuf", rConfigLock(redis));
+  prop_error("redisxSetReplyTimeout", rConfigLock(redis));
   cp = (ClientPrivate *) redis->interactive->priv;
   cp->timeoutMillis = timeoutMillis > 0 ? timeoutMillis : -1;
   rConfigUnlock(redis);
@@ -265,7 +266,7 @@ int redisxSetReplyTimeout(Redis *redis, int timeoutMillis) {
 }
 
 /**
- * Sets a user-defined callback for additioan custom configuring of client sockets
+ * Sets a user-defined callback for additional custom configuration of the client sockets.
  *
  *
  * @param redis     The Redis server instance
@@ -282,7 +283,6 @@ int redisxSetSocketConfigurator(Redis *redis, RedisSocketConfigurator func) {
 
   prop_error(fn, rConfigLock(redis));
   p = (RedisPrivate *) redis->priv;
-  p->config.hello = TRUE;
   p->config.socketConf = func;
   rConfigUnlock(redis);
 
@@ -290,7 +290,7 @@ int redisxSetSocketConfigurator(Redis *redis, RedisSocketConfigurator func) {
 }
 
 /**
- * Sets the user-specific error handler to call if a socket level trasmit error occurs.
+ * Sets the user-specific error handler to call if a socket level transmit error occurs.
  * It replaces any prior handlers set earlier.
  *
  * \param redis     The Redis instance to configure.
@@ -363,7 +363,7 @@ int redisxGetTime(Redis *redis, struct timespec *t) {
     return x_error(X_PARSE_ERROR, errno, fn, "tv_sec parse error: '%s'", (char *) components[0]->value);
   }
 
-  status = redisxCheckRESP(components[0], RESP_BULK_STRING, 0);
+  status = redisxCheckRESP(components[1], RESP_BULK_STRING, 0);
   if(status) {
     redisxDestroyRESP(reply);
     return x_trace(fn, NULL, status);
@@ -408,7 +408,7 @@ int redisxPing(Redis *redis, const char *message) {
 }
 
 /**
- * Siwtches to another database. This version should be called with an exclusive lock on the affected
+ * Switches to another database. This version should be called with an exclusive lock on the affected
  * client.
  *
  * @param cl          the redis client
@@ -420,7 +420,7 @@ int redisxPing(Redis *redis, const char *message) {
  * @sa redisxLockConnected()
  */
 static int redisxSelectDBAsync(RedisClient *cl, int idx, boolean confirm) {
-  static const char *fn = "redisxSelectClientDBAsync";
+  static const char *fn = "redisxSelectDBAsync";
 
   char sval[20];
 
@@ -487,7 +487,7 @@ int redisxSelectDB(Redis *redis, int idx) {
     int s = redisxLockConnected(cl);
 
     // We can't switch unconnected clients or the existing subscription client
-    if(s == REDIS_INVALID_CHANNEL || c == REDISX_SUBSCRIPTION_CHANNEL) {
+    if(s != X_SUCCESS || c == REDISX_SUBSCRIPTION_CHANNEL) {
       if(!s) status = X_INCOMPLETE;
       redisxUnlockClient(cl);
       continue;
@@ -525,7 +525,7 @@ int redisxError(const char *func, int errorCode) {
   if(xDebug) {
     static int errorCount;
     fprintf(stderr, "DEBUG-X> %4d (%s) in %s.\n", errorCode, redisxErrorDescription(errorCode), func);
-    if(errorCount > MAX_DEBUG_ERROR_COUNT) {
+    if(++errorCount > MAX_DEBUG_ERROR_COUNT) {
       fprintf(stderr, "Redis-X> Reached max debug count. Exiting program with %d.\n", errorCode);
       exit(errorCode);
     }
@@ -539,7 +539,7 @@ int redisxError(const char *func, int errorCode) {
  *
  * \param redis         Pointer to a Redis instance.
  *
- * \return      TRUE (1) if the pipeline client is enabled on the Redis intance, or FALSE (0) otherwise.
+ * \return      TRUE (1) if the pipeline client is enabled on the Redis instance, or FALSE (0) otherwise.
  */
 boolean redisxHasPipeline(Redis *redis) {
   static const char *fn = "redisxHasPipeline";
@@ -873,17 +873,19 @@ RESP *redisxGetHelloData(Redis *redis) {
  */
 XLookupTable *rConsumeInfoReply(RESP *reply) {
   static const char *fn = "rProcessInfoReply";
+  static const char *delims = "\r\n";
 
   XStructure *s;
   XLookupTable *lookup;
   const char *line;
+  char *context = NULL;
 
   if(redisxCheckDestroyRESP(reply, RESP_BULK_STRING, 0) != 0) return x_trace_null(fn, NULL);
 
   s = xCreateStruct();
 
   // Go line by line...
-  line = strtok((char *) reply->value, "\r\n");
+  line = strtok_r((char *) reply->value, delims, &context);
 
   // Parse key:value lines into a structure.
   while(line) {
@@ -892,7 +894,7 @@ XLookupTable *rConsumeInfoReply(RESP *reply) {
       *sep = '\0';
       xSetField(s, xCreateStringField(line, sep + 1));
     }
-    line = strtok(NULL, "\r\n");
+    line = strtok_r(NULL, delims, &context);
   }
 
   redisxDestroyRESP(reply);
