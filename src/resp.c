@@ -583,7 +583,7 @@ static XField *respArrayToXField(const char *name, const RESP **component, int n
     for(i = 0; i < n; i++) {
       XField *e;
       char idx[20];
-      sprintf(idx, ".%d", (i + 1));
+      x_snprintf(idx, sizeof(idx), ".%d", (i + 1));
       e = redisxRESP2XField(idx, component[i]);
       if(e) {
         array[i] = *e;
@@ -610,7 +610,7 @@ static XField *respArrayToXField(const char *name, const RESP **component, int n
       XField *e;
       char idx[20];
 
-      sprintf(idx, ".%d", (i + 1));
+      x_snprintf(idx, sizeof(idx), ".%d", (i + 1));
       e = redisxRESP2XField(idx, component[i]);
       if(e) {
         memcpy(&array[i * eSize], e->value, eSize);
@@ -646,7 +646,7 @@ static XField *respMap2XField(const char *name, const RedisMap *map, int n) {
       XStructure *sub = xCreateStruct();
       xSetField(sub, redisxRESP2XField("value", e->value));
       xSetField(sub, redisxRESP2XField("key", e->key));
-      sprintf(idx, ".%d", ++nNonString);
+      x_snprintf(idx, sizeof(idx), ".%d", ++nNonString);
       if(!nonstring)
         nonstring = xCreateStruct();
       xSetSubstruct(nonstring, idx, sub);

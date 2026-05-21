@@ -325,7 +325,7 @@ static int rReadBytes(ClientPrivate *cp, char *buf, int length) {
  *                      an error with send().
  *
  */
-static int rSendBytesAsync(ClientPrivate *cp, const char *buf, int length, boolean isLast) {
+static int rSendBytesAsync(ClientPrivate *cp, const char *buf, size_t length, boolean isLast) {
   static const char *fn = "rSendBytesAsync";
 
 #if SEND_YIELD_COUNT > 0
@@ -337,7 +337,7 @@ static int rSendBytesAsync(ClientPrivate *cp, const char *buf, int length, boole
 
   if(!buf) return x_error(X_NULL, EINVAL, fn, "buffer is NULL");
 
-  trprintf("\n ... write %d bytes to client %d socket\n%s\n", length, (int) cp->idx, buf);
+  trprintf("\n ... write %zu bytes to client %d socket\n%s\n", length, (int) cp->idx, buf);
 
   if(!cp->isEnabled) return x_error(X_NO_SERVICE, ENOTCONN, fn, "client %d: disabled", (int) cp->idx);
   if(sock < 0) return x_error(X_NO_SERVICE, ENOTCONN, fn, "client %d: not connected", (int) cp->idx);
@@ -715,7 +715,8 @@ int redisxSendRequestAsync(RedisClient *cl, const char *command, const char *arg
 int redisxSendArrayRequestAsync(RedisClient *cl, const char **args, const int *lengths, int n) {
   static const char *fn = "redisxSendArrayRequestAsync";
   char buf[REDISX_CMDBUF_SIZE];
-  int i, L;
+  int i;
+  size_t L; // L never exceeds the size of buf -- there are checks below to ensure that.
   ClientPrivate *cp;
 
   prop_error(fn, rCheckClient(cl));
@@ -724,7 +725,7 @@ int redisxSendArrayRequestAsync(RedisClient *cl, const char **args, const int *l
   if(!cp->isEnabled) return x_error(X_NO_SERVICE, ENOTCONN, fn, "client is not connected");
 
   // Send the number of string elements in the command...
-  L = sprintf(buf, "*%d\r\n", n);
+  L = x_snprintf(buf, sizeof(buf), "*%d\r\n", n);
 
   xvprintf("Redis-X> request[%d]", n);
   for(i = 0; i < n; i++) {
@@ -736,43 +737,41 @@ int redisxSendArrayRequestAsync(RedisClient *cl, const char **args, const int *l
   xvprintf("\n");
 
   for(i = 0; i < n; i++) {
-    int l, L1;
+    size_t l, L1;
 
     if(!args[i]) l = 0; // Check for potential NULL parameters...
-    else if(lengths) l = lengths[i] > 0 ? lengths[i] : (int) strlen(args[i]);
-    else l = (int) strlen(args[i]);
+    else if(lengths) l = lengths[i] > 0 ? (size_t) lengths[i] : strlen(args[i]);
+    else l = strlen(args[i]);
 
-
-    L += sprintf(buf + L, "$%d\r\n", l);
+    L += x_snprintf(buf + L, sizeof(buf) - L, "$%zu\r\n", l);
 
     // length of next RESP the bulk string component including \r\n\0 termination.
     L1 = l + 3;
 
-    if((L + L1) > REDISX_CMDBUF_SIZE) {
+    // Check if we have room for the argument plus `\r\n` and string termination
+    if((L + L1) > sizeof(buf)) {
       // If buf cannot include the next argument, then flush the buffer...
       prop_error(fn, rSendBytesAsync(cp, buf, L, FALSE));
+      L = 0; // Buffer cleared...
 
-      L = 0;
-
-      // If the next argument does not fit into the buffer, then send it piecemeal
-      if(L1 > REDISX_CMDBUF_SIZE) {
+      if(L1 > sizeof(buf)) {
+        // If the next argument does not fit into the buffer, then send it directly.
         prop_error(fn, rSendBytesAsync(cp, args[i], l, FALSE));
         prop_error(fn, rSendBytesAsync(cp, "\r\n", 2, i == (n-1)));
       }
       else {
-        if(l > 0) memcpy(buf, args[i], l);            // Copy argument into buffer.
-        L = l + sprintf(buf+l, "\r\n");     // Add \r\n\0...
+        // Start adding to buffer...
+        L = x_snprintf(buf, sizeof(buf), "%s\r\n", args[i]);     // <arg>\r\n\0...
       }
     }
     else {
-      if(l > 0) memcpy(buf+L, args[i], l);            // Copy argument into buffer.
-      L += l;
-      L += sprintf(buf+L, "\r\n");          // Add \r\n\0
+      // Keep adding to buffer as long as we can fit arguments...
+      L += x_snprintf(buf + L, sizeof(buf) - L, "%s\r\n", args[i]);          // <arg>\r\n\0
     }
   }
 
   // flush the remaining bits in the buffer...
-  if(L > 0) {
+  if(L) {
     prop_error(fn, rSendBytesAsync(cp, buf, L, TRUE));
   }
 

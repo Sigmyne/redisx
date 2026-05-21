@@ -176,8 +176,15 @@ static void PushProcessor(RedisClient *cl, RESP *resp, void *ptr) {
 
 static int interactive(Redis *redis) {
   XTHREAD_ID listenerTID;
-  char *prompt = malloc(strlen(host) + 20);
-  sprintf(prompt, "%s:%d> ", host, port);
+  size_t len = strlen(host) + 20;
+  char *prompt = malloc(len);
+
+  if(!prompt) {
+    perror("ERROR! prompt alloc error");
+    exit(errno);
+  }
+
+  x_snprintf(prompt, len, "%s:%d> ", host, port);
 
   using_history();
 
@@ -262,7 +269,7 @@ static const char **setScriptArgs(const char *script, const char **args, int *na
 
   // Count the number of keys on the command-line up to the comma separator
   for(nkeys = 0; nkeys < n; nkeys++) if(strcmp(",", args[nkeys])) break;
-  sprintf(keys, "%d", nkeys);
+  x_snprintf(keys, sizeof(keys), "%d", nkeys);
 
   a = (const char **) calloc((n + 2), sizeof(char *));
   x_check_alloc(a);

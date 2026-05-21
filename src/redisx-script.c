@@ -73,7 +73,7 @@ static const char **rGetScriptArgs(const char *sha1, const char **keys, const ch
   if(params) while(params[nparams]) nparams++;
 
   n = 3 + nkeys + nparams;
-  sprintf(sn, "%d", nkeys);
+  x_snprintf(sn, sizeof(sn), "%d", nkeys);
   args = (const char **) malloc(n * sizeof(char *));
   if(!args) {
     *nargs = x_error(X_FAILURE, errno, "rGetScriptArgs", "alloc() error (%d char *)", n);

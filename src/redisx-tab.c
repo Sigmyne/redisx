@@ -632,7 +632,7 @@ char **redisxScanKeys(Redis *redis, const char *pattern, int *n) {
 
   i = redisxGetScanCount(redis);
   if(i > 0) {
-    sprintf(countArg, "%d", i);
+    x_snprintf(countArg, sizeof(countArg), "%d", i);
     cmd[args++] = "COUNT";
     cmd[args++] = countArg;
   }
@@ -805,7 +805,7 @@ RedisEntry *redisxScanTable(Redis *redis, const char *table, const char *pattern
 
   i = redisxGetScanCount(redis);
   if(i > 0) {
-    sprintf(countArg, "%d", i);
+    x_snprintf(countArg, sizeof(countArg), "%d", i);
     cmd[args++] = "COUNT";
     cmd[args++] = countArg;
   }

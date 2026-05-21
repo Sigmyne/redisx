@@ -651,7 +651,7 @@ static int rHelloAsync(RedisClient *cl, const char *clientID) {
   args[k++] = "HELLO";
 
   // Try HELLO and see what we get back...
-  sprintf(proto, "%d", (int) config->protocol);
+  x_snprintf(proto, sizeof(proto), "%d", (int) config->protocol);
   args[k++] = proto;
 
   if(p->config.password) {
@@ -729,6 +729,7 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
   RedisConfig *config;
 
   const char *channelID;
+  size_t idlen;
   char host[200], *id;
   int status = X_SUCCESS;
   uint16_t port;
@@ -793,14 +794,16 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
   strncpy(host, u.nodename, sizeof(host) - 1);
 #endif
 
-  id = (char *) malloc(strlen(host) + 100);      // <host>:pid-<pid>:<channel> + termination;
+  idlen = strlen(host) + 100;
+  id = (char *) malloc(idlen);      // <host>:pid-<pid>:<channel> + termination;
   switch(cp->idx) {
     case REDISX_INTERACTIVE_CHANNEL: channelID = "interactive"; break;
     case REDISX_PIPELINE_CHANNEL: channelID = "pipeline"; break;
     case REDISX_SUBSCRIPTION_CHANNEL: channelID = "subscription"; break;
     default: channelID = "unknown";
   }
-  sprintf(id, "%s:pid-%d:%s", host, (int) getpid(), channelID);
+
+  x_snprintf(id, idlen, "%s:pid-%d:%s", host, (int) getpid(), channelID);
 
   redisxLockClient(cl);
 

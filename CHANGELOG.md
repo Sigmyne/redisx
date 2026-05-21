@@ -31,6 +31,9 @@ Upcoming maintenance release.
  
  - #33: More efficient reading of large string data, by skipping intermediate buffer when not necessary. 
  
+ - #34: Use `snprintf()` instead of `sprintf()` provided it's available. (On older platforms prior to the C99 
+   standard, it defaults to `sprintf()`.)
+ 
  - Removed superfluous (and potentially problematic) error check in `rReadToken()`.
 
  - `examples/Makefile` to work standalone, without `config.mk`.
