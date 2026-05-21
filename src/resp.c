@@ -746,7 +746,7 @@ char *redisxRESP2JSON(const char *name, const RESP *resp) {
 }
 
 /**
- * Prints a RESP as a JSON fragmen to the standard output with the specified name
+ * Prints a RESP as a JSON fragment to the standard output with the specified name
  *
  * @param name    The name/ID to assign to the RESP
  * @param resp    The RESP data to print
@@ -915,7 +915,7 @@ void redisxPrintDelimited(const RESP *resp, const char *delim, const char *group
         if(resp->n > 1) printf("%s", groupPrefix);
         for(i = 0; i < resp->n; i++) {
           redisxPrintDelimited(component[i].key, delim, groupPrefix);
-          redisxPrintDelimited(component[i].key, delim, groupPrefix);
+          redisxPrintDelimited(component[i].value, delim, groupPrefix);
         }
       }
       else printf("%s", delim);
