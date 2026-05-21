@@ -426,7 +426,7 @@ static int redisxSelectDBAsync(RedisClient *cl, int idx, boolean confirm) {
 
   if(!confirm) prop_error(fn, redisxSkipReplyAsync(cl));
 
-  sprintf(sval, "%d", idx);
+  x_snprintf(sval, sizeof(sval), "%d", idx);
   prop_error(fn, redisxSendRequestAsync(cl, "SELECT", sval, NULL, NULL));
 
   if(confirm) {
@@ -499,7 +499,7 @@ int redisxSelectDB(Redis *redis, int idx) {
 
     if(s) {
       char str[20];
-      sprintf(str, "%d", idx);
+      x_snprintf(str, sizeof(str), "%d", idx);
 
       status = s;
       x_trace(fn, str, status);

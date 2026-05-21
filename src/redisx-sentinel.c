@@ -33,7 +33,7 @@ static int rConnectNodeAsync(Redis *redis, int serverIndex) {
   char desc[40];
   int status;
 
-  sprintf(desc, "sentinel %d", serverIndex);
+  x_snprintf(desc, sizeof(desc), "sentinel %d", serverIndex);
   xvprintf("Redis-X> Connect to %s.\n", desc);
 
   prop_error(fn, rSetServerAsync(redis, desc, server.host, server.port));
