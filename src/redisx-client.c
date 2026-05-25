@@ -632,7 +632,7 @@ RESP *redisxExecBlockAsync(RedisClient *cl, int *pStatus) {
     redisxDestroyRESP(reply);
   }
 
-  return NULL;
+  return NULL; // NOT REACHED
 }
 
 /**
@@ -761,12 +761,12 @@ int redisxSendArrayRequestAsync(RedisClient *cl, const char **args, const int *l
       }
       else {
         // Start adding to buffer...
-        L = x_snprintf(buf, sizeof(buf), "%s\r\n", args[i]);     // <arg>\r\n\0...
+        L = x_snprintf(buf, sizeof(buf), "%s\r\n", args[i] ? args[i] : "");     // <arg>\r\n\0...
       }
     }
     else {
       // Keep adding to buffer as long as we can fit arguments...
-      L += x_snprintf(buf + L, sizeof(buf) - L, "%s\r\n", args[i]);          // <arg>\r\n\0
+      L += x_snprintf(buf + L, sizeof(buf) - L, "%s\r\n", args[i] ? args[i] : "");          // <arg>\r\n\0
     }
   }
 
