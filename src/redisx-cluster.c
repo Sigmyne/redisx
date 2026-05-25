@@ -185,7 +185,7 @@ static RedisShard *rClusterDiscoverAsync(Redis *redis, int *n_shards) {
   }
 
   if(redisxCheckRESP(reply, RESP_ARRAY, 0) == X_SUCCESS) {
-    // Process the response, indetifying the shards.
+    // Process the response, indentifying the shards.
     const RESP **array = (const RESP **) reply->value;
     int k;
 
@@ -222,7 +222,7 @@ static RedisShard *rClusterDiscoverAsync(Redis *redis, int *n_shards) {
       }
 
       // Identify the servers for this shard.
-      for(m = 0; m < s->n_servers; s++) {
+      for(m = 0; m < s->n_servers; m++) {
         const RESP **node = (const RESP **) desc[2 + m]->value;
         s->redis[m] = redisxInit((char *) node[0]->value);
 
@@ -385,11 +385,11 @@ int rClusterRefresh(RedisCluster *cluster) {
  * Returns the Redis server in a cluster which is to be used for queries relating to the
  * specified Redis keyword. In Redis cluster configurations, the database is distributed in
  * a way that each cluster node serves only a subset of the Redis keys. Thus, this function
- * allows to identify the node that serves a given key. The function supports Redish hashtags
+ * allows to identify the node that serves a given key. The function supports Redish hash tags
  * according to the specification.
  *
  * @param cluster     Pointer to a Redis cluster configuration
- * @param key         The Redis keyword of interest. It may use hashtags (i.e., if the keyword
+ * @param key         The Redis keyword of interest. It may use hash tags (i.e., if the keyword
  *                    contains a segment enclosed in {} brackets, then the hash will be
  *                    calculated on the bracketed segment only. E.g. `{user:1000}.name` and
  *                    `{user:1000}.address` will both return the same hash for `user:1000` only.
@@ -908,7 +908,7 @@ int redisxClusterAskMigratingAsync(RedisClient *cl, const char **args, const int
   if(!askargs) return x_error(X_FAILURE, errno, fn, "alloc error (%d char *)", (n + 1));
 
   if(lengths) {
-    asklen = (int *) malloc((n + 1) * sizeof(char *));
+    asklen = (int *) malloc((n + 1) * sizeof(int));
     if(!asklen) {
       free(askargs);
       return x_error(X_FAILURE, errno, fn, "alloc error (%d int)", (n + 1));

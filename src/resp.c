@@ -195,8 +195,8 @@ int redisxCheckDestroyRESP(RESP *resp, enum resp_type expectedType, int expected
  *
  * @param resp        The input RESP.
  * @param[out] text   (optional) pointer in which to return the start of the remnant text component.
- * @return n          the length of the remnant text (&lt;=0), or else X_NULL if the input RESP was NULL,
- *                    or REDIS_UNEXPEXCTED_RESP if the input RESP does not contain a two-component string
+ * @return n          the length of the remnant text (&gt;=0), or else X_NULL if the input RESP was NULL,
+ *                    or REDIS_UNEXPECTED_RESP if the input RESP does not contain a two-component string
  *                    value.
  *
  * @sa RESP_ERROR
@@ -432,7 +432,7 @@ int redisxAppendRESP(RESP *resp, RESP *part) {
  * Checks if two RESP are equal, that is they hold the same type of data, have the same 'n' value,
  * and the values match byte-for-byte, or are both NULL.
  *
- * @param a   Ponter to a RESP data structure.
+ * @param a   Pointer to a RESP data structure.
  * @param b   Pointer to another RESP data structure.
  * @return    TRUE (1) if the two RESP structures match, or else FALSE (0).
  */
@@ -665,7 +665,7 @@ static XField *respMap2XField(const char *name, const RedisMap *map, int n) {
  * <ul>
  * <li>RESP3_NULL values are converted to NULL.</li>
  * <li>Scalar values are converted to an XField with the equivalent type.</li>
- * <li>Homogenerous arrays are converted to a field with a 1D array of corresponding xchange type.</li>
+ * <li>Homogeneous arrays are converted to a field with a 1D array of corresponding xchange type.</li>
  * <li>Heterogeneous arrays are converted to a field with a 1D array of X_FIELD type (containing an array of fields).</li>
  * <li>Maps with string keywords are converted to an X_STRUCT.</li>
  * <li>Maps with non-string keywords are added under a sub-structure named '.non-string-keys' as indexed structures
