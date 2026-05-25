@@ -15,7 +15,7 @@
 
 /// \cond PRIVATE
 
-#define HASH_MASK   (16384 - 1);
+#define HASH_MASK   (16384 - 1)
 
 /**
  * A shard in a Redis cluster, serving a specific range of hashes.
@@ -210,11 +210,10 @@ static RedisShard *rClusterDiscoverAsync(Redis *redis, int *n_shards) {
       s->redis = (Redis **) calloc(s->n_servers, sizeof(Redis *));
 
       if(!s->redis) {
-        s->n_servers = 0;
         x_error(0, errno, fn, "alloc error (%d servers)\n", s->n_servers);
+        s->n_servers = 0;
         rDiscardShards(shards, *n_shards);
         *n_shards = X_FAILURE;
-
 
         if(!isConnected) rDisconnectAsync(redis);   // Restore th connection state of the configuring node.
 
@@ -470,7 +469,7 @@ Redis *redisxClusterGetShard(RedisCluster *cluster, const char *key) {
  * @sa redisxClusterMoved()
  */
 static Redis *rClusterGetShardByAddress(RedisCluster *cluster, const char *host, int port, boolean refresh) {
-  static const char *fn = "redisxClusterGetShard";
+  static const char *fn = "rClusterGetShardByAddress";
 
   ClusterPrivate *cp;
   int i;
@@ -560,7 +559,7 @@ RedisCluster *redisxClusterInit(Redis *node) {
   RedisCluster *cluster;
   ClusterPrivate *cp;
 
-  if(!rConfigLock(node)) return x_trace_null(fn, NULL);
+  if(rConfigLock(node) != X_SUCCESS) return x_trace_null(fn, NULL);
 
   cluster = (RedisCluster *) calloc(1, sizeof(RedisCluster));
   x_check_alloc(cluster);
@@ -863,7 +862,7 @@ RESP *redisxClusterAskMigrating(Redis *redis, const char **args, const int *leng
 
   if(s != X_SUCCESS) {
     if(status) *status = s;
-    x_trace_null(fn, NULL);
+    return x_trace_null(fn, NULL);
   }
 
   return reply;
