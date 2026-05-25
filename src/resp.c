@@ -226,7 +226,8 @@ int redisxSplitText(RESP *resp, char **text) {
 
     case RESP_ERROR:
     case RESP3_BLOB_ERROR: {
-      const char *code = strtok(str, " \t\r\n");
+      char *context = NULL;
+      const char *code = strtok_r(str, " \t\r\n", &context);
       int offset = strlen(code) + 1;
 
       if(offset < resp->n) {

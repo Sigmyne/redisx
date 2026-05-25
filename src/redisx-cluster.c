@@ -786,7 +786,7 @@ Redis *redisxClusterGetRedirection(RedisCluster *cluster, const RESP *redirect, 
   static const char *fn = "redisxClusterGetRedirection";
 
   const char *tok;
-  char *str;
+  char *str, *context = NULL;
 
   if(!cluster) {
     x_error(0, EINVAL, fn, "input cluster is NULL");
@@ -800,12 +800,12 @@ Redis *redisxClusterGetRedirection(RedisCluster *cluster, const RESP *redirect, 
   str = xStringCopyOf((char *) redirect->value);
   x_check_alloc(str);
 
-  strtok(str, " \t\r\n");   // MOVED or ASK
-  strtok(NULL, " \t\r\n");  // SLOT #
-  tok = strtok(NULL, ":");  // host:port
+  strtok_r(str, " \t\r\n", &context);   // MOVED or ASK
+  strtok_r(NULL, " \t\r\n", &context);  // SLOT #
+  tok = strtok_r(NULL, ":", &context);  // host:port
   if(tok) {
     const char *host = tok;
-    int port = strtol(strtok(NULL, " \t\r\n"), NULL, 10);
+    int port = strtol(strtok_r(NULL, " \t\r\n", &context), NULL, 10);
     free(str);
     return rClusterGetShardByAddress(cluster, host, port, refresh);
   }
