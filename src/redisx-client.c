@@ -337,7 +337,7 @@ static int rSendBytesAsync(ClientPrivate *cp, const char *buf, size_t length, bo
 
   if(!buf) return x_error(X_NULL, EINVAL, fn, "buffer is NULL");
 
-  trprintf("\n ... write %zu bytes to client %d socket\n%s\n", length, (int) cp->idx, buf);
+  trprintf("\n ... write %llu bytes to client %d socket\n%s\n", (unsigned long long) length, (int) cp->idx, buf);
 
   if(!cp->isEnabled) return x_error(X_NO_SERVICE, ENOTCONN, fn, "client %d: disabled", (int) cp->idx);
   if(sock < 0) return x_error(X_NO_SERVICE, ENOTCONN, fn, "client %d: not connected", (int) cp->idx);
@@ -743,7 +743,7 @@ int redisxSendArrayRequestAsync(RedisClient *cl, const char **args, const int *l
     else if(lengths) l = lengths[i] > 0 ? (size_t) lengths[i] : strlen(args[i]);
     else l = strlen(args[i]);
 
-    L += x_snprintf(buf + L, sizeof(buf) - L, "$%zu\r\n", l);
+    L += x_snprintf(buf + L, sizeof(buf) - L, "$%llu\r\n", (unsigned long long) l);
 
     // length of next RESP the bulk string component including \r\n\0 termination.
     L1 = l + 3;
