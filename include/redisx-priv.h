@@ -34,6 +34,7 @@
 #  define XTHREAD_RTN                 DWORD WINAPI
 
 #  define sched_yield                 SwitchToThread
+#  define strtok_r                    strtok_s    ///< MSC equivalent
 #else
 #  include <pthread.h>
 #  define XTHREAD_ID                  pthread_t   ///< The thread ID

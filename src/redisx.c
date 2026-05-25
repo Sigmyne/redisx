@@ -32,8 +32,6 @@
 
 #if defined(_MSC_VER)
 #  define REDISX_LISTENER_PRIORITY    THREAD_PRIORITY_HIGHEST
-
-#  define strtok_r                    strtok_s    ///< MSC equivalent
 #else
 #  define XPRIO_MIN                   (sched_get_priority_min(SCHED_RR))
 #  define XPRIO_MAX                   (sched_get_priority_max(SCHED_RR))
