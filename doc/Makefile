@@ -13,11 +13,6 @@ else
   $(shell test -f $(DOXYGEN))
 endif
 
-# Build only if there is doxygen
-ifneq ($(.SHELLSTATUS),0)
-  $(info WARNING! Doxygen is not available. Will skip)
-endif
-
 # Doxygen documentation (HTML and man pages) under docs/
 .PHONY: all
 all: Doxyfile ../src ../include README.md

@@ -15,13 +15,11 @@ ONLINE ?= 0
 
 REDIS = $(shell pidof redis-server)
 ifneq ($(REDIS),)
-  $(info INFO: Found running redis-server.)
   ONLINE = 1
 endif
 
 VALKEY = $(shell pidof valkey-server)
 ifneq ($(VALKEY),)
-  $(info INFO: Found running valkey-server.)
   ONLINE = 1
 endif
 

@@ -24,10 +24,6 @@ endif
 # If there is doxygen, build the API documentation also by default
 ifeq ($(.SHELLSTATUS),0)
   DOC_TARGETS += dox
-else
-  ifneq ($(DOXYGEN),none)
-    $(info WARNING! Doxygen is not available. Will skip 'dox' target)
-  endif
 endif
 
 # Link against thread libs
@@ -35,11 +31,18 @@ LDFLAGS += -lpthread
 
 # Build for distribution
 .PHONY: distro
-distro: $(LIBREDISX) tools $(DOC_TARGETS)
+distro: warn $(LIBREDISX) tools $(DOC_TARGETS)
+
+# Warn about limiting build options.
+.PHONY: warn
+warn:
+ifndef DOC_TARGETS
+	$(info WARNING! Doxygen is not available. Will skip 'dox' target)
+endif
 
 # Build everything...
 .PHONY: all
-all: $(LIBREDISX) tools examples $(DOC_TARGETS) check
+all: distro examples check
 
 # Shared libraries (versioned and unversioned)
 .PHONY: shared
