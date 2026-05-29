@@ -383,6 +383,7 @@ static void rShutdownClientAsync(RedisClient *cl) {
   if(sock < 0) return;
 
   shutdown(sock, SHUT_RD);
+  if(errno == EBADF) errno = 0;     // We don't care, really.
 
   // The above should release any lock on read, so we can confirm that...
   xmut_lock(&cp->readLock);
