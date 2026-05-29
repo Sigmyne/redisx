@@ -42,7 +42,7 @@ endif
 
 # Build everything...
 .PHONY: all
-all: distro examples check
+all: warn static shared tools $(DOC_TARGETS) examples check
 
 # Shared libraries (versioned and unversioned)
 .PHONY: shared
@@ -114,7 +114,7 @@ $(LIB)/libredisx.so.$(SO_VERSION): $(SOURCES)
 # Static library
 $(LIB)/libredisx.a: $(OBJECTS)
 
-# redisx-cli assitional link libraries...
+# redisx-cli additional link libraries...
 $(BIN)/redisx-cli: LDFLAGS += -lreadline -lbsd
 
 .PHONY: dox
