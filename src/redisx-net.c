@@ -156,7 +156,7 @@ static int hostnameToIP(const char *hostName, char *ip, void *addr) {
  * @param redis       A Redis instance
  * @param desc        The type of server, e.g. "master", "replica", "sentinel-18"
  * @param hostname    The new host name or IP address
- * @param port        The new port number, or &lt=0 to use the default Redis port.
+ * @param port        The new port number, or &lt;=0 to use the default Redis port.
  * @return            X_SUCCESS (0) if successful or else an error code &lt;0.
  */
 int rSetServerAsync(Redis *redis, const char *desc, const char *hostname, int port) {
@@ -244,7 +244,7 @@ static void rConfigSocket(int socket, int timeoutMillis, int tcpBufSize, boolean
       x_warn(fn, "socket send buf size not set: %s", strerror(errno));
 
     if(setsockopt(socket, SOL_SOCKET, SO_RCVBUF, (sockopt_t) &tcpBufSize, sizeof(int)))
-      x_warn(fn, "socket send buf size not set: %s", strerror(errno));
+      x_warn(fn, "socket recv buf size not set: %s", strerror(errno));
   }
 }
 
@@ -300,7 +300,7 @@ static int rRegisterServer(Redis *redis) {
  *                      connection only.
  *
  * \return      X_SUCCESS (0)       if successful, or
- *              X_ALREADY_OPEN      if the Redis instance is alreast connected.
+ *              X_ALREADY_OPEN      if the Redis instance is already connected.
  *              X_NO_SERVICE        if there was an error connecting to Redis,
  *              or else an error (&lt;0) returned by rConnectClientAsync().
  *
@@ -447,7 +447,7 @@ void rCloseClientAsync(RedisClient *cl) {
 /// \cond PRIVATE
 
 /**
- * Closes the Redis client on the specified communication channel. It is assused the caller
+ * Closes the Redis client on the specified communication channel. It is assumed the caller
  * has an exclusive lock on the Redis configuration to which the client belongs.
  *
  * \param cl        Pointer to the Redis client instance.
@@ -996,7 +996,7 @@ int redisxSetTcpBuf(Redis *redis, int size) {
  * @sa redisxConnect()
  */
 int redisxSetHostname(Redis *redis, const char *host) {
-  static const char *fn = "redisxSetPort";
+  static const char *fn = "redisxSetHostname";
 
   const RedisPrivate *p;
   int status = X_SUCCESS;
@@ -1073,7 +1073,7 @@ int redisxSetPort(Redis *redis, int port) {
 int redisxSetSocketTimeout(Redis *redis, int millis) {
   RedisPrivate *p;
 
-  prop_error("redisxSetPort", rConfigLock(redis));
+  prop_error("redisxSetSocketTimeout", rConfigLock(redis));
   p = (RedisPrivate *) redis->priv;
   p->config.timeoutMillis = millis > 0 ? millis : REDISX_DEFAULT_TIMEOUT_MILLIS;
   rConfigUnlock(redis);

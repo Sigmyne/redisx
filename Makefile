@@ -86,7 +86,7 @@ clean:
 # Remove all generated files
 .PHONY: distclean
 distclean:
-	@rm -f $(LIB)/libredisx.so* $(LIB)/libredisx.a
+	@rm -f $(LIB)/libredisx.so* $(LIB)/libredisx.a $(BIN)/redisx-cli
 	@rm -rf build
 	@$(MAKE) -s -C test distclean
 	@$(MAKE) -s -C examples distclean
@@ -202,7 +202,7 @@ ifneq ($(wildcard apidoc/html/search/*),)
 	install -d $(DESTDIR)$(docdir)
 	$(INSTALL_DATA) -D apidoc/*.tag $(DESTDIR)$(docdir)/
 else
-	@echo "WARNING! Skipping apidoc install: needs doxygen and 'local-dox'"
+	@echo "WARNING! Skipping apidoc install: needs doxygen and 'dox' target"
 endif
 
 # Built-in help screen for `make help`

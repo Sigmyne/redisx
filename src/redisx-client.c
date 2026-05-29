@@ -329,7 +329,7 @@ static int rSendBytesAsync(ClientPrivate *cp, const char *buf, size_t length, bo
   static const char *fn = "rSendBytesAsync";
 
 #if SEND_YIELD_COUNT > 0
-  static int count;   // Total bytes sent;
+  static int count;   // Call counter
 #endif
 
   const int sock = cp->socket;      // Local copy of socket fd that won't possibly change mid-call.
@@ -826,9 +826,7 @@ static int rTypeIsParametrized(char type) {
   }
 }
 
-
-
-static void rPushMessageAsync(RedisClient *cl, RESP *resp) {
+static void rProcessPushMessageAsync(RedisClient *cl, RESP *resp) {
   int i;
   ClientPrivate *cp = (ClientPrivate *) cl->priv;
   RedisPrivate *p = (RedisPrivate *) cp->redis->priv;
@@ -837,20 +835,20 @@ static void rPushMessageAsync(RedisClient *cl, RESP *resp) {
   if(resp->n < 0) return;
 
   array = (RESP **) calloc(resp->n, sizeof(RESP *));
-  if(!array) fprintf(stderr, "WARNING! Redis-X : not enough memory for push message (%d elements). Skipping.\n", resp->n);
+  if(!array) {
+    fprintf(stderr, "WARNING! Redis-X : not enough memory for push message (%d elements). Skipping.\n", resp->n);
+    return;
+  }
 
   resp->value = array;
 
   for(i = 0; i < resp->n; i++) {
     int status = X_SUCCESS;
-    RESP *r = redisxReadReplyAsync(cl, &status);
+    array[i] = redisxReadReplyAsync(cl, &status);
     if(status) {
-      redisxDestroyRESP(r);
       x_trace_null("rPushMessageAsync", NULL);
       return;
     }
-    if(array) array[i] = r;
-    else redisxDestroyRESP(r);
   }
 
   if(p->config.pushConsumer) p->config.pushConsumer(cl, resp, p->config.pushArg);
@@ -1060,6 +1058,11 @@ RESP *redisxReadReplyAsync(RedisClient *cl, int *pStatus) {
         // Streaming RESP in parts...
         for(;;) {
           RESP *r = redisxReadReplyAsync(cl, pStatus);
+          if(!r) {
+            fprintf(stderr, "WARNING! Redis-X: partial streaming RESP (got NULL part).");
+            return resp;
+          }
+
           if(r->type != RESP3_CONTINUED) {
             int type = r->type;
             redisxDestroyRESP(r);
@@ -1090,7 +1093,7 @@ RESP *redisxReadReplyAsync(RedisClient *cl, int *pStatus) {
     }
 
     // Deal with push messages and attributes...
-    if(resp->type == RESP3_PUSH) rPushMessageAsync(cl, resp);
+    if(resp->type == RESP3_PUSH) rProcessPushMessageAsync(cl, resp);
     else if(resp->type == RESP3_ATTRIBUTE) rSetAttributeAsync(cp, resp);
     else break;
   }
