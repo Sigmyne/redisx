@@ -1037,7 +1037,11 @@ RESP *redisxReadReplyAsync(RedisClient *cl, int *pStatus) {
       if(cp->isEnabled) x_trace_null(fn, NULL);
 
       // If persistent error disable this client so we don't attempt to read from it again...
-      if(size == X_NO_SERVICE) rCloseClientAsync(cl);
+      // But, make sure we don't interfere with pending writes...
+      if(size == X_NO_SERVICE && redisxLockClient(cl) == X_SUCCESS) {
+        rCloseClientAsync(cl);
+        redisxUnlockClient(cl);
+      }
 
       if(pStatus) *pStatus = size;
       return NULL;

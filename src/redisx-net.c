@@ -374,7 +374,7 @@ int rConnectAsync(Redis *redis, boolean usePipeline) {
   return status;
 }
 
-static void rDisconnectClientAsync(RedisClient *cl) {
+static void rShutdownClientAsync(RedisClient *cl) {
   ClientPrivate *cp = (ClientPrivate *) cl->priv;
   int sock = cp->socket;            // Local copy of socket fd that won't possibly change mid-call.
 
@@ -383,13 +383,24 @@ static void rDisconnectClientAsync(RedisClient *cl) {
 
   // This should unblock any current reads, and release the read locks
   shutdown(sock, SHUT_RD);
+}
+
+static void rDisconnectClientAsync(RedisClient *cl) {
+  ClientPrivate *cp = (ClientPrivate *) cl->priv;
+  int status;
+
+  if(cp->socket < 0) return;        // Don't bother if it's already closed.
+
+  rShutdownClientAsync(cl);
 
   // we wait to confirm that we can get exclusive read access ourselves
   // (we also prevent any new reads trying to access the socket while we reset its descriptor.)
   xmut_lock(&cp->readLock);
-  close(sock);
+  status = close(cp->socket);
   cp->socket = -1;                  // Reset the channel's socket descriptor to 'unassigned'
   xmut_unlock(&cp->readLock);
+
+  if(status) x_warn("rDisconnectClientAsync", "client %d close() error: %s.\n", (int) cp->idx, strerror(errno));
 }
 
 /**
@@ -472,9 +483,15 @@ void rDisconnectAsync(Redis *redis) {
   // Stop reading from clients immediately.
   // (stops background threads, releases read locks)
   // Shut down clients immediately
-  rCloseClientAsync(redis->subscription);
-  rCloseClientAsync(redis->pipeline);
-  rCloseClientAsync(redis->interactive);
+  rShutdownClientAsync(redis->subscription);
+  rShutdownClientAsync(redis->pipeline);
+  rShutdownClientAsync(redis->interactive);
+
+  // Now we can wait for the pending writes to finish before
+  // we close shop completely...
+  rCloseClient(redis->subscription);
+  rCloseClient(redis->pipeline);
+  rCloseClient(redis->interactive);
 
   // Call the cleanup hooks...
   for(f = p->config.firstCleanupCall; f != NULL; f = f->next) f->call(redis);
