@@ -486,14 +486,9 @@ void rDisconnectAsync(Redis *redis) {
   // Stop reading from clients immediately.
   // (stops background threads, releases read locks)
   // Shut down clients immediately
-  rShutdownClientAsync(redis->subscription);
-  rShutdownClientAsync(redis->pipeline);
-  rShutdownClientAsync(redis->interactive);
-
-  // Close clients after obtaining exclusive locks on them...
-  rCloseClient(redis->subscription);
-  rCloseClient(redis->pipeline);
-  rCloseClient(redis->interactive);
+  rCloseClientAsync(redis->subscription);
+  rCloseClientAsync(redis->pipeline);
+  rCloseClientAsync(redis->interactive);
 
   // Call the cleanup hooks...
   for(f = p->config.firstCleanupCall; f != NULL; f = f->next) f->call(redis);
