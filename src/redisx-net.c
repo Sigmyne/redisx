@@ -374,36 +374,22 @@ int rConnectAsync(Redis *redis, boolean usePipeline) {
   return status;
 }
 
-static void rShutdownClientAsync(RedisClient *cl) {
-  ClientPrivate *cp = (ClientPrivate *) cl->priv;
-  const int sock = cp->socket;      // Local copy of socket fd that won't possibly change mid-call.
-
-  cp->isEnabled = FALSE;            // No new synchronized requests or async reads.
-
-  if(sock < 0) return;
-
-  shutdown(sock, SHUT_RD);
-  if(errno == EBADF) errno = 0;     // We don't care, really.
-
-  // The above should release any lock on read, so we can confirm that...
-  xmut_lock(&cp->readLock);
-  xmut_unlock(&cp->readLock);
-}
-
 static void rDisconnectClientAsync(RedisClient *cl) {
   ClientPrivate *cp = (ClientPrivate *) cl->priv;
-  const int sock = cp->socket;      // Local copy of socket fd that won't possibly change mid-call.
+  int sock = cp->socket;            // Local copy of socket fd that won't possibly change mid-call.
 
-  rShutdownClientAsync(cl);
+  cp->isEnabled = FALSE;            // No new synchronized requests or async reads.
+  if(sock < 0) return;
 
-  if(sock >= 0) {
-    int status;
+  // This should unblock any current reads, and release the read locks
+  shutdown(sock, SHUT_RD);
 
-    cp->socket = -1;                  // Reset the channel's socket descriptor to 'unassigned'
-
-    status = close(sock);
-    if(status) x_warn("rDisconnectClientAsync", "client %d close() error: %s.\n", (int) cp->idx, strerror(errno));
-  }
+  // we wait to confirm that we can get exclusive read access ourselves
+  // (we also prevent any new reads trying to access the socket while we reset its descriptor.)
+  xmut_lock(&cp->readLock);
+  close(sock);
+  cp->socket = -1;                  // Reset the channel's socket descriptor to 'unassigned'
+  xmut_unlock(&cp->readLock);
 }
 
 /**
