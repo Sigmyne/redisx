@@ -115,7 +115,7 @@ follow the same pattern in general:
  4. Interact with the server: run queries [interactively](#simple-redis-queries) or in 
     [batch mode](#pipelined-transactions), process [push notifications](#push-notifications), 
     [publish](#broadcasting-messages) or [subscribe](#subscriptions)...
- 5. [Disconnect](#redisx-disconnecting) from the server.
+ 5. [Disconnect](#redisx-disconnecting) from the server, and reclaim the memory resources that were used.
  
 And at every step, you should check for and [handle errors](#redisx-error-handling) as appropriate.
 

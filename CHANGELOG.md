@@ -23,6 +23,10 @@ Upcoming maintenance release.
  
  - `redisxSelectDB()` to store updated DB index (it did not before).
  
+ - Fixed thread-safe disconnect procedure to avoid occasional deadlocks and race conditions.
+ 
+ - Various smaller fixes to issues spotted by Copilot AI.
+ 
 ### Added
 
  - #30: Added CMake build configuration and CI workflows.
