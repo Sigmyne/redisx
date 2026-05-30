@@ -1035,10 +1035,16 @@ RESP *redisxReadReplyAsync(RedisClient *cl, int *pStatus) {
       if(cp->isEnabled) x_trace_null(fn, NULL);
 
       // If persistent error disable this client so we don't attempt to read from it again...
-      // But, make sure we don't interfere with pending writes...
-      if(size == X_NO_SERVICE && redisxLockClient(cl) == X_SUCCESS) {
+      if(size == X_NO_SERVICE) {
+        // Don't attempt to use this channel to send/receive any more.
+        cp->isEnabled = FALSE;
+
+        // When read error happens on the pipeline or subscription client, make sure we don't interfere
+        // with asynchronous sends. On these channels, the reads do not have exclusive lock on writes
+        // So we must obtain such a lock before to close down properly.
+        if(cp->idx != REDISX_INTERACTIVE_CHANNEL) redisxLockClient(cl);
         rCloseClientAsync(cl);
-        redisxUnlockClient(cl);
+        if(cp->idx != REDISX_INTERACTIVE_CHANNEL) redisxUnlockClient(cl);
       }
 
       if(pStatus) *pStatus = size;
