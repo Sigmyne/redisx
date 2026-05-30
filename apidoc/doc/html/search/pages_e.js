@@ -1,11 +1,13 @@
 var searchData=
 [
-  ['pipelined_20transactions_0',['Pipelined transactions',['../index.html#autotoc_md54',1,'']]],
-  ['pipelining_1',['Advanced queries and pipelining',['../index.html#autotoc_md51',1,'']]],
-  ['plans_2',['Future plans',['../index.html#autotoc_md66',1,'']]],
-  ['prerequisites_3',['Prerequisites',['../index.html#autotoc_md9',1,'']]],
-  ['processing_4',['Asynchronous client processing',['../index.html#autotoc_md52',1,'']]],
-  ['pub_20sub_20support_5',['Publish / subscribe (PUB/SUB) support',['../index.html#autotoc_md42',1,'']]],
-  ['publish_20subscribe_20pub_20sub_20support_6',['Publish / subscribe (PUB/SUB) support',['../index.html#autotoc_md42',1,'']]],
-  ['push_20notifications_7',['Push notifications',['../index.html#autotoc_md35',1,'']]]
+  ['package_0',['Homebrew package',['../index.html#autotoc_md15',1,'']]],
+  ['packages_1',['Linux packages',['../index.html#autotoc_md14',1,'']]],
+  ['pipelined_20transactions_2',['Pipelined transactions',['../index.html#autotoc_md56',1,'']]],
+  ['pipelining_3',['Advanced queries and pipelining',['../index.html#autotoc_md53',1,'']]],
+  ['plans_4',['Future plans',['../index.html#autotoc_md68',1,'']]],
+  ['prerequisites_5',['Prerequisites',['../index.html#autotoc_md9',1,'']]],
+  ['processing_6',['Asynchronous client processing',['../index.html#autotoc_md54',1,'']]],
+  ['pub_20sub_20support_7',['Publish / subscribe (PUB/SUB) support',['../index.html#autotoc_md44',1,'']]],
+  ['publish_20subscribe_20pub_20sub_20support_8',['Publish / subscribe (PUB/SUB) support',['../index.html#autotoc_md44',1,'']]],
+  ['push_20notifications_9',['Push notifications',['../index.html#autotoc_md37',1,'']]]
 ];

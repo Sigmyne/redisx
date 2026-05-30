@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['valkey_20features_0',['Redis / Valkey Features',['../index.html#autotoc_md6',1,'']]],
-  ['value_1',['value',['/xchange/apidoc/html/structXField.html#a0f61d63b009d0880a89c843bd50d8d76',1,'XField::value'],['../structRESP.html#a0f61d63b009d0880a89c843bd50d8d76',1,'RESP::value'],['../structRedisMap.html#a449b0c7dacd31c5e7edf071da3bda96a',1,'RedisMap::value'],['../structRedisEntry.html#a4e9aec275e566b978a3ccb4e043d8c61',1,'RedisEntry::value']]],
-  ['value_20data_2',['Accessing key / value data',['../index.html#autotoc_md38',1,'']]],
-  ['values_3',['Getting and setting keyed values',['../index.html#autotoc_md39',1,'']]]
+  ['user_20s_20guide_0',['User&apos;s guide',['../index.html',1,'']]],
+  ['using_20a_20gnu_20makefile_1',['Using a GNU &lt;span class=&quot;tt&quot;&gt;Makefile&lt;/span&gt;',['../index.html#autotoc_md20',1,'']]],
+  ['using_20cmake_2',['Using CMake',['../index.html#autotoc_md21',1,'']]],
+  ['using_20cmake_3',['Build / install using CMake',['../index.html#autotoc_md13',1,'']]],
+  ['using_20gnu_20make_4',['Build / install using GNU make',['../index.html#autotoc_md12',1,'']]]
 ];

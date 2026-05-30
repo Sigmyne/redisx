@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<tagfile doxygen_version="1.16.1">
+<tagfile doxygen_version="1.17.0">
   <compound kind="file">
     <name>redisx.h</name>
     <path>/github/workspace/include/</path>
@@ -1474,6 +1474,13 @@
     <name>redisx-net.c</name>
     <path>/github/workspace/src/</path>
     <filename>redisx-net_8c.html</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>sockopt_t</name>
+      <anchorfile>redisx-net_8c.html</anchorfile>
+      <anchor>a952fe80ec1f8c686d854b298210e24fb</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>void</type>
       <name>rCloseClientAsync</name>
@@ -1496,11 +1503,11 @@
       <arglist>(Redis *redis)</arglist>
     </member>
     <member kind="function">
-      <type>void *</type>
+      <type>XTHREAD_RTN</type>
       <name>RedisPipelineListener</name>
       <anchorfile>redisx-net_8c.html</anchorfile>
-      <anchor>a124e24b5cfba8172ed3f548b8056deb2</anchor>
-      <arglist>(void *pRedis)</arglist>
+      <anchor>a19725a59f39ac4ee649e12fb32557526</anchor>
+      <arglist>(XTHREAD_ARG pRedis)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -1868,6 +1875,13 @@
     <name>redisx.c</name>
     <path>/github/workspace/src/</path>
     <filename>redisx_8c.html</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>_POSIX_C_SOURCE</name>
+      <anchorfile>redisx_8c.html</anchorfile>
+      <anchor>a3024ccd4a9af5109d24e6c57565d74a1</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>XLookupTable *</type>
       <name>rConsumeInfoReply</name>
@@ -2335,6 +2349,8 @@
     <docanchor file="index.html">building-redisx</docanchor>
     <docanchor file="index.html">redisx-gnu-build</docanchor>
     <docanchor file="index.html">redisx-cmake-build</docanchor>
+    <docanchor file="index.html">redisx-linux</docanchor>
+    <docanchor file="index.html">redisx-homebrew</docanchor>
     <docanchor file="index.html">redisx-cli</docanchor>
     <docanchor file="index.html">redisx-linking</docanchor>
     <docanchor file="index.html">redisx-makefile-application</docanchor>

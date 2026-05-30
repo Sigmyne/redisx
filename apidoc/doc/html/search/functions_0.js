@@ -4,7 +4,7 @@ var searchData=
   ['rconnectasync_1',['rConnectAsync',['../redisx-net_8c.html#ad4065e4f45daee4c9a4ce04e11a8cc11',1,'redisx-net.c']]],
   ['rconsumeinforeply_2',['rConsumeInfoReply',['../redisx_8c.html#a2fdb234e05f16fb004b34bc016ba9d99',1,'redisx.c']]],
   ['rdisconnectasync_3',['rDisconnectAsync',['../redisx-net_8c.html#a42981dc95de662c10e96bdbc9dfc980e',1,'redisx-net.c']]],
-  ['redispipelinelistener_4',['RedisPipelineListener',['../redisx-net_8c.html#a124e24b5cfba8172ed3f548b8056deb2',1,'redisx-net.c']]],
+  ['redispipelinelistener_4',['RedisPipelineListener',['../redisx-net_8c.html#a19725a59f39ac4ee649e12fb32557526',1,'redisx-net.c']]],
   ['redisxabortblockasync_5',['redisxAbortBlockAsync',['../redisx-client_8c.html#ab98b0e71d2d0941920e3097a66eae7b8',1,'redisxAbortBlockAsync(RedisClient *cl):&#160;redisx-client.c'],['../redisx_8h.html#ab98b0e71d2d0941920e3097a66eae7b8',1,'redisxAbortBlockAsync(RedisClient *cl):&#160;redisx-client.c']]],
   ['redisxaddconnecthook_6',['redisxAddConnectHook',['../redisx-hooks_8c.html#aab103bdeb66dd1daded10e1f6e993568',1,'redisxAddConnectHook(Redis *redis, void(*setupCall)(Redis *)):&#160;redisx-hooks.c'],['../redisx_8h.html#aab103bdeb66dd1daded10e1f6e993568',1,'redisxAddConnectHook(Redis *redis, void(*setupCall)(Redis *)):&#160;redisx-hooks.c']]],
   ['redisxadddisconnecthook_7',['redisxAddDisconnectHook',['../redisx-hooks_8c.html#a37d95c69831058865b078f0f0f20d540',1,'redisxAddDisconnectHook(Redis *redis, void(*cleanupCall)(Redis *)):&#160;redisx-hooks.c'],['../redisx_8h.html#a37d95c69831058865b078f0f0f20d540',1,'redisxAddDisconnectHook(Redis *redis, void(*cleanupCall)(Redis *)):&#160;redisx-hooks.c']]],

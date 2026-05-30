@@ -1,5 +1,6 @@
 var redisx_8c =
 [
+    [ "_POSIX_C_SOURCE", "redisx_8c.html#a3024ccd4a9af5109d24e6c57565d74a1", null ],
     [ "rConsumeInfoReply", "redisx_8c.html#a2fdb234e05f16fb004b34bc016ba9d99", null ],
     [ "redisxArrayRequest", "redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75", null ],
     [ "redisxCheckValid", "redisx_8c.html#a0cdebfd895ab4c61c0fc9e0863a66419", null ],

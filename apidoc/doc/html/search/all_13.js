@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['user_20s_20guide_0',['User&apos;s guide',['../index.html',1,'']]],
-  ['using_20a_20gnu_20makefile_1',['Using a GNU &lt;span class=&quot;tt&quot;&gt;Makefile&lt;/span&gt;',['../index.html#autotoc_md18',1,'']]],
-  ['using_20cmake_2',['Using CMake',['../index.html#autotoc_md19',1,'']]],
-  ['using_20cmake_3',['Build / install using CMake',['../index.html#autotoc_md13',1,'']]],
-  ['using_20gnu_20make_4',['Build / install using GNU make',['../index.html#autotoc_md12',1,'']]]
+  ['table_20of_20contents_0',['Table of Contents',['../index.html#autotoc_md1',1,'']]],
+  ['tls_20configuration_1',['TLS configuration',['../index.html#autotoc_md27',1,'']]],
+  ['transactions_2',['transactions',['../index.html#autotoc_md35',1,'Interactive transactions'],['../index.html#autotoc_md56',1,'Pipelined transactions']]],
+  ['type_3',['type',['../index.html#autotoc_md38',1,'RESP data type'],['/xchange/apidoc/html/structXField.html#a6535ecc7e6d29e64f0d34cd926823fd9',1,'XField::type'],['../structRESP.html#a93869a69154ac2297800b0afff64d600',1,'RESP::type']]]
 ];

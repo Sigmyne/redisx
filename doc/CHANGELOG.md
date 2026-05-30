@@ -15,7 +15,17 @@ Upcoming maintenance release.
 
  - #29: Occasional segfaults when link is shut down.
  
- - Fix potential buffer overflow at build time in `docedit.c` (`sprintf()` to `snprintf()`).
+ - #35: Fixed `redisxPrintDelimited()` for attribute RESP type.
+ 
+ - Fixed deadlock in `redisxGetAvailable()`.
+ 
+ - Fix potential buffer overflow at build time in `docedit.c` (changed `sprintf()` to `snprintf()`).
+ 
+ - `redisxSelectDB()` to store updated DB index (it did not before).
+ 
+ - Fixed thread-safe disconnect procedure to avoid occasional deadlocks and race conditions.
+ 
+ - Various smaller fixes to issues spotted by Copilot AI.
  
 ### Added
 
@@ -24,6 +34,13 @@ Upcoming maintenance release.
 ### Changed
 
  - #31: Portability to Windows / MSC.
+ 
+ - #33: More efficient reading of large string data, by skipping intermediate buffer when not necessary. 
+ 
+ - #34: Use `snprintf()` instead of `sprintf()` provided it's available. (On older platforms prior to the C99 
+   standard, it defaults to `sprintf()`.)
+ 
+ - Removed superfluous (and potentially problematic) error check in `rReadToken()`.
 
  - `examples/Makefile` to work standalone, without `config.mk`.
 

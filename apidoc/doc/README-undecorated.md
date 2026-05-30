@@ -106,7 +106,7 @@ follow the same pattern in general:
  4. Interact with the server: run queries [interactively](#simple-redis-queries) or in 
     [batch mode](#pipelined-transactions), process [push notifications](#push-notifications), 
     [publish](#broadcasting-messages) or [subscribe](#subscriptions)...
- 5. [Disconnect](#redisx-disconnecting) from the server.
+ 5. [Disconnect](#redisx-disconnecting) from the server, and reclaim the memory resources that were used.
  
 And at every step, you should check for and [handle errors](#redisx-error-handling) as appropriate.
 
@@ -186,6 +186,8 @@ Additionally `redisx-cli` has the following dependencies on standard GNU/POSIX l
 
  - [Build / install using GNU make](#redisx-gnu-build)
  - [Build / install using CMake](#redisx-cmake-build)
+ - [Linux packages](#redisx-linux)
+ - [Homebrew package](#redisx-homebrew)
 
 The __RedisX__ library can be built either as a shared (`libredisx.so[.1]`) or as a static (`libredisx.a`) library, 
 depending on what suits your needs best. You can also compile HTML documentation, examples and test programs, using
@@ -337,6 +339,43 @@ the `Runtime` component:
 ```bash
   $ cmake --install build --component Runtime --prefix /usr/local
 ```
+
+<a name="redisx-linux"></a>
+### Linux packages
+
+__RedisX__ is packaged for Fedora / EPEL and derivative Linux distros as `redisx`.
+
+To install __RedisX__ Fedora / EPEL based distributions as:
+
+```bash
+  $ sudo dnf install redisx redisx-doc redisx-devel
+```
+
+The first package is the runtime library and `redisx-cli` tool, the second is documentation, and the last one is for 
+files needed for application development.
+
+
+<a name="redisx-homebrew"></a>
+### Homebrew package
+
+As of version 1.0.4, there is also a [Homebrew](https://brew.sh/) package through the maintainer's own Tap.
+
+
+To install `redisx` via Homebrew:
+
+```bash
+  $ brew tap attipaci/pub
+  $ brew install redisx
+```
+
+The above will build and install the __redisx__ runtime library, `redisx-cli` tool, and development files (headers and 
+unversioned shared library). However, you may add further options to customize your build:
+
+ - `--without-libomp` -- Build without OpenMP support for parallelized cluster operations.
+ - `--without-openssl` -- Build without TLS support. 
+ - `--with-doxygen` -- Install with local HTML documentation.
+
+
 
 -----------------------------------------------------------------------------
 
