@@ -72,7 +72,7 @@ typedef struct Hook {
 typedef struct {
   Redis *redis;                 ///< Pointer to the enclosing Redis instance
   enum redisx_channel idx;      ///< e.g. REDISX_INTERACTIVE_CHANNEL, REDISX_PIPELINE_CHANNEL, or REDISX_SUBSCRIPTION_CHANNEL
-  volatile boolean isEnabled;   ///< Whether the client is currecntly enabled for sending/receiving data
+  volatile boolean isEnabled;   ///< Whether the client is currently enabled for sending/receiving data
   int timeoutMillis;            ///< [ms] Timeout for reads, or 0 (default) or negative for indefinite.
   xmut_type writeLock;          ///< A lock for writing and requests through this channel...
   xmut_type readLock;           ///< A lock for reading from the channel...
@@ -100,13 +100,13 @@ typedef struct {
 typedef struct {
   boolean enabled;        ///< Whether TLS is enabled.
   char *ca_path;          ///< Directory in which CA certificates reside
-  char *ca_certificate;   ///< CA sertificate
+  char *ca_certificate;   ///< CA certificate
   boolean skip_verify;    ///< Whether to skip verification of the certificate (insecure)
   char *certificate;      ///< Client certificate (mutual TLS only)
   char *key;              ///< Client private key (mutual TLS only)
   char *dh_params;        ///< (optional) parameter file for DH based ciphers
-  char *ciphers;          ///< colon separated list of ciphers to try (TKS v1.2 and earlier)
-  char *cipher_suites;    ///< colon separated list of ciphers suites to try (TKS v1.3 and later)
+  char *ciphers;          ///< colon separated list of ciphers to try (TLS v1.2 and earlier)
+  char *cipher_suites;    ///< colon separated list of ciphers suites to try (TLS v1.3 and later)
   char *hostname;         ///< Server name for SNI
 } TLSConfig;
 #endif
