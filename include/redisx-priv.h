@@ -15,7 +15,7 @@
 
 #include <stdint.h>
 
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
 #  include <winsock2.h>   // in_addr
 #  include <in6addr.h>    // in6_addr
 #else
@@ -26,7 +26,7 @@
 #  include <openssl/ssl.h>
 #endif
 
-#if defined(_MSC_VER)
+#ifdef _MSC_VER
 #  include <windows.h>
 #  define XTHREAD_ID                  HANDLE      ///< The thread handle
 #  define XTHREAD_IS(handle)          ( handle == GetCurrentThread() )
