@@ -14,7 +14,7 @@ jobs:
         run: echo "${{ secrets.INDEXNOW_KEY }}" > "${{ secrets.INDEXNOW_KEY }}.txt"
         
       - name: IndexNow
-        uses: bojieyang/indexnow-action@v2
+        uses: bojieyang/indexnow-action@v3
         with:
           sitemap-location: 'https://sigmyne.github.io/redisx/sitemap.xml'
           key: ${{ secrets.INDEXNOW_KEY }}
