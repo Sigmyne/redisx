@@ -25,9 +25,9 @@ Upcoming maintenance release, expected between 1 July and 1 August 2026.
  
  - Fixed thread-safe disconnect procedure to avoid occasional deadlocks and race conditions.
 
- - CMake `redisxConfig` to skip requiting math lib for non-Windows platforms in general, since it's can fail if the 
-   math library is not in the search path, but in the build path, such as in case of some cross builds (see e.g. the
-   vcpkg Android builds)
+ - CMake `redisxConfig` to skip requiring math lib for non-Windows platforms in general, since it can fail if the 
+   math library is in the build path, but not in the search path, such as for some cross builds (see e.g. the vcpkg 
+   Android builds)
  
  - Various smaller fixes to issues spotted by Copilot AI.
  
