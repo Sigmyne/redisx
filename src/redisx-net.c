@@ -57,7 +57,7 @@ extern void rDestroySentinel(RedisSentinel *sentinel);
 /// \endcond
 
 static int rStartPipelineListenerAsync(Redis *redis);
-static int rReconnectAsync(Redis *redis, boolean usePipeline);
+static int rReconnectAsync(Redis *redis, XBoolean usePipeline);
 static void rDisconnectClientAsync(RedisClient *cl);
 
 /// \cond PRIVATE
@@ -189,10 +189,10 @@ int rSetServerAsync(Redis *redis, const char *desc, const char *hostname, int po
  * \param lowLatency      TRUE (non-zero) if socket is to be configured for low latency, or else FALSE (0).
  *
  */
-static void rConfigSocket(int socket, int timeoutMillis, int tcpBufSize, boolean lowLatency) {
+static void rConfigSocket(int socket, int timeoutMillis, int tcpBufSize, XBoolean lowLatency) {
   static const char *fn = "RedisX";
 
-  const boolean enable = TRUE;
+  const XBoolean enable = TRUE;
   struct linger linger;
 
   // Redis recommends simply dropping the connection. By turning SO_LINGER off, we'll
@@ -307,7 +307,7 @@ static int rRegisterServer(Redis *redis) {
  * \sa rConnectClient()
  *
  */
-int rConnectAsync(Redis *redis, boolean usePipeline) {
+int rConnectAsync(Redis *redis, XBoolean usePipeline) {
   static const char *fn = "rConnectAsync";
 
   int status = X_SUCCESS;
@@ -502,7 +502,7 @@ void rDisconnectAsync(Redis *redis) {
 /**
  * Same as redisxReconnect() except without the exclusive locking mechanism.
  */
-static int rReconnectAsync(Redis *redis, boolean usePipeline) {
+static int rReconnectAsync(Redis *redis, XBoolean usePipeline) {
   xvprintf("Redis-X> reconnecting to server...\n");
   rDisconnectAsync(redis);
   prop_error("rReconnectAsync", rConnectAsync(redis, usePipeline));
@@ -535,7 +535,7 @@ void redisxDisconnect(Redis *redis) {
  *              or else an error (&lt;0) as would be returned by redisxConnect().
  *
  */
-int redisxReconnect(Redis *redis, boolean usePipeline) {
+int redisxReconnect(Redis *redis, XBoolean usePipeline) {
   static const char *fn = "redisxReconnect";
 
   int status;
@@ -633,7 +633,7 @@ static void rInitClient(Redis *redis, enum redisx_channel idx) {
  * \return          TRUE (1) if the client is low latency, or else FALSE (0).
  *
  */
-boolean rIsLowLatency(const ClientPrivate *cp) {
+XBoolean rIsLowLatency(const ClientPrivate *cp) {
   if(cp == NULL) return FALSE;
   return cp->idx != REDISX_PIPELINE_CHANNEL;
 }
@@ -1102,7 +1102,7 @@ int redisxSetSocketTimeout(Redis *redis, int millis) {
  * \sa redisxSelectDB()
  * \sa redisxDisconnect()
  */
-int redisxConnect(Redis *redis, boolean usePipeline) {
+int redisxConnect(Redis *redis, XBoolean usePipeline) {
   static const char *fn = "redisxConnect";
   int status;
 
@@ -1122,7 +1122,7 @@ int redisxConnect(Redis *redis, boolean usePipeline) {
  * \return      TRUE (1) if the Redis instance is connected, or FALSE (0) otherwise.
  *
  */
-boolean redisxIsConnected(Redis *redis) {
+XBoolean redisxIsConnected(Redis *redis) {
   const ClientPrivate *ip;
 
   if(redisxCheckValid(redis) != X_SUCCESS) return FALSE;

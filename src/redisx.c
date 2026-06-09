@@ -101,7 +101,7 @@ int rConfigUnlock(Redis *redis) {
  *
  * @sa redisxDebugTraffic()
  */
-void redisxSetVerbose(boolean value) {
+void redisxSetVerbose(XBoolean value) {
   xSetVerbose(value);
 }
 
@@ -110,7 +110,7 @@ void redisxSetVerbose(boolean value) {
  *
  * \return          TRUE if verbose reporting is enabled, otherwise FALSE.
  */
-boolean redisxIsVerbose() {
+XBoolean redisxIsVerbose() {
   return xIsVerbose();
 }
 
@@ -122,7 +122,7 @@ boolean redisxIsVerbose() {
  *
  * @sa redisxSetVerbose()
  */
-void redisxDebugTraffic(boolean value) {
+void redisxDebugTraffic(XBoolean value) {
   debugTraffic = value ? TRUE : FALSE;
 }
 
@@ -417,7 +417,7 @@ int redisxPing(Redis *redis, const char *message) {
  * @sa redisxSelectDB()
  * @sa redisxLockConnected()
  */
-static int redisxSelectDBAsync(RedisClient *cl, int idx, boolean confirm) {
+static int redisxSelectDBAsync(RedisClient *cl, int idx, XBoolean confirm) {
   static const char *fn = "redisxSelectDBAsync";
 
   char sval[20];
@@ -540,12 +540,12 @@ int redisxError(const char *func, int errorCode) {
  *
  * \return      TRUE (1) if the pipeline client is enabled on the Redis instance, or FALSE (0) otherwise.
  */
-boolean redisxHasPipeline(Redis *redis) {
+XBoolean redisxHasPipeline(Redis *redis) {
   static const char *fn = "redisxHasPipeline";
 
   const ClientPrivate *pp;
 
-  boolean isEnabled;
+  XBoolean isEnabled;
 
   prop_error(fn, redisxCheckValid(redis));
   prop_error(fn, redisxLockClient(redis->pipeline));
@@ -756,7 +756,7 @@ RESP *redisxArrayRequest(Redis *redis, const char **args, const int *lengths, in
 
   // Handle -ASK and -MOVED redirections.
   if(redisxClusterIsRedirected(reply)) {
-    boolean ask = redisxClusterIsMigrating(reply);
+    XBoolean ask = redisxClusterIsMigrating(reply);
     RedisPrivate *p;
     Redis *redirect;
 

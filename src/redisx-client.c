@@ -325,7 +325,7 @@ static int rReadBytes(ClientPrivate *cp, char *buf, int length) {
  *                      an error with send().
  *
  */
-static int rSendBytesAsync(ClientPrivate *cp, const char *buf, size_t length, boolean isLast) {
+static int rSendBytesAsync(ClientPrivate *cp, const char *buf, size_t length, XBoolean isLast) {
   static const char *fn = "rSendBytesAsync";
 
 #if SEND_YIELD_COUNT > 0

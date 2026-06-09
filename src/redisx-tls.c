@@ -569,7 +569,7 @@ int redisxSetTLSServerName(Redis *redis, const char *host) {
  *
  * @sa redisxSetTLS()
  */
-int redisxSetTLSVerify(Redis *redis, boolean value) {
+int redisxSetTLSVerify(Redis *redis, XBoolean value) {
   static const char *fn = "redisxTLSVerify";
 
 #if WITH_TLS

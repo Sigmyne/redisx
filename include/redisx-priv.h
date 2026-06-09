@@ -72,7 +72,7 @@ typedef struct Hook {
 typedef struct {
   Redis *redis;                 ///< Pointer to the enclosing Redis instance
   enum redisx_channel idx;      ///< e.g. REDISX_INTERACTIVE_CHANNEL, REDISX_PIPELINE_CHANNEL, or REDISX_SUBSCRIPTION_CHANNEL
-  volatile boolean isEnabled;   ///< Whether the client is currently enabled for sending/receiving data
+  volatile XBoolean isEnabled;   ///< Whether the client is currently enabled for sending/receiving data
   int timeoutMillis;            ///< [ms] Timeout for reads, or 0 (default) or negative for indefinite.
   xmut_type writeLock;          ///< A lock for writing and requests through this channel...
   xmut_type readLock;           ///< A lock for reading from the channel...
@@ -98,10 +98,10 @@ typedef struct {
 
 #if WITH_TLS
 typedef struct {
-  boolean enabled;        ///< Whether TLS is enabled.
+  XBoolean enabled;        ///< Whether TLS is enabled.
   char *ca_path;          ///< Directory in which CA certificates reside
   char *ca_certificate;   ///< CA certificate
-  boolean skip_verify;    ///< Whether to skip verification of the certificate (insecure)
+  XBoolean skip_verify;    ///< Whether to skip verification of the certificate (insecure)
   char *certificate;      ///< Client certificate (mutual TLS only)
   char *key;              ///< Client private key (mutual TLS only)
   char *dh_params;        ///< (optional) parameter file for DH based ciphers
@@ -122,7 +122,7 @@ typedef struct {
   int timeoutMillis;            ///< [ms] Socket read/write timeout
   int tcpBufSize;               ///< [bytes] TCP read/write buffer sizes to use
   int protocol;                 ///< RESP version to use
-  boolean hello;                ///< whether to use HELLO (introduced in Redis 6.0.0 only)
+  XBoolean hello;                ///< whether to use HELLO (introduced in Redis 6.0.0 only)
   RedisSocketConfigurator socketConf;   ///< Additional user configuration of client sockets
 
 #if WITH_TLS
@@ -165,8 +165,8 @@ typedef struct {
   XTHREAD_ID pipelineListenerTID;
   XTHREAD_ID subscriptionListenerTID;
 
-  boolean isPipelineListenerEnabled;
-  boolean isSubscriptionListenerEnabled;
+  XBoolean isPipelineListenerEnabled;
+  XBoolean isSubscriptionListenerEnabled;
 
   xmut_type subscriberLock;
   MessageConsumer *subscriberList;
@@ -183,11 +183,11 @@ int rConfigLock(Redis *redis);
 int rConfigUnlock(Redis *redis);
 
 // in redisx-net.c ------------------------>
-int rConnectAsync(Redis *redis, boolean usePipeline);
+int rConnectAsync(Redis *redis, XBoolean usePipeline);
 int rConnectClientAsync(Redis *redis, enum redisx_channel channel);
 void rCloseClient(RedisClient *cl);
 void rCloseClientAsync(RedisClient *cl);
-boolean rIsLowLatency(const ClientPrivate *cp);
+XBoolean rIsLowLatency(const ClientPrivate *cp);
 int rCheckClient(const RedisClient *cl);
 int rSetServerAsync(Redis *redis, const char *desc, const char *hostname, int port);
 void rDisconnectAsync(Redis *redis);

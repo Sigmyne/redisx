@@ -259,7 +259,7 @@ int redisxSplitText(RESP *resp, char **text) {
  * @sa RESP3_NULL
  *
  */
-boolean redisxIsScalarType(const RESP *r) {
+XBoolean redisxIsScalarType(const RESP *r) {
   if(!r) return FALSE;
 
   switch(r->type) {
@@ -291,7 +291,7 @@ boolean redisxIsScalarType(const RESP *r) {
  * @sa RESP3_VERBATIM_STRING
  *
  */
-boolean redisxIsStringType(const RESP *r) {
+XBoolean redisxIsStringType(const RESP *r) {
   if(!r) return FALSE;
 
   switch(r->type) {
@@ -322,7 +322,7 @@ boolean redisxIsStringType(const RESP *r) {
  * @sa RESP3_PUSH
  *
  */
-boolean redisxIsArrayType(const RESP *r) {
+XBoolean redisxIsArrayType(const RESP *r) {
   if(!r) return FALSE;
 
   switch(r->type) {
@@ -349,7 +349,7 @@ boolean redisxIsArrayType(const RESP *r) {
  * @sa RESP3_ATTRIBUTE
  *
  */
-boolean redisxIsMapType(const RESP *r) {
+XBoolean redisxIsMapType(const RESP *r) {
   if(!r) return FALSE;
 
   switch(r->type) {
@@ -374,7 +374,7 @@ boolean redisxIsMapType(const RESP *r) {
  * @sa RESP3_ATTRIBUTE
  *
  */
-boolean redisxHasComponents(const RESP *r) {
+XBoolean redisxHasComponents(const RESP *r) {
   if(!r) return FALSE;
 
   return r->n > 0 && (redisxIsArrayType(r) || redisxIsMapType(r));
@@ -436,7 +436,7 @@ int redisxAppendRESP(RESP *resp, RESP *part) {
  * @param b   Pointer to another RESP data structure.
  * @return    TRUE (1) if the two RESP structures match, or else FALSE (0).
  */
-boolean redisxIsEqualRESP(const RESP *a, const RESP *b) {
+XBoolean redisxIsEqualRESP(const RESP *a, const RESP *b) {
   if(a == b) return TRUE;
   if(!a || !b) return FALSE;
 
