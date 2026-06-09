@@ -25,7 +25,7 @@ Upcoming maintenance release, expected between 1 July and 1 August 2026.
  
  - Fixed thread-safe disconnect procedure to avoid occasional deadlocks and race conditions.
 
- - CMake `redisxConfig` to skip requiring math lib for non-Windows platforms in general, since it's can fail if the 
+ - CMake `redisxConfig` to skip requiring math lib for non-Windows platforms in general, since it can fail if the 
    math library is in the build path, but not in the search path, such as for some cross builds (see e.g. the vcpkg 
    Android builds)
  
