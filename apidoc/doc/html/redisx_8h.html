@@ -239,7 +239,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight"><b>REDISX_RCVBUF_SIZE</b>&#160;&#160;&#160;8192</td></tr>
 <tr class="memdesc:a57e8fa49f964f2ce738eeb0d9c0c89bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">(bytes) <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> receive buffer size (at most that much is read from the socket in a single call). <br /></td></tr>
 <tr class="memitem:a275d8232b3f701eaba97b6f57ef0f65e" id="r_a275d8232b3f701eaba97b6f57ef0f65e"><td class="memItemLeft"><a id="a275d8232b3f701eaba97b6f57ef0f65e" name="a275d8232b3f701eaba97b6f57ef0f65e"></a>
-#define&#160;</td><td class="memItemRight"><b>REDISX_RELEASE_STRING</b>&#160;&#160;&#160;&quot;-rc3&quot;</td></tr>
+#define&#160;</td><td class="memItemRight"><b>REDISX_RELEASE_STRING</b>&#160;&#160;&#160;&quot;-rc4&quot;</td></tr>
 <tr class="memdesc:a275d8232b3f701eaba97b6f57ef0f65e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional release information in version, e.g. "-1", or "-rc1". <br /></td></tr>
 <tr class="memitem:adc3981d6b06cc87e563e77584765eb19" id="r_adc3981d6b06cc87e563e77584765eb19"><td class="memItemLeft"><a id="adc3981d6b06cc87e563e77584765eb19" name="adc3981d6b06cc87e563e77584765eb19"></a>
 #define&#160;</td><td class="memItemRight"><b>REDISX_SET_LISTENER_PRIORITY</b>&#160;&#160;&#160;<a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a></td></tr>
@@ -313,15 +313,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a83dadbc667e48fab6272bed1025a3db8" id="r_a83dadbc667e48fab6272bed1025a3db8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a83dadbc667e48fab6272bed1025a3db8">redisxClusterConnect</a> (<a class="el" href="structRedisCluster.html">RedisCluster</a> *cluster)</td></tr>
 <tr class="memitem:a3b2fb45ad35cbc4e501db00f5c416ef9" id="r_a3b2fb45ad35cbc4e501db00f5c416ef9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3b2fb45ad35cbc4e501db00f5c416ef9">redisxClusterDestroy</a> (<a class="el" href="structRedisCluster.html">RedisCluster</a> *cluster)</td></tr>
 <tr class="memitem:aaf2048bd9d3c86f57234c856ec7e1350" id="r_aaf2048bd9d3c86f57234c856ec7e1350"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aaf2048bd9d3c86f57234c856ec7e1350">redisxClusterDisconnect</a> (<a class="el" href="structRedisCluster.html">RedisCluster</a> *cluster)</td></tr>
-<tr class="memitem:ac40bd92e2c9cc4f14521c2efcea57018" id="r_ac40bd92e2c9cc4f14521c2efcea57018"><td class="memItemLeft"><a class="el" href="structRedis.html">Redis</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac40bd92e2c9cc4f14521c2efcea57018">redisxClusterGetRedirection</a> (<a class="el" href="structRedisCluster.html">RedisCluster</a> *cluster, const <a class="el" href="structRESP.html">RESP</a> *redirect, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> refresh)</td></tr>
+<tr class="memitem:ac40bd92e2c9cc4f14521c2efcea57018" id="r_ac40bd92e2c9cc4f14521c2efcea57018"><td class="memItemLeft"><a class="el" href="structRedis.html">Redis</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac40bd92e2c9cc4f14521c2efcea57018">redisxClusterGetRedirection</a> (<a class="el" href="structRedisCluster.html">RedisCluster</a> *cluster, const <a class="el" href="structRESP.html">RESP</a> *redirect, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> refresh)</td></tr>
 <tr class="memitem:a383492763c7162b48bb86e9523bfff69" id="r_a383492763c7162b48bb86e9523bfff69"><td class="memItemLeft"><a class="el" href="structRedis.html">Redis</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a383492763c7162b48bb86e9523bfff69">redisxClusterGetShard</a> (<a class="el" href="structRedisCluster.html">RedisCluster</a> *cluster, const char *key)</td></tr>
 <tr class="memitem:a325731b1f8f467cf2c84700b345049ba" id="r_a325731b1f8f467cf2c84700b345049ba"><td class="memItemLeft"><a class="el" href="structRedisCluster.html">RedisCluster</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a325731b1f8f467cf2c84700b345049ba">redisxClusterInit</a> (<a class="el" href="structRedis.html">Redis</a> *node)</td></tr>
-<tr class="memitem:a57a19ba90951b891677b1be3af8a8f36" id="r_a57a19ba90951b891677b1be3af8a8f36"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a57a19ba90951b891677b1be3af8a8f36">redisxClusterIsMigrating</a> (const <a class="el" href="structRESP.html">RESP</a> *reply)</td></tr>
-<tr class="memitem:a537ed3806a44fb40f6e8dccd813ad0da" id="r_a537ed3806a44fb40f6e8dccd813ad0da"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a537ed3806a44fb40f6e8dccd813ad0da">redisxClusterIsRedirected</a> (const <a class="el" href="structRESP.html">RESP</a> *reply)</td></tr>
-<tr class="memitem:a19fc54725ba4725e0281cff59b642e15" id="r_a19fc54725ba4725e0281cff59b642e15"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a19fc54725ba4725e0281cff59b642e15">redisxClusterMoved</a> (const <a class="el" href="structRESP.html">RESP</a> *reply)</td></tr>
-<tr class="memitem:ad71822356ffd40ed4b1c71d065f48809" id="r_ad71822356ffd40ed4b1c71d065f48809"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> usePipeline)</td></tr>
+<tr class="memitem:a57a19ba90951b891677b1be3af8a8f36" id="r_a57a19ba90951b891677b1be3af8a8f36"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a57a19ba90951b891677b1be3af8a8f36">redisxClusterIsMigrating</a> (const <a class="el" href="structRESP.html">RESP</a> *reply)</td></tr>
+<tr class="memitem:a537ed3806a44fb40f6e8dccd813ad0da" id="r_a537ed3806a44fb40f6e8dccd813ad0da"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a537ed3806a44fb40f6e8dccd813ad0da">redisxClusterIsRedirected</a> (const <a class="el" href="structRESP.html">RESP</a> *reply)</td></tr>
+<tr class="memitem:a19fc54725ba4725e0281cff59b642e15" id="r_a19fc54725ba4725e0281cff59b642e15"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a19fc54725ba4725e0281cff59b642e15">redisxClusterMoved</a> (const <a class="el" href="structRESP.html">RESP</a> *reply)</td></tr>
+<tr class="memitem:ad71822356ffd40ed4b1c71d065f48809" id="r_ad71822356ffd40ed4b1c71d065f48809"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> usePipeline)</td></tr>
 <tr class="memitem:af093c487ee72ade826ce894f59691475" id="r_af093c487ee72ade826ce894f59691475"><td class="memItemLeft"><a class="el" href="structRESP.html">RESP</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af093c487ee72ade826ce894f59691475">redisxCopyOfRESP</a> (const <a class="el" href="structRESP.html">RESP</a> *resp)</td></tr>
-<tr class="memitem:a7cde25fca6ae274d8d0a66d5c8b63ff5" id="r_a7cde25fca6ae274d8d0a66d5c8b63ff5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7cde25fca6ae274d8d0a66d5c8b63ff5">redisxDebugTraffic</a> (<a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> value)</td></tr>
+<tr class="memitem:a7cde25fca6ae274d8d0a66d5c8b63ff5" id="r_a7cde25fca6ae274d8d0a66d5c8b63ff5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7cde25fca6ae274d8d0a66d5c8b63ff5">redisxDebugTraffic</a> (<a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> value)</td></tr>
 <tr class="memitem:ac54dd4c46d8615db4da02702c18f062b" id="r_ac54dd4c46d8615db4da02702c18f062b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac54dd4c46d8615db4da02702c18f062b">redisxDestroy</a> (<a class="el" href="structRedis.html">Redis</a> *redis)</td></tr>
 <tr class="memitem:ac21d16334774d91d2d4ea8afcb67cbb7" id="r_ac21d16334774d91d2d4ea8afcb67cbb7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac21d16334774d91d2d4ea8afcb67cbb7">redisxDestroyEntries</a> (<a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int count)</td></tr>
 <tr class="memitem:a42d64f9b8b0399bf391a5aa3d8cbb9e0" id="r_a42d64f9b8b0399bf391a5aa3d8cbb9e0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a42d64f9b8b0399bf391a5aa3d8cbb9e0">redisxDestroyKeys</a> (char **keys, int count)</td></tr>
@@ -348,24 +348,24 @@ Functions</h2></td></tr>
 <tr class="memitem:af4290857fc98baac7edd15edb6d0bcac" id="r_af4290857fc98baac7edd15edb6d0bcac"><td class="memItemLeft"><a class="el" href="structRedisEntry.html">RedisEntry</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af4290857fc98baac7edd15edb6d0bcac">redisxGetTable</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, int *n)</td></tr>
 <tr class="memitem:a5dbdb6bef9c8ac3a4a8e901abe505d30" id="r_a5dbdb6bef9c8ac3a4a8e901abe505d30"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5dbdb6bef9c8ac3a4a8e901abe505d30">redisxGetTime</a> (<a class="el" href="structRedis.html">Redis</a> *redis, struct timespec *t)</td></tr>
 <tr class="memitem:a01bf1f5d830d1af19456ab78457a54ab" id="r_a01bf1f5d830d1af19456ab78457a54ab"><td class="memItemLeft"><a class="el" href="structRESP.html">RESP</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a01bf1f5d830d1af19456ab78457a54ab">redisxGetValue</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const char *key, int *status)</td></tr>
-<tr class="memitem:a39055bb1b469883dabfaf1b8efe3b6fe" id="r_a39055bb1b469883dabfaf1b8efe3b6fe"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39055bb1b469883dabfaf1b8efe3b6fe">redisxHasComponents</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:a481678923a653e5227f7dab5a1fd272d" id="r_a481678923a653e5227f7dab5a1fd272d"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a481678923a653e5227f7dab5a1fd272d">redisxHasPipeline</a> (<a class="el" href="structRedis.html">Redis</a> *redis)</td></tr>
+<tr class="memitem:a39055bb1b469883dabfaf1b8efe3b6fe" id="r_a39055bb1b469883dabfaf1b8efe3b6fe"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39055bb1b469883dabfaf1b8efe3b6fe">redisxHasComponents</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:a481678923a653e5227f7dab5a1fd272d" id="r_a481678923a653e5227f7dab5a1fd272d"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a481678923a653e5227f7dab5a1fd272d">redisxHasPipeline</a> (<a class="el" href="structRedis.html">Redis</a> *redis)</td></tr>
 <tr class="memitem:ac0f30d62044638a2ead07583ad723fdf" id="r_ac0f30d62044638a2ead07583ad723fdf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac0f30d62044638a2ead07583ad723fdf">redisxIgnoreReplyAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl)</td></tr>
 <tr class="memitem:a5c78c2189a76a077231016564a0cecd5" id="r_a5c78c2189a76a077231016564a0cecd5"><td class="memItemLeft"><a class="el" href="structRedis.html">Redis</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5c78c2189a76a077231016564a0cecd5">redisxInit</a> (const char *server)</td></tr>
 <tr class="memitem:a993ae780daeae021fba1866d752ba9c5" id="r_a993ae780daeae021fba1866d752ba9c5"><td class="memItemLeft"><a class="el" href="structRedis.html">Redis</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a993ae780daeae021fba1866d752ba9c5">redisxInitSentinel</a> (const char *serviceName, const <a class="el" href="structRedisServer.html">RedisServer</a> *serverList, int nServers)</td></tr>
-<tr class="memitem:af7d1a91b1d89fb11e6b16db04653a871" id="r_af7d1a91b1d89fb11e6b16db04653a871"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#af7d1a91b1d89fb11e6b16db04653a871">redisxIsArrayType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:a94326ebfa5868579c8448cdbb941b3da" id="r_a94326ebfa5868579c8448cdbb941b3da"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a94326ebfa5868579c8448cdbb941b3da">redisxIsConnected</a> (<a class="el" href="structRedis.html">Redis</a> *redis)</td></tr>
-<tr class="memitem:ac84b780fd0c2ed709d4edd5789e522aa" id="r_ac84b780fd0c2ed709d4edd5789e522aa"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac84b780fd0c2ed709d4edd5789e522aa">redisxIsEqualRESP</a> (const <a class="el" href="structRESP.html">RESP</a> *a, const <a class="el" href="structRESP.html">RESP</a> *b)</td></tr>
+<tr class="memitem:af7d1a91b1d89fb11e6b16db04653a871" id="r_af7d1a91b1d89fb11e6b16db04653a871"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#af7d1a91b1d89fb11e6b16db04653a871">redisxIsArrayType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:a94326ebfa5868579c8448cdbb941b3da" id="r_a94326ebfa5868579c8448cdbb941b3da"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a94326ebfa5868579c8448cdbb941b3da">redisxIsConnected</a> (<a class="el" href="structRedis.html">Redis</a> *redis)</td></tr>
+<tr class="memitem:ac84b780fd0c2ed709d4edd5789e522aa" id="r_ac84b780fd0c2ed709d4edd5789e522aa"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac84b780fd0c2ed709d4edd5789e522aa">redisxIsEqualRESP</a> (const <a class="el" href="structRESP.html">RESP</a> *a, const <a class="el" href="structRESP.html">RESP</a> *b)</td></tr>
 <tr class="memitem:afed05f00d7dc1b6905b01210b4c8ae6b" id="r_afed05f00d7dc1b6905b01210b4c8ae6b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#afed05f00d7dc1b6905b01210b4c8ae6b">redisxIsGlobPattern</a> (const char *str)</td></tr>
-<tr class="memitem:a460822029ff730cd7a55d64797c329a3" id="r_a460822029ff730cd7a55d64797c329a3"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a460822029ff730cd7a55d64797c329a3">redisxIsMapType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:a944a623a34b5a6a7af064fc0d0cc35bf" id="r_a944a623a34b5a6a7af064fc0d0cc35bf"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a944a623a34b5a6a7af064fc0d0cc35bf">redisxIsScalarType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:a7fb3a83bc8345413eb1a722444386abd" id="r_a7fb3a83bc8345413eb1a722444386abd"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7fb3a83bc8345413eb1a722444386abd">redisxIsStringType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:a484532a0b208bbd9c7a6cb9663361696" id="r_a484532a0b208bbd9c7a6cb9663361696"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a484532a0b208bbd9c7a6cb9663361696">redisxIsVerbose</a> ()</td></tr>
+<tr class="memitem:a460822029ff730cd7a55d64797c329a3" id="r_a460822029ff730cd7a55d64797c329a3"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a460822029ff730cd7a55d64797c329a3">redisxIsMapType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:a944a623a34b5a6a7af064fc0d0cc35bf" id="r_a944a623a34b5a6a7af064fc0d0cc35bf"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a944a623a34b5a6a7af064fc0d0cc35bf">redisxIsScalarType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:a7fb3a83bc8345413eb1a722444386abd" id="r_a7fb3a83bc8345413eb1a722444386abd"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7fb3a83bc8345413eb1a722444386abd">redisxIsStringType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:a484532a0b208bbd9c7a6cb9663361696" id="r_a484532a0b208bbd9c7a6cb9663361696"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a484532a0b208bbd9c7a6cb9663361696">redisxIsVerbose</a> ()</td></tr>
 <tr class="memitem:ae8930592b8f927a154508669132bebab" id="r_ae8930592b8f927a154508669132bebab"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae8930592b8f927a154508669132bebab">redisxLoadScript</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *script, char **sha1)</td></tr>
 <tr class="memitem:ac9c69fbcaa2a2fbe95af72d91a7b7e6c" id="r_ac9c69fbcaa2a2fbe95af72d91a7b7e6c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac9c69fbcaa2a2fbe95af72d91a7b7e6c">redisxLockClient</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl)</td></tr>
 <tr class="memitem:aad864c08ef9365c264c30bbacb0b77b2" id="r_aad864c08ef9365c264c30bbacb0b77b2"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aad864c08ef9365c264c30bbacb0b77b2">redisxLockConnected</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl)</td></tr>
-<tr class="memitem:aa8fd65a355394af08c86b4f0e943d3a6" id="r_aa8fd65a355394af08c86b4f0e943d3a6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8fd65a355394af08c86b4f0e943d3a6">redisxMultiSet</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const <a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int n, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> confirm)</td></tr>
-<tr class="memitem:a750023f759dd5192dd3c802a542af770" id="r_a750023f759dd5192dd3c802a542af770"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a750023f759dd5192dd3c802a542af770">redisxMultiSetAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, const char *table, const <a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int n, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> confirm)</td></tr>
+<tr class="memitem:aa8fd65a355394af08c86b4f0e943d3a6" id="r_aa8fd65a355394af08c86b4f0e943d3a6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8fd65a355394af08c86b4f0e943d3a6">redisxMultiSet</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const <a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int n, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
+<tr class="memitem:a750023f759dd5192dd3c802a542af770" id="r_a750023f759dd5192dd3c802a542af770"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a750023f759dd5192dd3c802a542af770">redisxMultiSetAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, const char *table, const <a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int n, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
 <tr class="memitem:ace918fd1adb80e26cfae107685a314e0" id="r_ace918fd1adb80e26cfae107685a314e0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ace918fd1adb80e26cfae107685a314e0">redisxNotify</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *channel, const char *message)</td></tr>
 <tr class="memitem:afd19b1137e80ed26065d9e6e7039c8fe" id="r_afd19b1137e80ed26065d9e6e7039c8fe"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#afd19b1137e80ed26065d9e6e7039c8fe">redisxPing</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *message)</td></tr>
 <tr class="memitem:aff1df58b8ef619139cd5ea92ef656e02" id="r_aff1df58b8ef619139cd5ea92ef656e02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aff1df58b8ef619139cd5ea92ef656e02">redisxPrintDelimited</a> (const <a class="el" href="structRESP.html">RESP</a> *resp, const char *delim, const char *groupPrefix)</td></tr>
@@ -374,7 +374,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a06262603a9a3153fb29d81628fee6a8e" id="r_a06262603a9a3153fb29d81628fee6a8e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a06262603a9a3153fb29d81628fee6a8e">redisxPublish</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *channel, const char *message, int length)</td></tr>
 <tr class="memitem:a89b6c2128548882616c081553ea2436c" id="r_a89b6c2128548882616c081553ea2436c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a89b6c2128548882616c081553ea2436c">redisxPublishAsync</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *channel, const char *data, int length)</td></tr>
 <tr class="memitem:a06c5b62c7b92c83af8f080dd1bb91b17" id="r_a06c5b62c7b92c83af8f080dd1bb91b17"><td class="memItemLeft"><a class="el" href="structRESP.html">RESP</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a06c5b62c7b92c83af8f080dd1bb91b17">redisxReadReplyAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, int *pStatus)</td></tr>
-<tr class="memitem:a55a2efad7c8d8f840f4144a217f58965" id="r_a55a2efad7c8d8f840f4144a217f58965"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a55a2efad7c8d8f840f4144a217f58965">redisxReconnect</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> usePipeline)</td></tr>
+<tr class="memitem:a55a2efad7c8d8f840f4144a217f58965" id="r_a55a2efad7c8d8f840f4144a217f58965"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a55a2efad7c8d8f840f4144a217f58965">redisxReconnect</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> usePipeline)</td></tr>
 <tr class="memitem:aa6b85dc9160e50da8a47152d2995a3dd" id="r_aa6b85dc9160e50da8a47152d2995a3dd"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa6b85dc9160e50da8a47152d2995a3dd">redisxRemoveConnectHook</a> (<a class="el" href="structRedis.html">Redis</a> *redis, void(*setupCall)(<a class="el" href="structRedis.html">Redis</a> *))</td></tr>
 <tr class="memitem:a7d57699ce7c728a4c936a4ba040b12f0" id="r_a7d57699ce7c728a4c936a4ba040b12f0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7d57699ce7c728a4c936a4ba040b12f0">redisxRemoveDisconnectHook</a> (<a class="el" href="structRedis.html">Redis</a> *redis, void(*cleanupCall)(<a class="el" href="structRedis.html">Redis</a> *))</td></tr>
 <tr class="memitem:aeda3fce11d0f9a11428ca405d1e45b69" id="r_aeda3fce11d0f9a11428ca405d1e45b69"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aeda3fce11d0f9a11428ca405d1e45b69">redisxRemoveSubscribers</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="el" href="#aeb7d6976a06d6b51780b1c9d3f927ef8">RedisSubscriberCall</a> f)</td></tr>
@@ -406,11 +406,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a11828fc2962a62c27bf8b5627f69a8a0" id="r_a11828fc2962a62c27bf8b5627f69a8a0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a11828fc2962a62c27bf8b5627f69a8a0">redisxSetTLSCiphers</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *cipher_list)</td></tr>
 <tr class="memitem:aece815a388c13dfa9381d194fc65526a" id="r_aece815a388c13dfa9381d194fc65526a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aece815a388c13dfa9381d194fc65526a">redisxSetTLSCipherSuites</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *list)</td></tr>
 <tr class="memitem:a9cafd12ab9ff4df77c7fc9d6bac33c1a" id="r_a9cafd12ab9ff4df77c7fc9d6bac33c1a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9cafd12ab9ff4df77c7fc9d6bac33c1a">redisxSetTLSServerName</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *host)</td></tr>
-<tr class="memitem:a9c8cf16eba455874111651f59f86a6e7" id="r_a9c8cf16eba455874111651f59f86a6e7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9c8cf16eba455874111651f59f86a6e7">redisxSetTLSVerify</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> value)</td></tr>
+<tr class="memitem:a9c8cf16eba455874111651f59f86a6e7" id="r_a9c8cf16eba455874111651f59f86a6e7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9c8cf16eba455874111651f59f86a6e7">redisxSetTLSVerify</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> value)</td></tr>
 <tr class="memitem:a3beff3a9e373a0f1de626a8e64da98cf" id="r_a3beff3a9e373a0f1de626a8e64da98cf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3beff3a9e373a0f1de626a8e64da98cf">redisxSetUser</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *username)</td></tr>
-<tr class="memitem:a1465b1a965ddd685e16bccbf0b34f08b" id="r_a1465b1a965ddd685e16bccbf0b34f08b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const char *key, const char *value, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> confirm)</td></tr>
-<tr class="memitem:a9e784632598b0c418a3ae3a87aa09fe4" id="r_a9e784632598b0c418a3ae3a87aa09fe4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9e784632598b0c418a3ae3a87aa09fe4">redisxSetValueAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, const char *table, const char *key, const char *value, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> confirm)</td></tr>
-<tr class="memitem:a11454a2359f43b6fd024d25a8148644e" id="r_a11454a2359f43b6fd024d25a8148644e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a11454a2359f43b6fd024d25a8148644e">redisxSetVerbose</a> (<a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> value)</td></tr>
+<tr class="memitem:a1465b1a965ddd685e16bccbf0b34f08b" id="r_a1465b1a965ddd685e16bccbf0b34f08b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const char *key, const char *value, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
+<tr class="memitem:a9e784632598b0c418a3ae3a87aa09fe4" id="r_a9e784632598b0c418a3ae3a87aa09fe4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9e784632598b0c418a3ae3a87aa09fe4">redisxSetValueAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, const char *table, const char *key, const char *value, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
+<tr class="memitem:a11454a2359f43b6fd024d25a8148644e" id="r_a11454a2359f43b6fd024d25a8148644e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a11454a2359f43b6fd024d25a8148644e">redisxSetVerbose</a> (<a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> value)</td></tr>
 <tr class="memitem:a44c5d0bd24f5a4f2f131218f14c9c599" id="r_a44c5d0bd24f5a4f2f131218f14c9c599"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a44c5d0bd24f5a4f2f131218f14c9c599">redisxSkipReplyAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl)</td></tr>
 <tr class="memitem:a63c29262670cf34d06fc30e684878819" id="r_a63c29262670cf34d06fc30e684878819"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a63c29262670cf34d06fc30e684878819">redisxSplitText</a> (<a class="el" href="structRESP.html">RESP</a> *resp, char **text)</td></tr>
 <tr class="memitem:a3e49508e4e4fcc283832226fd1bffd85" id="r_a3e49508e4e4fcc283832226fd1bffd85"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3e49508e4e4fcc283832226fd1bffd85">redisxStartBlockAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl)</td></tr>
@@ -1329,7 +1329,7 @@ redisxClusterGetRedirect() </dd>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>refresh</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>refresh</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1429,7 +1429,7 @@ redisxClusterGetRedirect() </dd>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxClusterIsMigrating </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxClusterIsMigrating </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>reply</em></span></td><td>)</td>
           <td></td>
@@ -1461,7 +1461,7 @@ redisxClusterGetRedirect() </dd>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxClusterIsRedirected </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxClusterIsRedirected </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>reply</em></span></td><td>)</td>
           <td></td>
@@ -1491,7 +1491,7 @@ redisxClusterGetRedirect() </dd>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxClusterMoved </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxClusterMoved </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>reply</em></span></td><td>)</td>
           <td></td>
@@ -1530,7 +1530,7 @@ redisxClusterGetRedirect() </dd>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>usePipeline</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>usePipeline</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1597,7 +1597,7 @@ redisxClusterGetRedirect() </dd>
         <tr>
           <td class="memname">void redisxDebugTraffic </td>
           <td>(</td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -2492,7 +2492,7 @@ redisxDEstroyEntries() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxHasComponents </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxHasComponents </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -2526,7 +2526,7 @@ redisxDEstroyEntries() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxHasPipeline </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxHasPipeline </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structRedis.html">Redis</a> *</td>          <td class="paramname"><span class="paramname"><em>redis</em></span></td><td>)</td>
           <td></td>
@@ -2654,7 +2654,7 @@ redisxGetLockedConnected() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxIsArrayType </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsArrayType </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -2692,7 +2692,7 @@ redisxGetLockedConnected() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxIsConnected </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsConnected </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structRedis.html">Redis</a> *</td>          <td class="paramname"><span class="paramname"><em>redis</em></span></td><td>)</td>
           <td></td>
@@ -2719,7 +2719,7 @@ redisxGetLockedConnected() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxIsEqualRESP </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsEqualRESP </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
@@ -2776,7 +2776,7 @@ redisxGetLockedConnected() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxIsMapType </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsMapType </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -2812,7 +2812,7 @@ redisxGetLockedConnected() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxIsScalarType </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsScalarType </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -2852,7 +2852,7 @@ redisxGetLockedConnected() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxIsStringType </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsStringType </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -2894,7 +2894,7 @@ redisxGetLockedConnected() </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a> redisxIsVerbose </td>
+          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsVerbose </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -3033,7 +3033,7 @@ redisxGetLockedConnected() </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -3083,7 +3083,7 @@ redisxGetLockedConnected() </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -3445,7 +3445,7 @@ redisxIsRedirected() </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>usePipeline</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>usePipeline</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -4688,7 +4688,7 @@ The client on which the push is originated will be locked, thus the implementati
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -4767,7 +4767,7 @@ The client on which the push is originated will be locked, thus the implementati
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -4817,7 +4817,7 @@ The client on which the push is originated will be locked, thus the implementati
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -4847,7 +4847,7 @@ The client on which the push is originated will be locked, thus the implementati
         <tr>
           <td class="memname">void redisxSetVerbose </td>
           <td>(</td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a621c38f1f10a1c565d897e3178b16d6e">boolean</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
