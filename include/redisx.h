@@ -29,10 +29,10 @@
 #define REDISX_MINOR_VERSION  0
 
 /// Integer sub version of the release
-#define REDISX_PATCHLEVEL     4
+#define REDISX_PATCHLEVEL     5
 
 /// Additional release information in version, e.g. "-1", or "-rc1".
-#define REDISX_RELEASE_STRING "-devel"
+#define REDISX_RELEASE_STRING "-rc5"
 
 
 
