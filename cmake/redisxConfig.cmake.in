@@ -13,11 +13,11 @@ get_target_property(redisx_INCLUDE_DIRS redisx::core INTERFACE_INCLUDE_DIRECTORI
 find_dependency(xchange)
 find_dependency(Threads)
 
-if(ENABLE_OPENMP)
+if(@ENABLE_OPENMP@)
     find_dependency(OpenMP)
 endif()
 
-if(ENABLE_TLS)
+if(@ENABLE_TLS@)
     find_dependency(OpenSSL)
 endif()
 
