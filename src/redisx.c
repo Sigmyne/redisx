@@ -833,7 +833,7 @@ int redisxSetPushProcessor(Redis *redis, RedisPushProcessor func, void *arg) {
   RedisPrivate *p;
 
   prop_error(fn, rConfigLock(redis));
-  p = redis->priv;
+  p = (RedisPrivate *) redis->priv;
   p->config.pushConsumer = func;
   p->config.pushArg = arg;
   rConfigUnlock(redis);
