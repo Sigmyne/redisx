@@ -521,7 +521,7 @@ int redisxError(const char *func, int errorCode) {
 
   if(errorCode == REDIS_INCOMPLETE_TRANSFER) errno = EBADMSG;
 
-  if(xDebug) {
+  if(xIsDebug()) {
     static int errorCount;
     fprintf(stderr, "DEBUG-X> %4d (%s) in %s.\n", errorCode, redisxErrorDescription(errorCode), func);
     if(++errorCount > MAX_DEBUG_ERROR_COUNT) {
