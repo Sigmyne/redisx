@@ -867,7 +867,9 @@ RESP *redisxGetHelloData(Redis *redis) {
 /**
  * Extract key/value pairs from the bulk string response to an `INFO` query.
  *
- * @param reply   The response to an `INFO` query
+ * @param reply   The response to an `INFO` query. This reply will be consumed (destroyed)
+ *                before the call returns. The call may also modify its contents prior to
+ *                the destruction.
  * @return        An allocated lookup table containing the key/value pairs extracted
  */
 XLookupTable *rConsumeInfoReply(RESP *reply) {
