@@ -233,7 +233,7 @@ Functions</h2></td></tr>
 <p>Extract key/value pairs from the bulk string response to an <span class="tt">INFO</span> query.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reply</td><td>The response to an <span class="tt">INFO</span> query </td></tr>
+    <tr><td class="paramname">reply</td><td>The response to an <span class="tt">INFO</span> query. This reply will be consumed (destroyed) before the call returns. The call may also modify its contents prior to the destruction. </td></tr>
   </table>
   </dd>
 </dl>
