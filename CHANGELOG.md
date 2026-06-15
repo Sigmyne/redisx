@@ -7,9 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [1.0.4-rc5] - 2026-06-10
+## [1.0.4] - 2026-06-15
 
-Upcoming maintenance release, expected between 1 July and 1 August 2026.
+Maintenance release, with bug fixes and improved portability.
 
 ### Fixed
 
