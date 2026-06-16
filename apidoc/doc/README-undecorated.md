@@ -18,7 +18,7 @@ Updated for 1.0 and later releases.
 
  - [Introduction](#redisx-introduction)
  - [Prerequisites](#redisx-prerequisites)
- - [Building RedisX](#building-redisx)
+ - [Building and installation](#building-redisx)
  - [Command-line interface (`redisx-cli`)](#redisx-cli)
  - [Linking your application against RedisX](#redisx-linking)
  - [Managing Redis server connections](#managing-redis-server-connections)
