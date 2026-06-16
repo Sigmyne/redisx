@@ -26,13 +26,13 @@
 #define REDISX_MAJOR_VERSION  1
 
 /// API minor version
-#define REDISX_MINOR_VERSION  0
+#define REDISX_MINOR_VERSION  1
 
 /// Integer sub version of the release
-#define REDISX_PATCHLEVEL     4
+#define REDISX_PATCHLEVEL     0
 
 /// Additional release information in version, e.g. "-1", or "-rc1".
-#define REDISX_RELEASE_STRING ""
+#define REDISX_RELEASE_STRING "-devel"
 
 
 
