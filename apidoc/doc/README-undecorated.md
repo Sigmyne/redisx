@@ -186,6 +186,7 @@ Additionally `redisx-cli` has the following dependencies on standard GNU/POSIX l
 
  - [Build / install using GNU make](#redisx-gnu-build)
  - [Build / install using CMake](#redisx-cmake-build)
+ - [Install redisx via `vcpkg`](#redisx-vcpkg-port)
  - [Linux packages](#redisx-linux)
  - [Homebrew package](#redisx-homebrew)
 
