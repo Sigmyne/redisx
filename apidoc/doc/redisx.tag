@@ -2349,6 +2349,7 @@
     <docanchor file="index.html">building-redisx</docanchor>
     <docanchor file="index.html">redisx-gnu-build</docanchor>
     <docanchor file="index.html">redisx-cmake-build</docanchor>
+    <docanchor file="index.html">redisx-vcpkg-port</docanchor>
     <docanchor file="index.html">redisx-linux</docanchor>
     <docanchor file="index.html">redisx-homebrew</docanchor>
     <docanchor file="index.html">redisx-cli</docanchor>

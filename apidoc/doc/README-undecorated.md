@@ -340,6 +340,35 @@ the `Runtime` component:
   $ cmake --install build --component Runtime --prefix /usr/local
 ```
 
+<a name="redisx-vcpkg-port"></a>
+### Install redisx via `vcpkg`
+
+As of version 1.0.4, `redisx` is available through the [vcpkg](https://vcpkg.io/en/) registry. The `vcpkg` port 
+supports a wide range of platforms, including Linux, Windows, MacOS, and Android -- for both `arm64` and `x64` 
+architectures (and in case of Windows also `x86`). It is effectively the same as the CMake build (above), only with 
+more simplicity, convenience, and dependency resolution.
+
+
+The `vcpkg` port has optional add-on features, which may be installed along with the `core` library as needed. The 
+following features are available:
+
+ - `core` -- The core __RedisX__ library without TLS support (this is installed by default if no components are specified).
+ - `tls` -- Add-on TLS (transport layer security) encryption support (EXPERIMENTAL)
+
+You can install just the core __RedisX__ library (without TLS support) with `vcpkg` as:
+
+```bash
+  $ vcpkg install redisx
+```
+
+Or, with a selected set of features, such as:
+
+```bash
+  $ vcpkg install redisx[core,tls]
+```
+
+
+
 <a name="redisx-linux"></a>
 ### Linux packages
 
@@ -353,6 +382,7 @@ To install __RedisX__ Fedora / EPEL based distributions as:
 
 The first package is the runtime library and `redisx-cli` tool, the second is documentation, and the last one is for 
 files needed for application development.
+
 
 
 <a name="redisx-homebrew"></a>

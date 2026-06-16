@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['key_20value_20data_0',['Accessing key / value data',['../index.html#autotoc_md40',1,'']]],
-  ['keyed_20values_1',['Getting and setting keyed values',['../index.html#autotoc_md41',1,'']]]
+  ['key_20value_20data_0',['Accessing key / value data',['../index.html#autotoc_md41',1,'']]],
+  ['keyed_20values_1',['Getting and setting keyed values',['../index.html#autotoc_md42',1,'']]]
 ];
