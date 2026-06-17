@@ -5,6 +5,7 @@ excerpt: RedisX is a light-weight Redis client library for C/C++.
 <img src="/redisx/resources/Sigmyne-logo-200x44.png" alt="Sigmyne logo" width="200" height="44" align="right"><br clear="all">
 
 <img src="https://img.shields.io/github/v/release/Sigmyne/redisx?label=github" class="badge" alt="GitHub release version" align="left">
+<img src="https://img.shields.io/vcpkg/v/redisx" class="badge" alt="vcpkg version">
 <img src="https://img.shields.io/fedora/v/redisx?color=lightblue" class="badge" alt="Fedora package version" align="left">
 <br clear="all">
 
@@ -46,6 +47,34 @@ RedisX also comes in packaged form for Fedora / EPEL based Linux, with the follo
  - `redisx-devel` -- C development files (headers and unversioned `.so` libraries)
  - `redisx-doc` -- HTML documentation
  
- 
+ __vcpkg Registry__
 
+You can also install the __RedisX__ library with `vcpkg` on Linux, MacOS, Windows, and Android as:
+
+```bash
+  $ vcpkg install redisx
+```
+
+Or, with the optional `tls` components (for TLS encryption support) as:
+
+```bash
+  $ vcpkg install redisx[core,tls]
+```
+
+__Homebrew__ 
+
+Or, install via the Homebrew package manager (MacOS and Linux) through the maintainer's own Tap:
+
+```bash
+  $ brew tap attipaci/pub
+  $ brew install redisx
+```
+
+For more customized installations, you can add the following options also:
+
+ | Option                 | Description                                                                    |
+ |:---------------------- |:------------------------------------------------------------------------------ |
+ | `--without-libomp`     | Build without OpenMP support for parallelized cluster operations.              |
+ | `--without-openssl`    | Build without TLS support.                                                     | 
+ | `--with-doxygen`       | Install with local HTML documentation.                                         |
 
