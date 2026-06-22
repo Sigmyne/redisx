@@ -41,10 +41,10 @@ jobs:
         sudo apt-get install -q -y libpopt-dev libreadline-dev libbsd-dev libssl-dev
     
     - name: Check out RedisX
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Check out xchange
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: Sigmyne/xchange
         path: xchange
@@ -72,10 +72,10 @@ jobs:
     name: FreeBSD
     steps:
     - name: Check out RedisX
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Check out xchange
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: Sigmyne/xchange
         path: xchange

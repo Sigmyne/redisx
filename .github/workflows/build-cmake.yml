@@ -32,10 +32,10 @@ jobs:
 
     steps:
       - name: Check out RedisX
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Check out xchange
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: Sigmyne/xchange
           path: xchange
@@ -77,10 +77,10 @@ jobs:
           sudo apt-get install libomp-dev libssl-dev libpopt-dev libreadline-dev libbsd-dev
 
       - name: Check out RedisX
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Check out xchange
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: Sigmyne/xchange
           path: xchange
@@ -110,10 +110,10 @@ jobs:
     name: Build on FreeBSD
     steps:
       - name: Check out RedisX
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Check out xchange
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: Sigmyne/xchange
           path: xchange
@@ -141,10 +141,10 @@ jobs:
     name: Build Documentation (Ubuntu)
     steps:
       - name: Check out RedisX
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Check out xchange
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: Sigmyne/xchange
           path: xchange
