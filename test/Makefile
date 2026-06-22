@@ -1,7 +1,7 @@
 
-include ../config.mk
-
 LIB ?= ../lib
+
+include ../config.mk
 
 # Flags for measuring test coverage
 # Our own include directory
