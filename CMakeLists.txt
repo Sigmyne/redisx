@@ -20,7 +20,7 @@ cmake_minimum_required(VERSION 3.24...4.3)
 
 # Project definition
 project(redisx
-    VERSION 1.0.4
+    VERSION 1.1.0
     DESCRIPTION "A completely free Redis / Valkey client library for C/C++"
     HOMEPAGE_URL "https://sigmyne.github.io/redisx/"
     LANGUAGES C

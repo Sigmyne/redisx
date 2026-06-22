@@ -12,7 +12,7 @@ cmake_minimum_required(VERSION 3.20...4.3)
 # Configuration in case this is a standalone project....
 if(NOT PROJECT_NAME)
     project(redisx-examples
-        VERSION 1.0.4
+        VERSION 1.1.0
         DESCRIPTION "RedisX example programs"
         HOMEPAGE_URL "https://sigmyne.github.io/redisx/"
         LANGUAGES C
