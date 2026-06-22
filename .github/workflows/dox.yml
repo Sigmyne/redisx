@@ -41,7 +41,7 @@ jobs:
       run: sudo apt-get install doxygen
 
     - name: Check out RedisX
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Generate docs
       run: make dox
@@ -58,10 +58,10 @@ jobs:
       run: sudo apt-get install doxygen
 
     - name: Checkout source
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Check out xchange
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: Sigmyne/xchange
         path: xchange
@@ -86,7 +86,7 @@ jobs:
       run: for file in doc/html/*.html ; do sudo sed -i "/<\/head>/e cat resources/analytics.html" $file ; done
 
     - name: Checkout gh-pages
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         ref: 'gh-pages'
         path: site
@@ -119,10 +119,10 @@ jobs:
     steps:
 
     - name: Checkout source
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Checkout gh-pages
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         ref: 'gh-pages'
         path: site
