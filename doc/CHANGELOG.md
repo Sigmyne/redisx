@@ -7,6 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [Unreleased]
+
+### Fixed
+
+ - #40: Default definition of `LIB` in `test/Makefile`, when not explicitly set by user. (by traitimtrongvag)
+
+
 ## [1.0.4] - 2026-06-15
 
 Maintenance release, with bug fixes and improved portability.
