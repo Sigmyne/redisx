@@ -11,7 +11,7 @@ var searchData=
   ['setting_20keyed_20values_8',['Getting and setting keyed values',['../index.html#autotoc_md42',1,'']]],
   ['simple_20example_9',['A simple example',['../index.html#autotoc_md3',1,'']]],
   ['simple_20redis_20queries_10',['Simple Redis queries',['../index.html#autotoc_md35',1,'']]],
-  ['sizes_11',['sizes',['/xchange/apidoc/html/structXField.html#af743830ee6c7d5e81a0206b07238ca5d',1,'XField']]],
+  ['sizes_11',['sizes',['../../../xchange/doc/html/structXField.html#af743830ee6c7d5e81a0206b07238ca5d',1,'XField']]],
   ['socket_20level_20configuration_12',['Socket-level configuration',['../index.html#autotoc_md29',1,'']]],
   ['socket_20level_20errors_13',['Socket-level errors',['../index.html#autotoc_md65',1,'']]],
   ['sockopt_5ft_14',['sockopt_t',['../redisx-net_8c.html#a952fe80ec1f8c686d854b298210e24fb',1,'redisx-net.c']]],
@@ -19,6 +19,6 @@ var searchData=
   ['subscribe_20pub_20sub_20support_16',['Publish / subscribe (PUB/SUB) support',['../index.html#autotoc_md45',1,'']]],
   ['subscription_17',['subscription',['../structRedis.html#aa4878fb8cef61468ee8e7426a973a75c',1,'Redis']]],
   ['subscriptions_18',['Subscriptions',['../index.html#autotoc_md47',1,'']]],
-  ['subtype_19',['subtype',['/xchange/apidoc/html/structXField.html#a2f076846fbd6b30183ba3ab61e3334e5',1,'XField']]],
+  ['subtype_19',['subtype',['../../../xchange/doc/html/structXField.html#a2f076846fbd6b30183ba3ab61e3334e5',1,'XField']]],
   ['support_20',['support',['../index.html#autotoc_md67',1,'Debug support'],['../index.html#autotoc_md45',1,'Publish / subscribe (PUB/SUB) support']]]
 ];

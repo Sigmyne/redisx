@@ -2,7 +2,7 @@
 <tagfile doxygen_version="1.17.0">
   <compound kind="file">
     <name>redisx.h</name>
-    <path>/github/workspace/include/</path>
+    <path>/github/workspace/redisx/include/</path>
     <filename>redisx_8h.html</filename>
     <class kind="struct">Redis</class>
     <class kind="struct">RedisClient</class>
@@ -1205,7 +1205,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-client.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-client_8c.html</filename>
     <member kind="define">
       <type>#define</type>
@@ -1343,7 +1343,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-cluster.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-cluster_8c.html</filename>
     <member kind="function">
       <type>RESP *</type>
@@ -1425,7 +1425,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-hooks.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-hooks_8c.html</filename>
     <member kind="function">
       <type>int</type>
@@ -1472,7 +1472,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-net.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-net_8c.html</filename>
     <member kind="define">
       <type>#define</type>
@@ -1589,7 +1589,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-script.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-script_8c.html</filename>
     <member kind="function">
       <type>int</type>
@@ -1615,7 +1615,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-sentinel.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-sentinel_8c.html</filename>
     <member kind="function">
       <type>Redis *</type>
@@ -1641,7 +1641,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-sub.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-sub_8c.html</filename>
     <member kind="function">
       <type>int</type>
@@ -1709,7 +1709,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-tab.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-tab_8c.html</filename>
     <member kind="define">
       <type>#define</type>
@@ -1819,7 +1819,7 @@
   </compound>
   <compound kind="file">
     <name>redisx-tls.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx-tls_8c.html</filename>
     <member kind="function">
       <type>int</type>
@@ -1873,7 +1873,7 @@
   </compound>
   <compound kind="file">
     <name>redisx.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>redisx_8c.html</filename>
     <member kind="define">
       <type>#define</type>
@@ -2067,7 +2067,7 @@
   </compound>
   <compound kind="file">
     <name>resp.c</name>
-    <path>/github/workspace/src/</path>
+    <path>/github/workspace/redisx/src/</path>
     <filename>resp_8c.html</filename>
     <member kind="function">
       <type>int</type>

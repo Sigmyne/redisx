@@ -65,15 +65,6 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2L0MEN3Z8Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-2L0MEN3Z8Q');
-</script>
-
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -83,7 +74,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="Sigmyne-logo-55x55.png"/></td>
   <td id="projectalign">
-   <div id="projectname">RedisX<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">RedisX<span id="projectnumber">&#160;v1.1</span>
    </div>
    <div id="projectbrief">A simple, light-weight Redis database client</div>
   </td>
@@ -257,12 +248,12 @@ A simple example</h2>
 <div class="line"><a class="code hl_struct" href="structRedis.html">Redis</a> *redis = <a class="code hl_function" href="redisx-net_8c.html#a5c78c2189a76a077231016564a0cecd5">redisxInit</a>(<span class="stringliteral">&quot;my-server.com&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Connect to redis</span></div>
-<div class="line"><span class="keywordflow">if</span>(redis != NULL &amp;&amp; <a class="code hl_function" href="redisx-net_8c.html#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a>(redis, <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>) == <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span>(redis != NULL &amp;&amp; <a class="code hl_function" href="redisx-net_8c.html#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a>(redis, <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>) == <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Execute &#39;PING &quot;Hello World!&quot;&#39; on the server </span></div>
 <div class="line">  <a class="code hl_struct" href="structRESP.html">RESP</a> *reply = <a class="code hl_function" href="redisx_8c.html#a09092bd97eead5c5fa73fa0d9241018c">redisxRequest</a>(redis, <span class="stringliteral">&quot;PING&quot;</span>, <span class="stringliteral">&quot;Hello World!&quot;</span>, NULL, NULL, NULL);</div>
 <div class="line">  </div>
 <div class="line">  <span class="comment">// Check that we got a response of the expected type (bulk string of any length)</span></div>
-<div class="line">  <span class="keywordflow">if</span>(<a class="code hl_function" href="resp_8c.html#a4b5674d08da07250c0ca6116a4c48ccf">redisxCheckRESP</a>(reply, <a class="code hl_enumvalue" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a36dd81166f9ba91db70b1571b25fec9f">RESP_BULK_STRING</a>, 0) == <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>)</div>
+<div class="line">  <span class="keywordflow">if</span>(<a class="code hl_function" href="resp_8c.html#a4b5674d08da07250c0ca6116a4c48ccf">redisxCheckRESP</a>(reply, <a class="code hl_enumvalue" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a36dd81166f9ba91db70b1571b25fec9f">RESP_BULK_STRING</a>, 0) == <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>)</div>
 <div class="line">    printf(<span class="stringliteral">&quot;%s\n&quot;</span>, (<span class="keywordtype">char</span> *) reply-&gt;<a class="code hl_variable" href="structRESP.html#a0f61d63b009d0880a89c843bd50d8d76">value</a>);</div>
 <div class="line">  <span class="keywordflow">else</span></div>
 <div class="line">    fprintf(stderr, <span class="stringliteral">&quot;ERROR! bad response\n&quot;</span>); </div>
@@ -281,7 +272,7 @@ A simple example</h2>
 <div class="ttc" id="aredisx-net_8c_html_ac54dd4c46d8615db4da02702c18f062b"><div class="ttname"><a href="redisx-net_8c.html#ac54dd4c46d8615db4da02702c18f062b">redisxDestroy</a></div><div class="ttdeci">void redisxDestroy(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx-net.c:924</div></div>
 <div class="ttc" id="aredisx-net_8c_html_acae5ab8af4db1c4ab13c4069aa744a44"><div class="ttname"><a href="redisx-net_8c.html#acae5ab8af4db1c4ab13c4069aa744a44">redisxDisconnect</a></div><div class="ttdeci">void redisxDisconnect(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx-net.c:518</div></div>
 <div class="ttc" id="aredisx-net_8c_html_ad71822356ffd40ed4b1c71d065f48809"><div class="ttname"><a href="redisx-net_8c.html#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a></div><div class="ttdeci">int redisxConnect(Redis *redis, boolean usePipeline)</div><div class="ttdef"><b>Definition</b> redisx-net.c:1105</div></div>
-<div class="ttc" id="aredisx_8c_html_a09092bd97eead5c5fa73fa0d9241018c"><div class="ttname"><a href="redisx_8c.html#a09092bd97eead5c5fa73fa0d9241018c">redisxRequest</a></div><div class="ttdeci">RESP * redisxRequest(Redis *redis, const char *command, const char *arg1, const char *arg2, const char *arg3, int *status)</div><div class="ttdef"><b>Definition</b> redisx.c:660</div></div>
+<div class="ttc" id="aredisx_8c_html_a09092bd97eead5c5fa73fa0d9241018c"><div class="ttname"><a href="redisx_8c.html#a09092bd97eead5c5fa73fa0d9241018c">redisxRequest</a></div><div class="ttdeci">RESP * redisxRequest(Redis *redis, const char *command, const char *arg1, const char *arg2, const char *arg3, int *status)</div><div class="ttdef"><b>Definition</b> redisx.c:656</div></div>
 <div class="ttc" id="aredisx_8h_html"><div class="ttname"><a href="redisx_8h.html">redisx.h</a></div></div>
 <div class="ttc" id="aredisx_8h_html_afa5c90630d37c2f77e5d7985932941a0a36dd81166f9ba91db70b1571b25fec9f"><div class="ttname"><a href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a36dd81166f9ba91db70b1571b25fec9f">RESP_BULK_STRING</a></div><div class="ttdeci">@ RESP_BULK_STRING</div><div class="ttdoc">RESP bulk string type.</div><div class="ttdef"><b>Definition</b> redisx.h:117</div></div>
 <div class="ttc" id="aresp_8c_html_a4b5674d08da07250c0ca6116a4c48ccf"><div class="ttname"><a href="resp_8c.html#a4b5674d08da07250c0ca6116a4c48ccf">redisxCheckRESP</a></div><div class="ttdeci">int redisxCheckRESP(const RESP *resp, enum resp_type expectedType, int expectedSize)</div><div class="ttdef"><b>Definition</b> resp.c:150</div></div>
@@ -289,8 +280,8 @@ A simple example</h2>
 <div class="ttc" id="astructRESP_html"><div class="ttname"><a href="structRESP.html">RESP</a></div><div class="ttdoc">Structure that represents a Redis response (RESP format).</div><div class="ttdef"><b>Definition</b> redisx.h:182</div></div>
 <div class="ttc" id="astructRESP_html_a0f61d63b009d0880a89c843bd50d8d76"><div class="ttname"><a href="structRESP.html#a0f61d63b009d0880a89c843bd50d8d76">RESP::value</a></div><div class="ttdeci">void * value</div><div class="ttdef"><b>Definition</b> redisx.h:186</div></div>
 <div class="ttc" id="astructRedis_html"><div class="ttname"><a href="structRedis.html">Redis</a></div><div class="ttdoc">Structure that represents a Redis database instance, with one or more RedisClient connections.</div><div class="ttdef"><b>Definition</b> redisx.h:255</div></div>
-<div class="ttc" id="axchange_8h_html_a7b2679c964ea5f2160380ed55654b873"><div class="ttname"><a href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a></div><div class="ttdeci">#define X_SUCCESS</div></div>
-<div class="ttc" id="axchange_8h_html_aa93f0eb578d23995850d61f7d61c55c1"><div class="ttname"><a href="/xchange/apidoc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a></div><div class="ttdeci">#define FALSE</div></div>
+<div class="ttc" id="axchange_8h_html_a7b2679c964ea5f2160380ed55654b873"><div class="ttname"><a href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a></div><div class="ttdeci">#define X_SUCCESS</div></div>
+<div class="ttc" id="axchange_8h_html_aa93f0eb578d23995850d61f7d61c55c1"><div class="ttname"><a href="../../xchange/doc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a></div><div class="ttdeci">#define FALSE</div></div>
 </div><!-- fragment --><p>You may find more details about each step further below. And, of course there are a lot more options and features, that allow you to customize your interactions with a <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> / Valkey server. But the basic principle, and the steps, follow the same pattern in general:</p>
 <ol type="1">
 <li><a class="el" href="#redisx-initializing" title="redisx-initializing">Initialize</a>Initialize</li>
@@ -332,7 +323,7 @@ General Features</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> to structured data  </td><td class="markdownTableBodyCenter"><b>yes</b>  </td><td class="markdownTableBodyNone">via <span class="tt">xchange</span> library  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">debug error tracing  </td><td class="markdownTableBodyCenter"><b>yes</b>  </td><td class="markdownTableBodyNone">via <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a37cf8359341e68d69ac0df562eba52b6">xSetDebug()</a></span>  </td></tr>
+<td class="markdownTableBodyNone">debug error tracing  </td><td class="markdownTableBodyCenter"><b>yes</b>  </td><td class="markdownTableBodyNone">via <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a37cf8359341e68d69ac0df562eba52b6">xSetDebug()</a></span>  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">command-line client  </td><td class="markdownTableBodyCenter"><b>yes</b>  </td><td class="markdownTableBodyNone"><span class="tt">redisx-cli</span>  </td></tr>
 </table>
@@ -435,7 +426,7 @@ Details</summary>
 <li><span class="tt">FNMATCH_C</span>: (for older platforms) Optional full path to <span class="tt">fnmatch.c</span> to use. Normally <span class="tt">fnmatch()</span> (POSIX-1.2001) is part of LIBC, but for older systems, or if <span class="tt">CSTANDARD</span> is set to <span class="tt">c99</span>, is will be assumed as not present, and hence the <span class="tt">redisxDeleteEntries()</span> function will not be available, unless you set <span class="tt">FNMATCH_C</span> to point to a suitable <span class="tt">fnmatch.c</span> implementation to link against.</li>
 <li><span class="tt">CHECKEXTRA</span>: Extra options to pass to <span class="tt">cppcheck</span> for the <span class="tt">make check</span> target</li>
 <li><span class="tt">DOXYGEN</span>: Specify the <span class="tt">doxygen</span> executable to use for generating documentation. If not set (default), <span class="tt">make</span> will use <span class="tt">doxygen</span> in your <span class="tt">PATH</span> (if any). You can also set it to <span class="tt">none</span> to disable document generation and the checking for a usable <span class="tt">doxygen</span> version entirely.</li>
-<li><span class="tt">XCHANGE</span>: If the <a href="https://github.com/Sigmyne/xchange">Sigmyne/xchange</a> library is not installed on your system (e.g. under <span class="tt">/usr</span>) set <span class="tt">XCHANGE</span> to where the distribution can be found. The build will expect to find <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html">xchange.h</a></span> under <span class="tt">$(XCHANGE)/include</span> and <span class="tt">libxchange.so</span> / <span class="tt">libxchange.a</span> under <span class="tt">$(XCHANGE)/lib</span> or else in the default <span class="tt">LD_LIBRARY_PATH</span>.</li>
+<li><span class="tt">XCHANGE</span>: If the <a href="https://github.com/Sigmyne/xchange">Sigmyne/xchange</a> library is not installed on your system (e.g. under <span class="tt">/usr</span>) set <span class="tt">XCHANGE</span> to where the distribution can be found. The build will expect to find <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html">xchange.h</a></span> under <span class="tt">$(XCHANGE)/include</span> and <span class="tt">libxchange.so</span> / <span class="tt">libxchange.a</span> under <span class="tt">$(XCHANGE)/lib</span> or else in the default <span class="tt">LD_LIBRARY_PATH</span>.</li>
 <li><span class="tt">STATICLINK</span>: Set to 1 to prefer linking tools statically against <span class="tt">libredisx.a</span>. (It may still link dynamically if <span class="tt">libredisx.so</span> is also available.)</li>
 </ul>
 <p>After configuring, you can simply run <span class="tt">make</span>, which will build the <span class="tt">shared</span> (<span class="tt">lib/libredisx.so[.1]</span>) and <span class="tt">static</span> (<span class="tt">lib/libredisx.a</span>) libraries, local HTML documentation (provided <span class="tt">doxygen</span> is available), and performs static analysis via the <span class="tt">check</span> target. Or, you may build just the components you are interested in, by specifying the desired <span class="tt">make</span> target(s). (You can use <span class="tt">make help</span> to get a summary of the available <span class="tt">make</span> targets).</p>
@@ -644,21 +635,21 @@ Configuring</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// (optional) Configure the database password...</span></div>
 <div class="line"><a class="code hl_function" href="redisx_8c.html#a0e9eda38aa6f084ac151cbebe2886c2f">redisxSetPassword</a>(redis, mySecretPasswordString);</div>
-<div class="ttc" id="aredisx_8c_html_a0e9eda38aa6f084ac151cbebe2886c2f"><div class="ttname"><a href="redisx_8c.html#a0e9eda38aa6f084ac151cbebe2886c2f">redisxSetPassword</a></div><div class="ttdeci">int redisxSetPassword(Redis *redis, const char *passwd)</div><div class="ttdef"><b>Definition</b> redisx.c:173</div></div>
+<div class="ttc" id="aredisx_8c_html_a0e9eda38aa6f084ac151cbebe2886c2f"><div class="ttname"><a href="redisx_8c.html#a0e9eda38aa6f084ac151cbebe2886c2f">redisxSetPassword</a></div><div class="ttdeci">int redisxSetPassword(Redis *redis, const char *passwd)</div><div class="ttdef"><b>Definition</b> redisx.c:172</div></div>
 </div><!-- fragment --><p>You can also set the <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> protocol to use (provided your server is compatible with <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> 6 or later):</p>
 <div class="fragment"><div class="line"><span class="comment">// (optional) Use RESP3 (provided the server supports it)</span></div>
 <div class="line"><a class="code hl_function" href="redisx_8c.html#a842cfeb16ae3cb690cb40c5b006dd918">redisxSetProtocol</a>(redis, <a class="code hl_enumvalue" href="redisx_8h.html#ae63bc3e31da55ad4e1603d9302f41cccacd031421d135447f8d1b1422966c8277">REDISX_RESP3</a>);</div>
-<div class="ttc" id="aredisx_8c_html_a842cfeb16ae3cb690cb40c5b006dd918"><div class="ttname"><a href="redisx_8c.html#a842cfeb16ae3cb690cb40c5b006dd918">redisxSetProtocol</a></div><div class="ttdeci">int redisxSetProtocol(Redis *redis, enum redisx_protocol protocol)</div><div class="ttdef"><b>Definition</b> redisx.c:205</div></div>
+<div class="ttc" id="aredisx_8c_html_a842cfeb16ae3cb690cb40c5b006dd918"><div class="ttname"><a href="redisx_8c.html#a842cfeb16ae3cb690cb40c5b006dd918">redisxSetProtocol</a></div><div class="ttdeci">int redisxSetProtocol(Redis *redis, enum redisx_protocol protocol)</div><div class="ttdef"><b>Definition</b> redisx.c:203</div></div>
 <div class="ttc" id="aredisx_8h_html_ae63bc3e31da55ad4e1603d9302f41cccacd031421d135447f8d1b1422966c8277"><div class="ttname"><a href="redisx_8h.html#ae63bc3e31da55ad4e1603d9302f41cccacd031421d135447f8d1b1422966c8277">REDISX_RESP3</a></div><div class="ttdeci">@ REDISX_RESP3</div><div class="ttdoc">RESP3 protocol (since Redis version 6.0.0).</div><div class="ttdef"><b>Definition</b> redisx.h:165</div></div>
 </div><!-- fragment --><p>The above call will use the <span class="tt">HELLO</span> command (since <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> 6) upon connecting. If you do not set the protocol, <span class="tt">HELLO</span> will not be used, and RESP2 will be assumed &ndash; which is best for older servers (<a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> &lt;6). (Note, that you can always check the actual protocol used after connecting, using <span class="tt"><a class="el" href="redisx_8c.html#af756044530dd5b424ec64e89e22eb0a0">redisxGetProtocol()</a></span>). Note, that after connecting, you may retrieve the set of server properties sent in response to <span class="tt">HELLO</span> using <span class="tt"><a class="el" href="redisx_8c.html#a89fd65118ba731931fe281c83f6fa8ba">redisxGetHelloData()</a></span>.</p>
 <p>You can also set a timeout for the interactive transactions, such as:</p>
 <div class="fragment"><div class="line"><span class="comment">// (optional) Set a 1.5 second timeout for interactive replies</span></div>
 <div class="line"><a class="code hl_function" href="redisx_8c.html#abaa3e3716d42d465a4b7536727328e90">redisxSetReplyTimeout</a>(redis, 1500);</div>
-<div class="ttc" id="aredisx_8c_html_abaa3e3716d42d465a4b7536727328e90"><div class="ttname"><a href="redisx_8c.html#abaa3e3716d42d465a4b7536727328e90">redisxSetReplyTimeout</a></div><div class="ttdeci">int redisxSetReplyTimeout(Redis *redis, int timeoutMillis)</div><div class="ttdef"><b>Definition</b> redisx.c:255</div></div>
+<div class="ttc" id="aredisx_8c_html_abaa3e3716d42d465a4b7536727328e90"><div class="ttname"><a href="redisx_8c.html#abaa3e3716d42d465a4b7536727328e90">redisxSetReplyTimeout</a></div><div class="ttdeci">int redisxSetReplyTimeout(Redis *redis, int timeoutMillis)</div><div class="ttdef"><b>Definition</b> redisx.c:253</div></div>
 </div><!-- fragment --><p>You may also select the database index to use now (or later, after connecting), if not the default (index 0):</p>
 <div class="fragment"><div class="line"><span class="comment">// (optional) Select the database index 2</span></div>
 <div class="line"><a class="code hl_function" href="redisx_8c.html#aec99fb8b19d6751038bf9c4c6d04f8d0">redisxSelectDB</a>(redis, 2); </div>
-<div class="ttc" id="aredisx_8c_html_aec99fb8b19d6751038bf9c4c6d04f8d0"><div class="ttname"><a href="redisx_8c.html#aec99fb8b19d6751038bf9c4c6d04f8d0">redisxSelectDB</a></div><div class="ttdeci">int redisxSelectDB(Redis *redis, int idx)</div><div class="ttdef"><b>Definition</b> redisx.c:464</div></div>
+<div class="ttc" id="aredisx_8c_html_aec99fb8b19d6751038bf9c4c6d04f8d0"><div class="ttname"><a href="redisx_8c.html#aec99fb8b19d6751038bf9c4c6d04f8d0">redisxSelectDB</a></div><div class="ttdeci">int redisxSelectDB(Redis *redis, int idx)</div><div class="ttdef"><b>Definition</b> redisx.c:461</div></div>
 </div><!-- fragment --><p>Note, that you can switch the database index any time, with the caveat that it's not possible to change it for the subscription client when there are active subscriptions.</p>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
 TLS configuration</h3>
@@ -682,7 +673,7 @@ TLS configuration</h3>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// (optional) Skip verification of the certificate (insecure!)</span></div>
-<div class="line"><a class="code hl_function" href="redisx-tls_8c.html#a9c8cf16eba455874111651f59f86a6e7">redisxSetTLSVerify</a>(redis, <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);</div>
+<div class="line"><a class="code hl_function" href="redisx-tls_8c.html#a9c8cf16eba455874111651f59f86a6e7">redisxSetTLSVerify</a>(redis, <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// (optional) Set server name for SNI</span></div>
 <div class="line"><a class="code hl_function" href="redisx-tls_8c.html#a9cafd12ab9ff4df77c7fc9d6bac33c1a">redisxSetTLSServerName</a>(redis, <span class="stringliteral">&quot;my.redis-server.com&quot;</span>);</div>
@@ -722,12 +713,12 @@ Socket-level configuration</h3>
 <div class="line">   <span class="comment">// Set up the socket any way you like...</span></div>
 <div class="line">   ...</div>
 <div class="line">   </div>
-<div class="line">   <span class="keywordflow">return</span> <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>;</div>
+<div class="line">   <span class="keywordflow">return</span> <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>;</div>
 <div class="line">}</div>
 <div class="ttc" id="aredisx_8h_html_a5349b7340813fbd1e32d04ed650bc3d9"><div class="ttname"><a href="redisx_8h.html#a5349b7340813fbd1e32d04ed650bc3d9">redisx_channel</a></div><div class="ttdeci">redisx_channel</div><div class="ttdef"><b>Definition</b> redisx.h:150</div></div>
 </div><!-- fragment --><p>which you can then apply to your <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> instance as:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="redisx_8c.html#a085da763bc6a656c649a33dfd296d33f">redisxSetSocketConfigurator</a>(my_socket_config);</div>
-<div class="ttc" id="aredisx_8c_html_a085da763bc6a656c649a33dfd296d33f"><div class="ttname"><a href="redisx_8c.html#a085da763bc6a656c649a33dfd296d33f">redisxSetSocketConfigurator</a></div><div class="ttdeci">int redisxSetSocketConfigurator(Redis *redis, RedisSocketConfigurator func)</div><div class="ttdef"><b>Definition</b> redisx.c:277</div></div>
+<div class="ttc" id="aredisx_8c_html_a085da763bc6a656c649a33dfd296d33f"><div class="ttname"><a href="redisx_8c.html#a085da763bc6a656c649a33dfd296d33f">redisxSetSocketConfigurator</a></div><div class="ttdeci">int redisxSetSocketConfigurator(Redis *redis, RedisSocketConfigurator func)</div><div class="ttdef"><b>Definition</b> redisx.c:275</div></div>
 </div><!-- fragment --><p><a class="anchor" id="connection-hooks"></a> </p>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
 Connection &amp; disconnection hooks</h3>
@@ -749,16 +740,16 @@ Connecting</h2>
 <div class="fragment"><div class="line"><a class="code hl_struct" href="structRedis.html">Redis</a> *redis = ...</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Connect to Redis, including a 2nd dedicated client for pipelined requests</span></div>
-<div class="line">int status = <a class="code hl_function" href="redisx-net_8c.html#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a>(redis, <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);</div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line">int status = <a class="code hl_function" href="redisx-net_8c.html#ad71822356ffd40ed4b1c71d065f48809">redisxConnect</a>(redis, <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">   <span class="comment">// Abort: we could not connect for some reason...</span></div>
 <div class="line">   ...</div>
 <div class="line">   <span class="comment">// Clean up...</span></div>
 <div class="line">   <a class="code hl_function" href="redisx-net_8c.html#ac54dd4c46d8615db4da02702c18f062b">redisxDestroy</a>(redis);</div>
 <div class="line">   ...</div>
 <div class="line">}</div>
-<div class="ttc" id="axchange_8h_html_aa8cecfc5c5c054d2875c03e77b7be15d"><div class="ttname"><a href="/xchange/apidoc/html/xchange_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a></div><div class="ttdeci">#define TRUE</div></div>
-</div><!-- fragment --><p>The above will establish both an interactive connection and a pipelined connection client, for processing both synchronous and asynchronous requests (and responses). For <a href="https://redis.io/docs/latest/develop/reference/sentinel-clients/">Sentinel</a> configurations, it will return with <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a></span> only after having located and connected to the master server, and confirmed that it is indeed the master.</p>
+<div class="ttc" id="axchange_8h_html_aa8cecfc5c5c054d2875c03e77b7be15d"><div class="ttname"><a href="../../xchange/doc/html/xchange_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a></div><div class="ttdeci">#define TRUE</div></div>
+</div><!-- fragment --><p>The above will establish both an interactive connection and a pipelined connection client, for processing both synchronous and asynchronous requests (and responses). For <a href="https://redis.io/docs/latest/develop/reference/sentinel-clients/">Sentinel</a> configurations, it will return with <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a></span> only after having located and connected to the master server, and confirmed that it is indeed the master.</p>
 <p><a class="anchor" id="redisx-disconnecting"></a> </p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
 Disconnecting</h2>
@@ -812,7 +803,7 @@ Interactive transactions</h2>
 <div class="line">resp = <a class="code hl_function" href="redisx_8c.html#a09092bd97eead5c5fa73fa0d9241018c">redisxRequest</a>(redis, <span class="stringliteral">&quot;HGET&quot;</span>, <span class="stringliteral">&quot;my_table&quot;</span>, <span class="stringliteral">&quot;my_key&quot;</span>, NULL, &amp;status);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Check return status...</span></div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Oops something went wrong...</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
@@ -824,7 +815,7 @@ Interactive transactions</h2>
 <div class="line"><span class="comment">// Send &quot;HGET my_table my_key&quot; request with an array of 3 components...</span></div>
 <div class="line">resp = <a class="code hl_function" href="redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75">redisxArrayRequest</a>(redis, cmd, NULL, 3, &amp;status);</div>
 <div class="line">...</div>
-<div class="ttc" id="aredisx_8c_html_ac6767cea95b4cc90348796c61ebdac75"><div class="ttname"><a href="redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75">redisxArrayRequest</a></div><div class="ttdeci">RESP * redisxArrayRequest(Redis *redis, const char **args, const int *lengths, int n, int *status)</div><div class="ttdef"><b>Definition</b> redisx.c:719</div></div>
+<div class="ttc" id="aredisx_8c_html_ac6767cea95b4cc90348796c61ebdac75"><div class="ttname"><a href="redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75">redisxArrayRequest</a></div><div class="ttdeci">RESP * redisxArrayRequest(Redis *redis, const char **args, const int *lengths, int n, int *status)</div><div class="ttdef"><b>Definition</b> redisx.c:715</div></div>
 </div><!-- fragment --><p>The 3rd argument in the list is an optional <span class="tt">int[]</span> array defining the individual string lengths of the parameters (if need be, or else readily available). Here, we used <span class="tt">NULL</span> instead, which will use <span class="tt">strlen()</span> on each supplied string-terminated parameter to determine its length automatically. Specifying the length may be necessary if the individual parameters are not 0-terminated strings.</p>
 <p>In interactive mode, each request is sent to the <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> server, and the response is collected before the call returns with that response (or <span class="tt">NULL</span> if there was an error).</p>
 <p><a class="anchor" id="attributes"></a> </p>
@@ -840,7 +831,7 @@ Bundled Attributes</h2>
 <div class="line"><a class="code hl_struct" href="structRESP.html">RESP</a> *attributes = <a class="code hl_function" href="redisx_8c.html#a48b6b8949276f59cd2f13d6b13384996">redisxGetAttributes</a>(redis);</div>
 <div class="line"> </div>
 <div class="line">...</div>
-<div class="ttc" id="aredisx_8c_html_a48b6b8949276f59cd2f13d6b13384996"><div class="ttname"><a href="redisx_8c.html#a48b6b8949276f59cd2f13d6b13384996">redisxGetAttributes</a></div><div class="ttdeci">RESP * redisxGetAttributes(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx.c:791</div></div>
+<div class="ttc" id="aredisx_8c_html_a48b6b8949276f59cd2f13d6b13384996"><div class="ttname"><a href="redisx_8c.html#a48b6b8949276f59cd2f13d6b13384996">redisxGetAttributes</a></div><div class="ttdeci">RESP * redisxGetAttributes(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx.c:786</div></div>
 </div><!-- fragment --><p><a class="anchor" id="push-notifications"></a> </p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md38"></a>
 Push notifications</h2>
@@ -857,7 +848,7 @@ Push notifications</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Use my_push_processor and pass along the owner as a parameter</span></div>
 <div class="line"><a class="code hl_function" href="redisx_8c.html#a2caca9bc8a09225edb88699fdda10602">redisxSetPushProcessor</a>(redis, my_push_processor, owner);</div>
-<div class="ttc" id="aredisx_8c_html_a2caca9bc8a09225edb88699fdda10602"><div class="ttname"><a href="redisx_8c.html#a2caca9bc8a09225edb88699fdda10602">redisxSetPushProcessor</a></div><div class="ttdeci">int redisxSetPushProcessor(Redis *redis, RedisPushProcessor func, void *arg)</div><div class="ttdef"><b>Definition</b> redisx.c:830</div></div>
+<div class="ttc" id="aredisx_8c_html_a2caca9bc8a09225edb88699fdda10602"><div class="ttname"><a href="redisx_8c.html#a2caca9bc8a09225edb88699fdda10602">redisxSetPushProcessor</a></div><div class="ttdeci">int redisxSetPushProcessor(Redis *redis, RedisPushProcessor func, void *arg)</div><div class="ttdef"><b>Definition</b> redisx.c:825</div></div>
 </div><!-- fragment --><p>There are some things to look out for in your <span class="tt"><a class="el" href="redisx_8h.html#ac819fe43d592df70e8bbc6b25f4d090b">RedisPushProcessor</a></span> implementation:</p>
 <ul>
 <li>The call should not block (except perhaps for a quick mutex lock) and should return quickly. If blocking calls, or extensive processing is required, you should place a copy of the PUSH notification onto a queue and let an asynchronous thread take it from there.</li>
@@ -918,7 +909,7 @@ RESP data type</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Let&#39;s say we expect &#39;reply&#39; to contain of an embedded RESP array of 3 elements... </span></div>
 <div class="line">int status = <a class="code hl_function" href="resp_8c.html#a80d5a305523c51da7bc7cf4c9deca962">redisxCheckDestroyRESP</a>(reply, <a class="code hl_enumvalue" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0ad16eee767b19b1c4bb650deea0dd0b30">RESP_ARRAY</a>, 3);</div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">   <span class="comment">// Oops, &#39;reply&#39; was either NULL, or does not contain a RESP array with 3 elements...</span></div>
 <div class="line">   ...</div>
 <div class="line">}</div>
@@ -935,7 +926,7 @@ RESP data type</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Let&#39;s say we expect &#39;rwply&#39; to contain of a simple string response (of whatever length)</span></div>
 <div class="line"><span class="keywordtype">int</span> status = <a class="code hl_function" href="resp_8c.html#a80d5a305523c51da7bc7cf4c9deca962">redisxCheckDestroyRESP</a>(reply, <a class="code hl_enumvalue" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a7868e33fc03b809c864bf271abd009b9">RESP_SIMPLE_STRING</a>, 0);</div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Oops, &#39;reply&#39; was either NULL, or it was not a simple string type</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
@@ -948,7 +939,7 @@ RESP data type</h2>
 <div class="line">  <a class="code hl_function" href="resp_8c.html#aa4e23a7454f7055711915ec430599011">redisxDestroyRESP</a>(reply);     <span class="comment">// &#39;stringValue&#39; is still a valid pointer after! </span></div>
 <div class="line">}</div>
 <div class="ttc" id="aredisx_8h_html_afa5c90630d37c2f77e5d7985932941a0a7868e33fc03b809c864bf271abd009b9"><div class="ttname"><a href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a7868e33fc03b809c864bf271abd009b9">RESP_SIMPLE_STRING</a></div><div class="ttdeci">@ RESP_SIMPLE_STRING</div><div class="ttdoc">RESP simple string type.</div><div class="ttdef"><b>Definition</b> redisx.h:115</div></div>
-</div><!-- fragment --><p>Note, that you can convert a <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> to an <span class="tt"><a class="elRef" href="/xchange/apidoc/html/structXField.html">XField</a></span>, and/or to JSON representation using the <span class="tt"><a class="el" href="resp_8c.html#adc7235cd1b6be038b9f3c7beb11a13ef">redisxRESP2XField()</a></span> and <span class="tt"><a class="el" href="resp_8c.html#a7f4e74ee03cebf38eb9c1fb873784a35">redisxRESP2JSON()</a></span> functions, e.g.:</p>
+</div><!-- fragment --><p>Note, that you can convert a <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> to an <span class="tt"><a class="elRef" href="../../xchange/doc/html/structXField.html">XField</a></span>, and/or to JSON representation using the <span class="tt"><a class="el" href="resp_8c.html#adc7235cd1b6be038b9f3c7beb11a13ef">redisxRESP2XField()</a></span> and <span class="tt"><a class="el" href="resp_8c.html#a7f4e74ee03cebf38eb9c1fb873784a35">redisxRESP2JSON()</a></span> functions, e.g.:</p>
 <div class="fragment"><div class="line"><a class="code hl_struct" href="structRedis.html">Redis</a> redis = ...</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Obtain a copy of the response received from HELLO upon connecting...</span></div>
@@ -965,7 +956,7 @@ RESP data type</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Clean up</span></div>
 <div class="line">redisxDestroyRESP(resp);</div>
-<div class="ttc" id="aredisx_8c_html_a89fd65118ba731931fe281c83f6fa8ba"><div class="ttname"><a href="redisx_8c.html#a89fd65118ba731931fe281c83f6fa8ba">redisxGetHelloData</a></div><div class="ttdeci">RESP * redisxGetHelloData(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx.c:854</div></div>
+<div class="ttc" id="aredisx_8c_html_a89fd65118ba731931fe281c83f6fa8ba"><div class="ttname"><a href="redisx_8c.html#a89fd65118ba731931fe281c83f6fa8ba">redisxGetHelloData</a></div><div class="ttdeci">RESP * redisxGetHelloData(Redis *redis)</div><div class="ttdef"><b>Definition</b> redisx.c:849</div></div>
 <div class="ttc" id="aresp_8c_html_a7f4e74ee03cebf38eb9c1fb873784a35"><div class="ttname"><a href="resp_8c.html#a7f4e74ee03cebf38eb9c1fb873784a35">redisxRESP2JSON</a></div><div class="ttdeci">char * redisxRESP2JSON(const char *name, const RESP *resp)</div><div class="ttdef"><b>Definition</b> resp.c:742</div></div>
 </div><!-- fragment --><p>All <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> can be represented in JSON format. This is trivial for map entries, which have strings as their keywords &ndash; which is the case for all <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> sent by <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a>. And, it is also possible for map entries with non-string keys, albeit via a more tedious (and less standard) JSON representation, stored under the <span class="tt">.non-string-keys</span> keyword.</p>
 <hr  />
@@ -1007,15 +998,15 @@ Getting and setting keyed values</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Set the &quot;property&quot; field in the &quot;system:subsystem&quot; hash table to -2.5</span></div>
 <div class="line"><span class="comment">// using the interactive client connection, without requiring confirmation. </span></div>
-<div class="line"><span class="keywordtype">int</span> status = <a class="code hl_function" href="redisx-tab_8c.html#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue</a>(redis, <span class="stringliteral">&quot;system:subsystem&quot;</span>, <span class="stringliteral">&quot;property&quot;</span>, <span class="stringliteral">&quot;-2.5&quot;</span>, <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);</div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordtype">int</span> status = <a class="code hl_function" href="redisx-tab_8c.html#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue</a>(redis, <span class="stringliteral">&quot;system:subsystem&quot;</span>, <span class="stringliteral">&quot;property&quot;</span>, <span class="stringliteral">&quot;-2.5&quot;</span>, <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Oops something went wrong.</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
 <div class="ttc" id="aredisx-tab_8c_html_a1465b1a965ddd685e16bccbf0b34f08b"><div class="ttname"><a href="redisx-tab_8c.html#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue</a></div><div class="ttdeci">int redisxSetValue(Redis *redis, const char *table, const char *key, const char *value, boolean confirm)</div><div class="ttdef"><b>Definition</b> redisx-tab.c:126</div></div>
 </div><!-- fragment --><p>It's worth noting here, that values in <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> are always represented as strings, hence non-string data, such as floating-point values, must be converted to strings first. Additionally, the <span class="tt"><a class="el" href="redisx-tab_8c.html#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue()</a></span> function works with 0-terminated string values only, but <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> allows storing unterminated byte sequences of known length also. If you find that you need to store an unterminated string (such as a binary sequence) as a value, you may just use the lower-level <span class="tt"><a class="el" href="redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75">redisxArrayRequest()</a></span> instead to process a <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> <span class="tt">SET</span> or <span class="tt">HSET</span> command with explicit byte-length specifications.</p>
 <p>In the above example we have set the value using the interactive client to <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a>, which means that the call will return only after confirmation or result is received back from the server. As such, a subsequent <span class="tt"><a class="el" href="redisx-tab_8c.html#a01bf1f5d830d1af19456ab78457a54ab">redisxGetValue()</a></span> of the same table/key will be guaranteed to return the updated value always.</p>
-<p>However, we could have set the new value asynchronously over the pipeline connection (by using <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a></span> as the last argument). In that case, the call will return as soon as the request was sent to <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> (but not confirmed, nor possibly transmitted yet!). As such, a subsequent <span class="tt"><a class="el" href="redisx-tab_8c.html#a01bf1f5d830d1af19456ab78457a54ab">redisxGetValue()</a></span> on the same key/value field may race the request in transit, and may return the previous value on occasion. So, it's important to remember that while pipelining can make setting multiple <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> fields very efficient, we have to be careful about retrieving the same values afterwards from the same program thread. (Arguably, however, there should never be a need to query values we set ourselves, since we readily know what they are.)</p>
+<p>However, we could have set the new value asynchronously over the pipeline connection (by using <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a></span> as the last argument). In that case, the call will return as soon as the request was sent to <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> (but not confirmed, nor possibly transmitted yet!). As such, a subsequent <span class="tt"><a class="el" href="redisx-tab_8c.html#a01bf1f5d830d1af19456ab78457a54ab">redisxGetValue()</a></span> on the same key/value field may race the request in transit, and may return the previous value on occasion. So, it's important to remember that while pipelining can make setting multiple <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> fields very efficient, we have to be careful about retrieving the same values afterwards from the same program thread. (Arguably, however, there should never be a need to query values we set ourselves, since we readily know what they are.)</p>
 <p>Finally, if you want to set values for multiple fields in a <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> hash table atomically, you may use <span class="tt"><a class="el" href="redisx-tab_8c.html#aa8fd65a355394af08c86b4f0e943d3a6">redisxMultiSet()</a></span>, which provides a high-level interface to the <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> <span class="tt">HMSET</span> command.</p>
 <p><a class="anchor" id="listing-and-scanning"></a> </p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
@@ -1095,7 +1086,7 @@ Subscriptions</h2>
 <div class="fragment"><div class="line"><a class="code hl_struct" href="structRedis.html">Redis</a> *redis = ...</div>
 <div class="line"> </div>
 <div class="line">int status = <a class="code hl_function" href="redisx-sub_8c.html#a4c268c33f23438af67117b09c26ec615">redisxAddSubscriber</a>(redis, <span class="stringliteral">&quot;event:&quot;</span>, my_event_processor);</div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Oops, something went wrong...</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
@@ -1105,7 +1096,7 @@ Subscriptions</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// We subscribe to all channels that beging with &quot;event:&quot;...</span></div>
 <div class="line">int status = <a class="code hl_function" href="redisx-sub_8c.html#a0aa27b4fce0d0986cae75dfe7fa12f19">redisxSubscribe</a>(redis, <span class="stringliteral">&quot;event:*&quot;</span>);</div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Oops, something went wrong...</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
@@ -1163,7 +1154,7 @@ Execution blocks</h2>
 <div class="line"><span class="comment">// Release exlusive access to the client</span></div>
 <div class="line"><a class="code hl_function" href="redisx-client_8c.html#a87efe53c80fcff3fcf189362cbc602f7">redisxUnlockClient</a>(cl);</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordflow">if</span>(status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span>(status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Oops, the block execition failed...</span></div>
 <div class="line">  <span class="keywordflow">return</span> status;</div>
 <div class="line">}</div>
@@ -1190,7 +1181,7 @@ LUA script loading and execution</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Load the script onto the Redis server</span></div>
 <div class="line"><span class="keywordtype">int</span> status = redixLoadScript(redis, script, &amp;scriptSHA1);</div>
-<div class="line"><span class="keywordflow">if</span>(status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span>(status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Oops, something went wrong...</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
@@ -1205,7 +1196,7 @@ LUA script loading and execution</h2>
 <div class="line"><span class="comment">// Execute the script, with the specified keyword arguments and parameters</span></div>
 <div class="line"><a class="code hl_struct" href="structRESP.html">RESP</a> *reply = <a class="code hl_function" href="redisx-script_8c.html#aebd84c84082d2367d8cbe233cfe14535">redisxRunScript</a>(redis, scriptSHA1, keyArgs, params, &amp;status);</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordflow">if</span>(status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span>(status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">   <span class="comment">// Oops, failed to run script...</span></div>
 <div class="line">   ...</div>
 <div class="line">}</div>
@@ -1253,16 +1244,16 @@ Asynchronous client processing</h2>
 <div class="line"><span class="comment">// Send a command to Redis</span></div>
 <div class="line">int status = <a class="code hl_function" href="redisx-client_8c.html#afc7b28288c07baf0b3c8fdc9d8ddf263">redisxSendRequestAsync</a>(cl, ...);</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordflow">if</span>(status == <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span>(status == <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Read the response</span></div>
 <div class="line">  <a class="code hl_struct" href="structRESP.html">RESP</a> *reply = <a class="code hl_function" href="redisx-client_8c.html#a06c5b62c7b92c83af8f080dd1bb91b17">redisxReadReplyAsync</a>(cl, &amp;status);</div>
-<div class="line">  <span class="keywordflow">if</span>(status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line">  <span class="keywordflow">if</span>(status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">    <span class="comment">// Ooops, not the reply what we expected...</span></div>
 <div class="line">    ...</div>
 <div class="line">  }</div>
 <div class="line">  </div>
 <div class="line">  <span class="comment">// check and process the response</span></div>
-<div class="line">  <span class="keywordflow">if</span>(<a class="code hl_function" href="resp_8c.html#a4b5674d08da07250c0ca6116a4c48ccf">redisxCheckRESP</a>(reply, ...) != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line">  <span class="keywordflow">if</span>(<a class="code hl_function" href="resp_8c.html#a4b5674d08da07250c0ca6116a4c48ccf">redisxCheckRESP</a>(reply, ...) != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">    <span class="comment">// Ooops, not the reply what we expected...</span></div>
 <div class="line">    ...</div>
 <div class="line">  } </div>
@@ -1281,12 +1272,12 @@ Asynchronous client processing</h2>
 <div class="fragment"><div class="line"><span class="comment">// We don&#39;t want to receive a response to our next command... </span></div>
 <div class="line"><span class="keywordtype">int</span> status = <a class="code hl_function" href="redisx-client_8c.html#a44c5d0bd24f5a4f2f131218f14c9c599">redisxSkipReplyAsync</a>(cl);</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordflow">if</span> (status == <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span> (status == <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Now send the request...</span></div>
 <div class="line">  status = redisxSendRequest(cl, ...);</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">   <span class="comment">// Ooops, the request did not go through...</span></div>
 <div class="line">   ...</div>
 <div class="line">}</div>
@@ -1298,7 +1289,7 @@ Bundled Attributes</h2>
 <p>As of <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> 6, the server might send ancillary data along with replies, if the RESP3 protocol is used. These are collected together with the expected responses. However, these optional attributes are not returned to the user automatically. Instead, the user may retrieve attributes directly after getting a response from <span class="tt"><a class="el" href="redisx-client_8c.html#a06c5b62c7b92c83af8f080dd1bb91b17">redisxReadReplyAsync()</a></span> using <span class="tt"><a class="el" href="redisx-client_8c.html#a6c9d4ce9babbcaac35e45f536d47858d">redisxGetAttributesAsync()</a></span>. And, attributes that were received previously can be discarded with <span class="tt"><a class="el" href="redisx-client_8c.html#a576bb47774aaf4d5d735a5ef18253048">redisxClearAttributesAsync()</a></span>. For example,</p>
 <div class="fragment"><div class="line"><a class="code hl_struct" href="structRedisClient.html">RedisClient</a> *cl = ...  <span class="comment">// The client we use for our transactions</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordflow">if</span>(redisxLockEnabled(cl) == <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span>(redisxLockEnabled(cl) == <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  ...</div>
 <div class="line">  </div>
 <div class="line">  <span class="comment">// Clear any prior attributes we may have previously received for the client...</span></div>
@@ -1349,7 +1340,7 @@ Pipelined transactions</h2>
 <div class="line"><span class="comment">// Submit a whole bunch of asynchronous requests, e.g. from a loop...</span></div>
 <div class="line"><span class="keywordflow">for</span> (...) {</div>
 <div class="line">  <span class="keywordtype">int</span> status = <a class="code hl_function" href="redisx-client_8c.html#afc7b28288c07baf0b3c8fdc9d8ddf263">redisxSendRequestAsync</a>(pipe, ...);</div>
-<div class="line">  <span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line">  <span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">    <span class="comment">// Oops, that did not go through...</span></div>
 <div class="line">    ...</div>
 <div class="line">  }</div>
@@ -1470,7 +1461,7 @@ Detecting cluster reconfiguration</h2>
 <div class="line">  <span class="comment">// The key is migrating and may be accessed from new location via an ASKING directive</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
-<div class="line"><span class="keywordflow">if</span>(s != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span>(s != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// The reply is no good for some other reason...</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
@@ -1489,7 +1480,7 @@ Error handling</h1>
 <p>The principal error handling of <b>RedisX</b> is an extension of that of <b>xchange</b>, with further error codes defined in <span class="tt"><a class="el" href="redisx_8h.html">redisx.h</a></span>. The <b>RedisX</b> functions that return an error status (either directly, or into the integer designated by a pointer argument), can be inspected by <span class="tt"><a class="el" href="redisx_8c.html#a38f3de77ad5a48d37b302bce2e3cd25b">redisxErrorDescription()</a></span>, e.g.:</p>
 <div class="fragment"><div class="line"><a class="code hl_struct" href="structRedis.html">Redis</a> *redis ...</div>
 <div class="line">int status = <a class="code hl_function" href="redisx-tab_8c.html#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue</a>(...);</div>
-<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="/xchange/apidoc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code hl_defineRef" href="../../xchange/doc/html/xchange_8h.html#a7b2679c964ea5f2160380ed55654b873">X_SUCCESS</a>) {</div>
 <div class="line">  <span class="comment">// Ooops, something went wrong...</span></div>
 <div class="line">  fprintf(stderr, <span class="stringliteral">&quot;WARNING! set value: %s&quot;</span>, redisErrorDescription(status));</div>
 <div class="line">  ...</div>
@@ -1507,7 +1498,7 @@ Error handling</h1>
 Socket-level errors</h2>
 <p>There are multiple ways the user may get informed when errors happen at the socket read / write level:</p>
 <ul>
-<li><b>RedisX</b> will propagate and report errors from failed socket reads and writes, both via return values to its functions (via <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a7aeb707470a6d1a45626c123e84abe86">X_NO_SERVICE</a></span> error code or <span class="tt">NULL</span> returns, plus <span class="tt">errno</span>), and</li>
+<li><b>RedisX</b> will propagate and report errors from failed socket reads and writes, both via return values to its functions (via <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a7aeb707470a6d1a45626c123e84abe86">X_NO_SERVICE</a></span> error code or <span class="tt">NULL</span> returns, plus <span class="tt">errno</span>), and</li>
 <li><b>RedisX</b> will call the configured socket error handler callback function (see above) as soon as the error is encountered.</li>
 <li><b>RedisX</b> will call all disconnect hooks configured if the client disconnects (either as intended or unexpectedly as a result of a persistent socket-level error).</li>
 </ul>
@@ -1515,15 +1506,15 @@ Socket-level errors</h2>
 <ol type="1">
 <li>The socket error handler (if configured) callback function is called is immediately after a read or write error is detected on a client's socket. The error handler callback function is called while the affected client is still locked and nominally in a 'functioning' state. That means you are free to use any <span class="tt">Async</span> call on the affected client as appropriate, but the error handler should not attempt to release the exclusive lock on the client or call synchronized functions on the <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> instance or the affected client. The background processing of replies (on the pipeline and/or subscription clients) is still active at this stage.</li>
 <li>If the error is caused by a timeout (<span class="tt">errno</span> being <span class="tt">EAGAIN</span> or <span class="tt">EWOULDBLOCK</span>), nothing changes at this stage. However, if the error is persistent, the client will be disabled and reset, and subsequent read or write calls will fail immediately. Any disconnection hooks will be called also as the client is disconnected. The background processing of server replies (on the pipeline and subscriptions channels) will stop soon after the disconnection is initiated.</li>
-<li>The <b>RedisX</b> call returns either <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a7aeb707470a6d1a45626c123e84abe86">X_NO_SERVICE</a></span>, or <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad525869626b4f755aa27d6ef37a15c3d">X_TIMEDOUT</a></span>, or else <span class="tt">NULL</span>. The application should check return values (and/or <span class="tt">errno</span>) as appropriate.</li>
+<li>The <b>RedisX</b> call returns either <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a7aeb707470a6d1a45626c123e84abe86">X_NO_SERVICE</a></span>, or <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad525869626b4f755aa27d6ef37a15c3d">X_TIMEDOUT</a></span>, or else <span class="tt">NULL</span>. The application should check return values (and/or <span class="tt">errno</span>) as appropriate.</li>
 </ol>
 <hr  />
 <p><a class="anchor" id="redisx-debug-support"></a> </p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md67"></a>
 Debug support</h1>
-<p>You can enable verbose output of the <b>RedisX</b> library with <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a0042cff25963caeac32b257bad8178d7">xSetVerbose(boolean)</a></span>. When enabled, it will produce status messages to <span class="tt">stderr</span>so you can follow what's going on. In addition (or alternatively), you can enable debug messages with <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a37cf8359341e68d69ac0df562eba52b6">xSetDebug(boolean)</a></span>. When enabled, all errors encountered by the library (such as invalid arguments passed) will be printed to <span class="tt">stderr</span>, including call traces, so you can walk back to see where the error may have originated from. (You can also enable debug messages by default by defining the <span class="tt">DEBUG</span> constant for the compiler, e.g. by adding <span class="tt">-DDEBUG</span> to <span class="tt">CFLAGS</span> prior to calling <span class="tt">make</span>).</p>
+<p>You can enable verbose output of the <b>RedisX</b> library with <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a0042cff25963caeac32b257bad8178d7">xSetVerbose(boolean)</a></span>. When enabled, it will produce status messages to <span class="tt">stderr</span>so you can follow what's going on. In addition (or alternatively), you can enable debug messages with <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a37cf8359341e68d69ac0df562eba52b6">xSetDebug(boolean)</a></span>. When enabled, all errors encountered by the library (such as invalid arguments passed) will be printed to <span class="tt">stderr</span>, including call traces, so you can walk back to see where the error may have originated from. (You can also enable debug messages by default by defining the <span class="tt">DEBUG</span> constant for the compiler, e.g. by adding <span class="tt">-DDEBUG</span> to <span class="tt">CFLAGS</span> prior to calling <span class="tt">make</span>).</p>
 <p>In addition, you can use <span class="tt"><a class="el" href="redisx_8c.html#a7cde25fca6ae274d8d0a66d5c8b63ff5">redisxDebugTraffic(boolean)</a></span> to debug low-level traffic to/from the <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> server, which prints excerpts of all incoming and outgoing messages from/to <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> to <span class="tt">stderr</span>.</p>
-<p>For helping to debug your application, the <b>xchange</b> library provides two macros: <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a1f038bf7ddb58819805cfc44162cb403">xvprintf()</a></span> and <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a2b0edfea798e9e08122f09dba5f189f8">xdprintf()</a></span>, for printing verbose and debug messages to <span class="tt">stderr</span>. Both work just like <span class="tt">printf()</span>, but they are conditional on verbosity being enabled via <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a0042cff25963caeac32b257bad8178d7">xSetVerbose(boolean)</a></span> and <span class="tt"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#a37cf8359341e68d69ac0df562eba52b6">xSetDebug(boolean)</a></span>, respectively. Applications using <b>RedisX</b> may use these macros to produce their own verbose and/or debugging outputs conditional on the same global settings.</p>
+<p>For helping to debug your application, the <b>xchange</b> library provides two macros: <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a1f038bf7ddb58819805cfc44162cb403">xvprintf()</a></span> and <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a2b0edfea798e9e08122f09dba5f189f8">xdprintf()</a></span>, for printing verbose and debug messages to <span class="tt">stderr</span>. Both work just like <span class="tt">printf()</span>, but they are conditional on verbosity being enabled via <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a0042cff25963caeac32b257bad8178d7">xSetVerbose(boolean)</a></span> and <span class="tt"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a37cf8359341e68d69ac0df562eba52b6">xSetDebug(boolean)</a></span>, respectively. Applications using <b>RedisX</b> may use these macros to produce their own verbose and/or debugging outputs conditional on the same global settings.</p>
 <hr  />
 <p><a class="anchor" id="redisx-future-plans"></a> </p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md69"></a>

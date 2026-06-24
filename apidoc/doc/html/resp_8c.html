@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>RedisX: /github/workspace/src/resp.c File Reference</title>
+<title>RedisX: /github/workspace/redisx/src/resp.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="codefolding.js"></script>
@@ -65,15 +65,6 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2L0MEN3Z8Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-2L0MEN3Z8Q');
-</script>
-
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -83,7 +74,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="Sigmyne-logo-55x55.png"/></td>
   <td id="projectalign">
-   <div id="projectname">RedisX<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">RedisX<span id="projectnumber">&#160;v1.1</span>
    </div>
    <div id="projectbrief">A simple, light-weight Redis database client</div>
   </td>
@@ -182,17 +173,17 @@ Functions</h2></td></tr>
 <tr class="memitem:aa4e23a7454f7055711915ec430599011" id="r_aa4e23a7454f7055711915ec430599011"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa4e23a7454f7055711915ec430599011">redisxDestroyRESP</a> (<a class="el" href="structRESP.html">RESP</a> *resp)</td></tr>
 <tr class="memitem:a69c888c16bb7a74acba44414e18d61ff" id="r_a69c888c16bb7a74acba44414e18d61ff"><td class="memItemLeft"><a class="el" href="structRedisMap.html">RedisMap</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a69c888c16bb7a74acba44414e18d61ff">redisxGetKeywordEntry</a> (const <a class="el" href="structRESP.html">RESP</a> *map, const char *key)</td></tr>
 <tr class="memitem:ad499956b192f4fe313a918f266ce1943" id="r_ad499956b192f4fe313a918f266ce1943"><td class="memItemLeft"><a class="el" href="structRedisMap.html">RedisMap</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad499956b192f4fe313a918f266ce1943">redisxGetMapEntry</a> (const <a class="el" href="structRESP.html">RESP</a> *map, const <a class="el" href="structRESP.html">RESP</a> *key)</td></tr>
-<tr class="memitem:a39055bb1b469883dabfaf1b8efe3b6fe" id="r_a39055bb1b469883dabfaf1b8efe3b6fe"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39055bb1b469883dabfaf1b8efe3b6fe">redisxHasComponents</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:af7d1a91b1d89fb11e6b16db04653a871" id="r_af7d1a91b1d89fb11e6b16db04653a871"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#af7d1a91b1d89fb11e6b16db04653a871">redisxIsArrayType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:ac84b780fd0c2ed709d4edd5789e522aa" id="r_ac84b780fd0c2ed709d4edd5789e522aa"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac84b780fd0c2ed709d4edd5789e522aa">redisxIsEqualRESP</a> (const <a class="el" href="structRESP.html">RESP</a> *a, const <a class="el" href="structRESP.html">RESP</a> *b)</td></tr>
-<tr class="memitem:a460822029ff730cd7a55d64797c329a3" id="r_a460822029ff730cd7a55d64797c329a3"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a460822029ff730cd7a55d64797c329a3">redisxIsMapType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:a944a623a34b5a6a7af064fc0d0cc35bf" id="r_a944a623a34b5a6a7af064fc0d0cc35bf"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a944a623a34b5a6a7af064fc0d0cc35bf">redisxIsScalarType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
-<tr class="memitem:a7fb3a83bc8345413eb1a722444386abd" id="r_a7fb3a83bc8345413eb1a722444386abd"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7fb3a83bc8345413eb1a722444386abd">redisxIsStringType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:a39055bb1b469883dabfaf1b8efe3b6fe" id="r_a39055bb1b469883dabfaf1b8efe3b6fe"><td class="memItemLeft"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39055bb1b469883dabfaf1b8efe3b6fe">redisxHasComponents</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:af7d1a91b1d89fb11e6b16db04653a871" id="r_af7d1a91b1d89fb11e6b16db04653a871"><td class="memItemLeft"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#af7d1a91b1d89fb11e6b16db04653a871">redisxIsArrayType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:ac84b780fd0c2ed709d4edd5789e522aa" id="r_ac84b780fd0c2ed709d4edd5789e522aa"><td class="memItemLeft"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac84b780fd0c2ed709d4edd5789e522aa">redisxIsEqualRESP</a> (const <a class="el" href="structRESP.html">RESP</a> *a, const <a class="el" href="structRESP.html">RESP</a> *b)</td></tr>
+<tr class="memitem:a460822029ff730cd7a55d64797c329a3" id="r_a460822029ff730cd7a55d64797c329a3"><td class="memItemLeft"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a460822029ff730cd7a55d64797c329a3">redisxIsMapType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:a944a623a34b5a6a7af064fc0d0cc35bf" id="r_a944a623a34b5a6a7af064fc0d0cc35bf"><td class="memItemLeft"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a944a623a34b5a6a7af064fc0d0cc35bf">redisxIsScalarType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
+<tr class="memitem:a7fb3a83bc8345413eb1a722444386abd" id="r_a7fb3a83bc8345413eb1a722444386abd"><td class="memItemLeft"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7fb3a83bc8345413eb1a722444386abd">redisxIsStringType</a> (const <a class="el" href="structRESP.html">RESP</a> *r)</td></tr>
 <tr class="memitem:aff1df58b8ef619139cd5ea92ef656e02" id="r_aff1df58b8ef619139cd5ea92ef656e02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aff1df58b8ef619139cd5ea92ef656e02">redisxPrintDelimited</a> (const <a class="el" href="structRESP.html">RESP</a> *resp, const char *delim, const char *groupPrefix)</td></tr>
 <tr class="memitem:a0c3e84681ddfeabf29bac807ff46160b" id="r_a0c3e84681ddfeabf29bac807ff46160b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0c3e84681ddfeabf29bac807ff46160b">redisxPrintJSON</a> (const char *name, const <a class="el" href="structRESP.html">RESP</a> *resp)</td></tr>
 <tr class="memitem:ae1691b2452bc3badd1cc8874b139b846" id="r_ae1691b2452bc3badd1cc8874b139b846"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae1691b2452bc3badd1cc8874b139b846">redisxPrintRESP</a> (const <a class="el" href="structRESP.html">RESP</a> *resp)</td></tr>
 <tr class="memitem:a7f4e74ee03cebf38eb9c1fb873784a35" id="r_a7f4e74ee03cebf38eb9c1fb873784a35"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#a7f4e74ee03cebf38eb9c1fb873784a35">redisxRESP2JSON</a> (const char *name, const <a class="el" href="structRESP.html">RESP</a> *resp)</td></tr>
-<tr class="memitem:adc7235cd1b6be038b9f3c7beb11a13ef" id="r_adc7235cd1b6be038b9f3c7beb11a13ef"><td class="memItemLeft"><a class="elRef" href="/xchange/apidoc/html/structXField.html">XField</a> *&#160;</td><td class="memItemRight"><a class="el" href="#adc7235cd1b6be038b9f3c7beb11a13ef">redisxRESP2XField</a> (const char *name, const <a class="el" href="structRESP.html">RESP</a> *resp)</td></tr>
+<tr class="memitem:adc7235cd1b6be038b9f3c7beb11a13ef" id="r_adc7235cd1b6be038b9f3c7beb11a13ef"><td class="memItemLeft"><a class="elRef" href="../../xchange/doc/html/structXField.html">XField</a> *&#160;</td><td class="memItemRight"><a class="el" href="#adc7235cd1b6be038b9f3c7beb11a13ef">redisxRESP2XField</a> (const char *name, const <a class="el" href="structRESP.html">RESP</a> *resp)</td></tr>
 <tr class="memitem:a63c29262670cf34d06fc30e684878819" id="r_a63c29262670cf34d06fc30e684878819"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a63c29262670cf34d06fc30e684878819">redisxSplitText</a> (<a class="el" href="structRESP.html">RESP</a> *resp, char **text)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -444,7 +435,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxHasComponents </td>
+          <td class="memname"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxHasComponents </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -478,7 +469,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsArrayType </td>
+          <td class="memname"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsArrayType </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -516,7 +507,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsEqualRESP </td>
+          <td class="memname"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsEqualRESP </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
         </tr>
@@ -548,7 +539,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsMapType </td>
+          <td class="memname"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsMapType </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -584,7 +575,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsScalarType </td>
+          <td class="memname"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsScalarType </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -624,7 +615,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsStringType </td>
+          <td class="memname"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> redisxIsStringType </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structRESP.html">RESP</a> *</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td></td>
@@ -782,7 +773,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converts a <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> to the xchange representation as an appropriate <a class="elRef" href="/xchange/apidoc/html/structXField.html">XField</a>.</p>
+<p>Converts a <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> to the xchange representation as an appropriate <a class="elRef" href="../../xchange/doc/html/structXField.html">XField</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">name</td><td>The name to assign to the field </td></tr>
@@ -790,7 +781,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An <a class="elRef" href="/xchange/apidoc/html/structXField.html">XField</a> with the data from the <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a>, or NULL if there was an error (errno will be set to indicate the type of error).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An <a class="elRef" href="../../xchange/doc/html/structXField.html">XField</a> with the data from the <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a>, or NULL if there was an error (errno will be set to indicate the type of error).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#adc7235cd1b6be038b9f3c7beb11a13ef">redisxRESP2XField()</a> </dd>
 <dd>
 <a class="el" href="#a0c3e84681ddfeabf29bac807ff46160b">redisxPrintJSON()</a> </dd></dl>
@@ -806,7 +797,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="elRef" href="/xchange/apidoc/html/structXField.html">XField</a> * redisxRESP2XField </td>
+          <td class="memname"><a class="elRef" href="../../xchange/doc/html/structXField.html">XField</a> * redisxRESP2XField </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
@@ -817,12 +808,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converts a <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> to the xchange representation as an appropriate <a class="elRef" href="/xchange/apidoc/html/structXField.html">XField</a>.</p>
+<p>Converts a <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> to the xchange representation as an appropriate <a class="elRef" href="../../xchange/doc/html/structXField.html">XField</a>.</p>
 <ul>
 <li>
 RESP3_NULL values are converted to NULL. </li>
 <li>
-Scalar values are converted to an <a class="elRef" href="/xchange/apidoc/html/structXField.html">XField</a> with the equivalent type. </li>
+Scalar values are converted to an <a class="elRef" href="../../xchange/doc/html/structXField.html">XField</a> with the equivalent type. </li>
 <li>
 Homogeneous arrays are converted to a field with a 1D array of corresponding xchange type. </li>
 <li>
@@ -832,7 +823,7 @@ Maps with string keywords are converted to an X_STRUCT. </li>
 <li>
 Maps with non-string keywords are added under a sub-structure named '.non-string-keys' as indexed structures with separate 'key' and 'value' fields. </li>
 <li>
-The original <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> type (single character) is preserved as a 0-terminated string in <a class="elRef" href="/xchange/apidoc/html/structXField.html#a2f076846fbd6b30183ba3ab61e3334e5">XField.subtype</a> field. </li>
+The original <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a> type (single character) is preserved as a 0-terminated string in <a class="elRef" href="../../xchange/doc/html/structXField.html#a2f076846fbd6b30183ba3ab61e3334e5">XField.subtype</a> field. </li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -841,7 +832,7 @@ The original <a class="el" href="structRESP.html" title="Structure that represen
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An <a class="elRef" href="/xchange/apidoc/html/structXField.html">XField</a> with the data from the <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a>, or NULL if there was an error (errno will be set to indicate the type of error).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An <a class="elRef" href="../../xchange/doc/html/structXField.html">XField</a> with the data from the <a class="el" href="structRESP.html" title="Structure that represents a Redis response (RESP format).">RESP</a>, or NULL if there was an error (errno will be set to indicate the type of error).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a7f4e74ee03cebf38eb9c1fb873784a35">redisxRESP2JSON()</a> </dd></dl>
 
 <p class="reference">References <a class="el" href="structRESP.html#a76f11d9a0a47b94f72c2d0e77fb32240">RESP::n</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a2da22ebb851ace110ab55425d2fe19fd">RESP3_ATTRIBUTE</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a6584ded22b188e62c73ef63c4221333c">RESP3_BIG_NUMBER</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a955aeeb6f1b51f7a3286e1ac033a7a4b">RESP3_BLOB_ERROR</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a764e3114139243c0d896877739d6fc8f">RESP3_BOOLEAN</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0adcd1d7124f08e1ed73594d2ac5709cca">RESP3_DOUBLE</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a84ed8b97007ad57425cec2cb9b12e89b">RESP3_MAP</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a587dbeb89a4ed22f829b0e0238d8aca1">RESP3_NULL</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a3cf51b299d0be37b2d72dee132e6f481">RESP3_PUSH</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a4ca6058290704cf1fa5aae3d3dcfdff7">RESP3_SET</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a01f039d5dc20f5c7964b5c27f8084cfe">RESP3_VERBATIM_STRING</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0ad16eee767b19b1c4bb650deea0dd0b30">RESP_ARRAY</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a36dd81166f9ba91db70b1571b25fec9f">RESP_BULK_STRING</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0ae792047eeaca57b6ad382c02d0306656">RESP_ERROR</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a503265f716490a963125ade1e6646e0a">RESP_INT</a>, <a class="el" href="redisx_8h.html#afa5c90630d37c2f77e5d7985932941a0a7868e33fc03b809c864bf271abd009b9">RESP_SIMPLE_STRING</a>, <a class="el" href="structRESP.html#a93869a69154ac2297800b0afff64d600">RESP::type</a>, and <a class="el" href="structRESP.html#a0f61d63b009d0880a89c843bd50d8d76">RESP::value</a>.</p>

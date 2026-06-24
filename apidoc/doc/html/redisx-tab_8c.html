@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>RedisX: /github/workspace/src/redisx-tab.c File Reference</title>
+<title>RedisX: /github/workspace/redisx/src/redisx-tab.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="codefolding.js"></script>
@@ -65,15 +65,6 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2L0MEN3Z8Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-2L0MEN3Z8Q');
-</script>
-
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -83,7 +74,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="Sigmyne-logo-55x55.png"/></td>
   <td id="projectalign">
-   <div id="projectname">RedisX<span id="projectnumber">&#160;v1.0</span>
+   <div id="projectname">RedisX<span id="projectnumber">&#160;v1.1</span>
    </div>
    <div id="projectbrief">A simple, light-weight Redis database client</div>
   </td>
@@ -188,13 +179,13 @@ Functions</h2></td></tr>
 <tr class="memitem:afc875f142146282860b6a8a3ac2f0fc8" id="r_afc875f142146282860b6a8a3ac2f0fc8"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#afc875f142146282860b6a8a3ac2f0fc8">redisxGetStringValue</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const char *key, int *len)</td></tr>
 <tr class="memitem:af4290857fc98baac7edd15edb6d0bcac" id="r_af4290857fc98baac7edd15edb6d0bcac"><td class="memItemLeft"><a class="el" href="structRedisEntry.html">RedisEntry</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af4290857fc98baac7edd15edb6d0bcac">redisxGetTable</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, int *n)</td></tr>
 <tr class="memitem:a01bf1f5d830d1af19456ab78457a54ab" id="r_a01bf1f5d830d1af19456ab78457a54ab"><td class="memItemLeft"><a class="el" href="structRESP.html">RESP</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a01bf1f5d830d1af19456ab78457a54ab">redisxGetValue</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const char *key, int *status)</td></tr>
-<tr class="memitem:aa8fd65a355394af08c86b4f0e943d3a6" id="r_aa8fd65a355394af08c86b4f0e943d3a6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8fd65a355394af08c86b4f0e943d3a6">redisxMultiSet</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const <a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int n, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
-<tr class="memitem:a750023f759dd5192dd3c802a542af770" id="r_a750023f759dd5192dd3c802a542af770"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a750023f759dd5192dd3c802a542af770">redisxMultiSetAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, const char *table, const <a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int n, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
+<tr class="memitem:aa8fd65a355394af08c86b4f0e943d3a6" id="r_aa8fd65a355394af08c86b4f0e943d3a6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa8fd65a355394af08c86b4f0e943d3a6">redisxMultiSet</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const <a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int n, <a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
+<tr class="memitem:a750023f759dd5192dd3c802a542af770" id="r_a750023f759dd5192dd3c802a542af770"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a750023f759dd5192dd3c802a542af770">redisxMultiSetAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, const char *table, const <a class="el" href="structRedisEntry.html">RedisEntry</a> *entries, int n, <a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
 <tr class="memitem:a2536b2244c4d05ca5d595ed00826abd4" id="r_a2536b2244c4d05ca5d595ed00826abd4"><td class="memItemLeft">char **&#160;</td><td class="memItemRight"><a class="el" href="#a2536b2244c4d05ca5d595ed00826abd4">redisxScanKeys</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *pattern, int *n)</td></tr>
 <tr class="memitem:a838e534835b9b345925e652e3b053815" id="r_a838e534835b9b345925e652e3b053815"><td class="memItemLeft"><a class="el" href="structRedisEntry.html">RedisEntry</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a838e534835b9b345925e652e3b053815">redisxScanTable</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const char *pattern, int *n)</td></tr>
 <tr class="memitem:a3bd0d2964966ed6655358ff2fe0802c0" id="r_a3bd0d2964966ed6655358ff2fe0802c0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3bd0d2964966ed6655358ff2fe0802c0">redisxSetScanCount</a> (<a class="el" href="structRedis.html">Redis</a> *redis, int count)</td></tr>
-<tr class="memitem:a1465b1a965ddd685e16bccbf0b34f08b" id="r_a1465b1a965ddd685e16bccbf0b34f08b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const char *key, const char *value, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
-<tr class="memitem:a9e784632598b0c418a3ae3a87aa09fe4" id="r_a9e784632598b0c418a3ae3a87aa09fe4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9e784632598b0c418a3ae3a87aa09fe4">redisxSetValueAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, const char *table, const char *key, const char *value, <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
+<tr class="memitem:a1465b1a965ddd685e16bccbf0b34f08b" id="r_a1465b1a965ddd685e16bccbf0b34f08b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1465b1a965ddd685e16bccbf0b34f08b">redisxSetValue</a> (<a class="el" href="structRedis.html">Redis</a> *redis, const char *table, const char *key, const char *value, <a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
+<tr class="memitem:a9e784632598b0c418a3ae3a87aa09fe4" id="r_a9e784632598b0c418a3ae3a87aa09fe4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9e784632598b0c418a3ae3a87aa09fe4">redisxSetValueAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl, const char *table, const char *key, const char *value, <a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a> confirm)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section date"><dt>Date</dt><dd>Created on Aug 26, 2024 </dd></dl>
@@ -302,7 +293,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>REDIS_NULL If got a null or empty response from <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> UNEXPECTED_RESP If the response from <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> was not the expected array type</p>
-<dl class="section return"><dt>Returns</dt><dd>An array with pointers to key names from this table or NULL if there was an error (see parameter n for an error status from <a class="el" href="redisx_8h.html">redisx.h</a> / <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html">xchange.h</a>).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An array with pointers to key names from this table or NULL if there was an error (see parameter n for an error status from <a class="el" href="redisx_8h.html">redisx.h</a> / <a class="elRef" href="../../xchange/doc/html/xchange_8h.html">xchange.h</a>).</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a2536b2244c4d05ca5d595ed00826abd4">redisxScanKeys()</a> </dd>
 <dd>
 <a class="el" href="#a42d64f9b8b0399bf391a5aa3d8cbb9e0">redisxDestroyKeys()</a> </dd></dl>
@@ -376,7 +367,7 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">redis</td><td>Pointer to a <a class="el" href="structRedis.html" title="Structure that represents a Redis database instance, with one or more RedisClient connections.">Redis</a> instance. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">table</td><td>Hashtable from which to retrieve a value or NULL if to use the global table. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">key</td><td>Field name (i.e. variable name). </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>(optional) pointer in which to return the length (&gt;=0) of the value or else an error code (&lt;0) defined in <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html">xchange.h</a> / <a class="el" href="redisx_8h.html">redisx.h</a></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>(optional) pointer in which to return the length (&gt;=0) of the value or else an error code (&lt;0) defined in <a class="elRef" href="../../xchange/doc/html/xchange_8h.html">xchange.h</a> / <a class="el" href="redisx_8h.html">redisx.h</a></td></tr>
   </table>
   </dd>
 </dl>
@@ -504,7 +495,7 @@ redisxDEstroyEntries() </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -519,7 +510,7 @@ redisxDEstroyEntries() </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>X_SUCCESS (0) on success or an error code (&lt;0) from <a class="el" href="redisx_8h.html">redisx.h</a> / <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html">xchange.h</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>X_SUCCESS (0) on success or an error code (&lt;0) from <a class="el" href="redisx_8h.html">redisx.h</a> / <a class="elRef" href="../../xchange/doc/html/xchange_8h.html">xchange.h</a>. </dd></dl>
 
 <p class="reference">References <a class="el" href="redisx_8h.html#a9d530bcfae7689b4275749b47a6d9b51">REDIS_UNEXPECTED_RESP</a>, <a class="el" href="redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75">redisxArrayRequest()</a>, <a class="el" href="redisx_8c.html#a0cdebfd895ab4c61c0fc9e0863a66419">redisxCheckValid()</a>, <a class="el" href="resp_8c.html#aa4e23a7454f7055711915ec430599011">redisxDestroyRESP()</a>, <a class="el" href="#a750023f759dd5192dd3c802a542af770">redisxMultiSetAsync()</a>, and <a class="el" href="structRESP.html#a0f61d63b009d0880a89c843bd50d8d76">RESP::value</a>.</p>
 
@@ -554,7 +545,7 @@ redisxDEstroyEntries() </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -569,7 +560,7 @@ redisxDEstroyEntries() </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>X_SUCCESS (0) on success or an error code (&lt;0) from <a class="el" href="redisx_8h.html">redisx.h</a> / <a class="elRef" href="/xchange/apidoc/html/xchange_8h.html">xchange.h</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>X_SUCCESS (0) on success or an error code (&lt;0) from <a class="el" href="redisx_8h.html">redisx.h</a> / <a class="elRef" href="../../xchange/doc/html/xchange_8h.html">xchange.h</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#aa8fd65a355394af08c86b4f0e943d3a6">redisxMultiSet()</a> </dd>
 <dd>
 <a class="el" href="redisx-client_8c.html#ac9c69fbcaa2a2fbe95af72d91a7b7e6c">redisxLockClient()</a> </dd></dl>
@@ -738,7 +729,7 @@ redisxDEstroyEntries() </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -788,7 +779,7 @@ redisxDEstroyEntries() </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="/xchange/apidoc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
+          <td class="paramtype"><a class="elRef" href="../../xchange/doc/html/xchange_8h.html#ad231e4a02b644c3d6e1bf306e1884094">boolean</a></td>          <td class="paramname"><span class="paramname"><em>confirm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

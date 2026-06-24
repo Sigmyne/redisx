@@ -10,5 +10,5 @@ var searchData=
   ['interactive_20transactions_7',['Interactive transactions',['../index.html#autotoc_md36',1,'']]],
   ['interface_20redisx_20cli_8',['Command-line interface (&lt;span class=&quot;tt&quot;&gt;redisx-cli&lt;/span&gt;)',['../index.html#autotoc_md18',1,'']]],
   ['introduction_9',['Introduction',['../index.html#autotoc_md2',1,'']]],
-  ['isserialized_10',['isSerialized',['/xchange/apidoc/html/structXField.html#a65fb729ee95a5f9ba3d1ac9d6a1ca8e8',1,'XField']]]
+  ['isserialized_10',['isSerialized',['../../../xchange/doc/html/structXField.html#a65fb729ee95a5f9ba3d1ac9d6a1ca8e8',1,'XField']]]
 ];
