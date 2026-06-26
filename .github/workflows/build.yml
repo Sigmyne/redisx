@@ -68,8 +68,9 @@ jobs:
 #      run: make examples
 
   build-freebsd:
-    runs-on: ubuntu-latest
     name: FreeBSD
+    needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: Check out RedisX
       uses: actions/checkout@v7

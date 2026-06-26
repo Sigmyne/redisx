@@ -25,7 +25,7 @@ on:
 
 jobs:
 
-  build:
+  test:
     name: Regression Tests
 
     runs-on: ubuntu-latest
@@ -75,6 +75,7 @@ jobs:
       run: make test
 
   test-platforms:
+    needs: test
     name: ${{ matrix.arch }}
     # The host should always be linux
     runs-on: ubuntu-latest
@@ -129,6 +130,7 @@ jobs:
 
   test-cmake:
     name: Test with CMake (Ubuntu)
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Install Redis
