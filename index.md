@@ -7,6 +7,7 @@ excerpt: RedisX is a light-weight Redis client library for C/C++.
 <img src="https://img.shields.io/github/v/release/Sigmyne/redisx?label=github" class="badge" alt="GitHub release version" align="left">
 <img src="https://img.shields.io/vcpkg/v/redisx" class="badge" alt="vcpkg version">
 <img src="https://img.shields.io/fedora/v/redisx?color=lightblue" class="badge" alt="Fedora package version" align="left">
+<img src="https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/attipaci/homebrew-pub/pkginfo/redisx.json&query=$.versions.stable&label=homebrew" class="badge" alt="Homebrew package version" align="left">
 <br clear="all">
 
 __RedisX__ is a light-weight [Redis](https://redis.io) client for C/C++. As such, it should also work with Redis forks 
