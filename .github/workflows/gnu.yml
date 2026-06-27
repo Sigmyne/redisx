@@ -1,4 +1,4 @@
-name: Tests
+name: GNU make
 permissions:
   contents: read
 
@@ -8,26 +8,129 @@ on:
       - main
     paths:
       - 'src/**'
-      - 'test/**'
       - 'include/**'
-      - 'Makefile'
+      - 'test/**'
+      - 'examples/**'
+      - '**/Makefile'
       - '*.mk'
-      - '.github/workflows/test.yml'
+      - '.github/workflows/gnu.yml'
 
   pull_request:
     paths:
       - 'src/**'
-      - 'test/**'
       - 'include/**'
-      - 'Makefile'
+      - 'test/**'
+      - 'examples/**'
+      - '**/Makefile'
       - '*.mk'
-      - '.github/workflows/test.yml'
+      - '.github/workflows/gnu.yml'
 
 jobs:
 
+  build:
+    name: Build library
+    runs-on: ubuntu-latest
+
+    env:
+      CC: gcc
+      CFLAGS: -Os -Wall -Werror
+      WEXTRA: 1
+      FORTIFY: 3
+      XCHANGE: xchange
+
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -q -y
+        sudo apt-get install -q -y libpopt-dev libreadline-dev libbsd-dev libssl-dev
+
+    - name: Check out RedisX
+      uses: actions/checkout@v7
+
+    - name: Check out xchange
+      uses: actions/checkout@v7
+      with:
+        repository: Sigmyne/xchange
+        path: xchange
+
+    - name: Build xchange dependency
+      run: |
+        make -C xchange static
+        make -C xchange shared
+
+    - name: Build static library
+      run: make static
+
+    - name: Build shared library
+      run: make shared
+
+    - name: Build tools
+      run: make tools
+
+  build-freebsd:
+    name: Build on FreeBSD
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out RedisX
+      uses: actions/checkout@v7
+
+    - name: Check out xchange
+      uses: actions/checkout@v7
+      with:
+        repository: Sigmyne/xchange
+        path: xchange
+
+    - name: Build on FreeBSD
+      uses: vmactions/freebsd-vm@v1
+      with:
+        release: "14.0"
+        prepare: |
+          pkg install -y gmake
+        run: |
+          echo Building on FreeBSD $(uname -m)
+          cd xchange
+          gmake static
+          gmake shared
+          cd ..
+          export XCHANGE="xchange"
+          gmake static
+          gmake shared
+
+  install:
+    name: Install
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc
+    steps:
+    - name: install build deps
+      run: sudo apt-get install doxygen libpopt-dev libreadline-dev libbsd-dev libssl-dev
+
+    - name: Check out RedisX
+      uses: actions/checkout@v7
+
+    - name: Check out xchange
+      uses: actions/checkout@v7
+      with:
+        repository: Sigmyne/xchange
+        path: xchange
+
+    - name: Build xchange dependency
+      run: make -C xchange shared
+
+    - name: Install xchange dependency
+      run: sudo make -C xchange install
+
+    - name: Build RedisX distro
+      run: make distro
+
+    - name: Install RedisX in default location
+      run: sudo make install
+
   test:
     name: Regression Tests
-
+    needs: build
     runs-on: ubuntu-latest
     env:
       CC: gcc
@@ -75,8 +178,8 @@ jobs:
       run: make test
 
   test-platforms:
+    name: Test on Linux arches
     needs: test
-    name: ${{ matrix.arch }}
     # The host should always be linux
     runs-on: ubuntu-latest
 
@@ -86,9 +189,9 @@ jobs:
         include:
           - arch: armv7
             distro: ubuntu_latest
-# ! Can't connect to redis server on aarch64, for some reason...
-#          - arch: aarch64
-#           distro: ubuntu_latest
+          # ! Can't connect to redis server on aarch64, for some reason...
+          # - arch: aarch64
+          #   distro: ubuntu_latest
           - arch: riscv64
             distro: ubuntu_latest
           - arch: s390x
@@ -127,41 +230,3 @@ jobs:
             make tools
             make test
             bin/redisx-cli hello
-
-  test-cmake:
-    name: Test with CMake (Ubuntu)
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install Redis
-        run: |
-          sudo apt-get update -q -y
-          sudo apt-get install redis
-      
-      - name: Install OpenSSL / OpenMP
-        run: |
-          sudo apt-get update -q -y
-          sudo apt-get install libpopt-dev libreadline-dev libbsd-dev libssl-dev libomp-dev
-    
-      - name: Check out RedisX
-        uses: actions/checkout@v7
-
-      - name: Check out xchange
-        uses: actions/checkout@v7
-        with:
-          repository: Sigmyne/xchange
-          path: xchange
-
-      - name: Build xchange dependency
-        run: |
-          cd xchange
-          cmake -B build -DBUILD_SHARED_LIBS=ON
-          cmake --build build
-
-      - name: Build
-        run: |
-          cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_TESTING=ON -DBUILD_SHARED_LIBS=ON -DBUILD_EXAMPLES=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON -DENABLE_ONLINE_TESTING=OM
-          cmake --build build
-
-      - name: Test
-        run: ctest --test-dir build
