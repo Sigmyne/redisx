@@ -8,13 +8,13 @@ EXAMPLES = $(subst .c,,$(wildcard *.c))
 
 LIB ?= ../lib
 
+CPPFLAGS += -I../include
+LDFLAGS += -L$(LIB) -lredisx -lpthread
+
 ifdef XCHANGE
   CPPFLAGS += -I$(XCHANGE)/include
   LDFLAGS += -L$(XCHANGE)/lib -lxchange
 endif
-
-CPPFLAGS += -I../include
-LDFLAGS += -L$(LIB) -lredisx -lpthread
 
 .PHONY: all
 all: $(EXAMPLES)
@@ -31,9 +31,6 @@ clean:
 .PHONY: distclean
 distclean:
 	@rm -f $(EXAMPLES)
-
-example-%: example-%.c
-	$(CC) -o $@ $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS)
 
 .PHONY: help
 help:

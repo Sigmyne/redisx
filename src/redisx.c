@@ -126,7 +126,6 @@ void redisxDebugTraffic(XBoolean value) {
   debugTraffic = value ? TRUE : FALSE;
 }
 
-
 /**
  * Sets the user name to use for authenticating on the Redis server after connection. See the
  * `AUTH` Redis command for more explanation. Naturally, you need to call this prior to connecting
@@ -186,7 +185,6 @@ int redisxSetPassword(Redis *redis, const char *passwd) {
 
   return status;
 }
-
 
 /**
  * Sets the RESP protocol version to use for future client connections. The protocol is set with the
@@ -319,7 +317,6 @@ int redisxSetSocketErrorHandler(Redis *redis, RedisErrorHandler f) {
 
   return X_SUCCESS;
 }
-
 
 /**
  * Returns the current time on the Redis server instance.
@@ -507,7 +504,6 @@ int redisxSelectDB(Redis *redis, int idx) {
   return status;
 }
 
-
 /**
  * Prints a descriptive error message to stderr, and returns the error code.
  *
@@ -521,7 +517,7 @@ int redisxError(const char *func, int errorCode) {
 
   if(errorCode == REDIS_INCOMPLETE_TRANSFER) errno = EBADMSG;
 
-  if(xDebug) {
+  if(xIsDebug()) {
     static int errorCount;
     fprintf(stderr, "DEBUG-X> %4d (%s) in %s.\n", errorCode, redisxErrorDescription(errorCode), func);
     if(++errorCount > MAX_DEBUG_ERROR_COUNT) {
@@ -774,7 +770,6 @@ RESP *redisxArrayRequest(Redis *redis, const char **args, const int *lengths, in
   return reply;
 }
 
-
 /**
  * Returns a copy of the attributes sent along with the last interative request. The user should
  * destroy the returned RESP after using it by calling redisxDestroyRESP().
@@ -833,7 +828,7 @@ int redisxSetPushProcessor(Redis *redis, RedisPushProcessor func, void *arg) {
   RedisPrivate *p;
 
   prop_error(fn, rConfigLock(redis));
-  p = redis->priv;
+  p = (RedisPrivate *) redis->priv;
   p->config.pushConsumer = func;
   p->config.pushArg = arg;
   rConfigUnlock(redis);
@@ -867,7 +862,9 @@ RESP *redisxGetHelloData(Redis *redis) {
 /**
  * Extract key/value pairs from the bulk string response to an `INFO` query.
  *
- * @param reply   The response to an `INFO` query
+ * @param reply   The response to an `INFO` query. This reply will be consumed (destroyed)
+ *                before the call returns. The call may also modify its contents prior to
+ *                the destruction.
  * @return        An allocated lookup table containing the key/value pairs extracted
  */
 XLookupTable *rConsumeInfoReply(RESP *reply) {

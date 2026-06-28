@@ -7,9 +7,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [1.0.4-rc3] - 2026-05-31
+## [Unreleased]
 
-Upcoming maintenance release, expected between 1 July and 1 August 2026.
+### Fixed
+
+ - #40: Default definition of `LIB` in `test/Makefile`, when not explicitly set by user. (by traitimtrongvag)
+
+### Changed
+
+ - #42: Staged GitHub Actions workflows, to skip dependent jobs in case of errors.
+
+
+## [1.0.4] - 2026-06-15
+
+Maintenance release, with bug fixes and improved portability.
 
 ### Fixed
 
@@ -25,9 +36,9 @@ Upcoming maintenance release, expected between 1 July and 1 August 2026.
  
  - Fixed thread-safe disconnect procedure to avoid occasional deadlocks and race conditions.
 
- - CMake `redisxConfig` to skip requiting math lib for non-Windows platforms in general, since it's can fail if the 
-   math library is not in the search path, but in the build path, such as in case of some cross builds (see e.g. the
-   vcpkg Android builds)
+ - CMake `redisxConfig` to skip requiring math lib for non-Windows platforms in general, since it can fail if the 
+   math library is in the build path, but not in the search path, such as for some cross builds (see e.g. the vcpkg 
+   Android builds)
  
  - Various smaller fixes to issues spotted by Copilot AI.
  

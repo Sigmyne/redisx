@@ -41,7 +41,7 @@ jobs:
       run: sudo apt-get install doxygen
 
     - name: Check out RedisX
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Generate docs
       run: make dox
@@ -54,39 +54,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: install doxygen
-      run: sudo apt-get install doxygen
-
-    - name: Checkout source
-      uses: actions/checkout@v6
-
     - name: Check out xchange
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: Sigmyne/xchange
         path: xchange
 
-    - name: Generate docs
-      run: make -C xchange dox
+    - name: Check out RedisX
+      uses: actions/checkout@v6
+      with:
+        path: redisx
 
-    - name: Generate headless README for RedisX
-      run: make -C doc README.md
-      
+    - name: Make headless xchange README
+      run: make -C xchange/doc README.md
+
+    - name: Make headless RedisX README
+      run: make -C redisx/doc README.md
+
+    - name: Generate xchange apidocs
+      uses: mattnotmitt/doxygen-action@edge
+      with:
+        additional-packages: font-roboto
+        working-directory: ./xchange/doc
+
     - name: Link to xchange documentation
       run: |
-        sed -i "s:TAGFILES               =:TAGFILES               =../xchange/doc/xchange.tag=/xchange/apidoc/html:g" doc/Doxyfile
+        sed -i "s:\(TAGFILES\s*=\)$:\1\
+               ../../xchange/doc/xchange.tag=../../xchange/doc/html \
+               :g" redisx/doc/Doxyfile
 
     - name: Generate RedisX apidocs
       uses: mattnotmitt/doxygen-action@edge
       with:
         additional-packages: font-roboto
-        working-directory: 'doc'
+        working-directory: ./redisx/doc
 
     - name: Insert Google analytics tracker
-      run: for file in doc/html/*.html ; do sudo sed -i "/<\/head>/e cat resources/analytics.html" $file ; done
+      run: for file in redisx/doc/html/*.html ; do sudo sed -i "/<\/head>/e cat resources/analytics.html" $file ; done
 
     - name: Checkout gh-pages
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         ref: 'gh-pages'
         path: site
@@ -95,13 +102,13 @@ jobs:
       run: mkdir -p site/doc
 
     - name: Copy CHANGELOG
-      run: cp CHANGELOG.md site/doc/
-      
+      run: cp redisx/CHANGELOG.md site/doc/
+
     - name: Copy README
-      run: cp doc/README.md site/doc/README.md
+      run: cp redisx/doc/README.md site/doc/README.md
 
     - name: Copy API documentation
-      run: cp -a doc site/apidoc
+      run: cp -a redisx/doc site/apidoc
 
     - name: Push to pages
       run: |
@@ -119,10 +126,10 @@ jobs:
     steps:
 
     - name: Checkout source
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Checkout gh-pages
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         ref: 'gh-pages'
         path: site

@@ -1,0 +1,232 @@
+name: GNU make
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'include/**'
+      - 'test/**'
+      - 'examples/**'
+      - '**/Makefile'
+      - '*.mk'
+      - '.github/workflows/gnu.yml'
+
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'include/**'
+      - 'test/**'
+      - 'examples/**'
+      - '**/Makefile'
+      - '*.mk'
+      - '.github/workflows/gnu.yml'
+
+jobs:
+
+  build:
+    name: Build library
+    runs-on: ubuntu-latest
+
+    env:
+      CC: gcc
+      CFLAGS: -Os -Wall -Werror
+      WEXTRA: 1
+      FORTIFY: 3
+      XCHANGE: xchange
+
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -q -y
+        sudo apt-get install -q -y libpopt-dev libreadline-dev libbsd-dev libssl-dev
+
+    - name: Check out RedisX
+      uses: actions/checkout@v7
+
+    - name: Check out xchange
+      uses: actions/checkout@v7
+      with:
+        repository: Sigmyne/xchange
+        path: xchange
+
+    - name: Build xchange dependency
+      run: |
+        make -C xchange static
+        make -C xchange shared
+
+    - name: Build static library
+      run: make static
+
+    - name: Build shared library
+      run: make shared
+
+    - name: Build tools
+      run: make tools
+
+  build-freebsd:
+    name: Build on FreeBSD
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out RedisX
+      uses: actions/checkout@v7
+
+    - name: Check out xchange
+      uses: actions/checkout@v7
+      with:
+        repository: Sigmyne/xchange
+        path: xchange
+
+    - name: Build on FreeBSD
+      uses: vmactions/freebsd-vm@v1
+      with:
+        release: "14.0"
+        prepare: |
+          pkg install -y gmake
+        run: |
+          echo Building on FreeBSD $(uname -m)
+          cd xchange
+          gmake static
+          gmake shared
+          cd ..
+          export XCHANGE="xchange"
+          gmake static
+          gmake shared
+
+  install:
+    name: Install
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc
+    steps:
+    - name: install build deps
+      run: sudo apt-get install doxygen libpopt-dev libreadline-dev libbsd-dev libssl-dev
+
+    - name: Check out RedisX
+      uses: actions/checkout@v7
+
+    - name: Check out xchange
+      uses: actions/checkout@v7
+      with:
+        repository: Sigmyne/xchange
+        path: xchange
+
+    - name: Build xchange dependency
+      run: make -C xchange shared
+
+    - name: Install xchange dependency
+      run: sudo make -C xchange install
+
+    - name: Build RedisX distro
+      run: make distro
+
+    - name: Install RedisX in default location
+      run: sudo make install
+
+  test:
+    name: Regression Tests
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc
+      CFLAGS: -Os -Wall -Werror
+      FORTIFY: 3
+      LIB: ${{ github.workspace }}/lib
+      LD_LIBRARY_PATH: ${{ github.workspace }}/lib
+    steps:
+    - name: Check out RedisX
+      uses: actions/checkout@v7
+
+    - name: Check out xchange
+      uses: actions/checkout@v7
+      with:
+        repository: Sigmyne/xchange
+        path: xchange
+
+    - name: Install build dependencies
+      run: sudo apt-get install libpopt-dev libreadline-dev libbsd-dev libssl-dev
+
+    - name: Build xchange dependency
+      run: make -C xchange shared
+
+    - name: Install xchange dependency
+      run: sudo make -C xchange install
+
+    - name: Build shared library and cli
+      run: make tools
+
+    - name: Install Redis
+      run: |
+        sudo apt-get update -q -y
+        sudo apt-get install redis
+
+    - name: Configure Redis
+      run: sudo sed -i "s:^protected mode[[:blank:]]*yes:protected mode no:g" /etc/redis/redis.conf
+
+    - name: Start Redis
+      run: sudo systemctl start redis-server
+
+    - name: Check redisx-cli hello
+      run: bin/redisx-cli hello
+
+    - name: Run tests
+      run: make test
+
+  test-platforms:
+    name: Test on Linux arches
+    needs: test
+    # The host should always be linux
+    runs-on: ubuntu-latest
+
+    # Run steps on a matrix of 4 arch/distro combinations
+    strategy:
+      matrix:
+        include:
+          - arch: armv7
+            distro: ubuntu_latest
+          # ! Can't connect to redis server on aarch64, for some reason...
+          # - arch: aarch64
+          #   distro: ubuntu_latest
+          - arch: riscv64
+            distro: ubuntu_latest
+          - arch: s390x
+            distro: ubuntu_latest
+          - arch: ppc64le
+            distro: ubuntu_latest
+    steps:
+      - name: Check out RedisX
+        uses: actions/checkout@v7
+
+      - name: Check out xchange
+        uses: actions/checkout@v7
+        with:
+          repository: Sigmyne/xchange
+          path: xchange
+
+      - uses: uraimo/run-on-arch-action@v3
+        name: Run regression tests
+        id: test
+        with:
+          arch: ${{ matrix.arch }}
+          distro: ${{ matrix.distro }}
+          env: |
+            CC: gcc
+            CFLAGS: -Os -Wall -Wextra -Werror
+            LIB: ${{ github.workspace }}/lib
+            LD_LIBRARY_PATH: ${{ github.workspace }}/lib
+            XCHANGE: ${{ github.workspace }}/xchange
+          install: |
+            apt-get update -q -y
+            apt-get install -q -y make gcc libpopt-dev libreadline-dev libbsd-dev libssl-dev redis
+            sed -i "s:^protected mode[[:blank:]]*yes:protected mode no:g" /etc/redis/redis.conf
+          run: |
+            service redis-server start
+            make -C xchange shared
+            make tools
+            make test
+            bin/redisx-cli hello

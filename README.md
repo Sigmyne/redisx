@@ -1,5 +1,5 @@
-![Build Status](https://github.com/Sigmyne/redisx/actions/workflows/build.yml/badge.svg)
-![Test Status](https://github.com/Sigmyne/redisx/actions/workflows/test.yml/badge.svg)
+![GNU make](https://github.com/Sigmyne/redisx/actions/workflows/gnu.yml/badge.svg)
+![CMake](https://github.com/Sigmyne/redisx/actions/workflows/cmake.yml/badge.svg)
 ![Static Analysis](https://github.com/Sigmyne/redisx/actions/workflows/analyze.yml/badge.svg)
 <a href="https://sigmyne.github.io/redisx/apidoc/html/files.html">
  ![API documentation](https://github.com/Sigmyne/redisx/actions/workflows/dox.yml/badge.svg)
@@ -27,7 +27,7 @@ Updated for 1.0 and later releases.
 
  - [Introduction](#redisx-introduction)
  - [Prerequisites](#redisx-prerequisites)
- - [Building RedisX](#building-redisx)
+ - [Building and installation](#building-redisx)
  - [Command-line interface (`redisx-cli`)](#redisx-cli)
  - [Linking your application against RedisX](#redisx-linking)
  - [Managing Redis server connections](#managing-redis-server-connections)
@@ -195,6 +195,7 @@ Additionally `redisx-cli` has the following dependencies on standard GNU/POSIX l
 
  - [Build / install using GNU make](#redisx-gnu-build)
  - [Build / install using CMake](#redisx-cmake-build)
+ - [Install redisx via `vcpkg`](#redisx-vcpkg-port)
  - [Linux packages](#redisx-linux)
  - [Homebrew package](#redisx-homebrew)
 
@@ -353,6 +354,37 @@ the `Runtime` component:
 ```
 </details>
 
+<a name="redisx-vcpkg-port"></a>
+### Install redisx via `vcpkg`
+
+As of version 1.0.4, `redisx` is available through the [vcpkg](https://vcpkg.io/en/) registry. The `vcpkg` port 
+supports a wide range of platforms, including Linux, Windows, MacOS, and Android -- for both `arm64` and `x64` 
+architectures (and in case of Windows also `x86`). It is effectively the same as the CMake build (above), only with 
+more simplicity, convenience, and dependency resolution.
+
+<details>
+
+The `vcpkg` port has optional add-on features, which may be installed along with the `core` library as needed. The 
+following features are available:
+
+ - `core` -- The core __RedisX__ library without TLS support (this is installed by default if no components are specified).
+ - `tls` -- Add-on TLS (transport layer security) encryption support (EXPERIMENTAL)
+
+You can install just the core __RedisX__ library (without TLS support) with `vcpkg` as:
+
+```bash
+  $ vcpkg install redisx
+```
+
+Or, with a selected set of features, such as:
+
+```bash
+  $ vcpkg install redisx[core,tls]
+```
+
+</details>
+
+
 <a name="redisx-linux"></a>
 ### Linux packages
 
@@ -369,6 +401,7 @@ The first package is the runtime library and `redisx-cli` tool, the second is do
 files needed for application development.
 
 </details>
+
 
 <a name="redisx-homebrew"></a>
 ### Homebrew package
