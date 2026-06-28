@@ -9,21 +9,62 @@ on:
     paths:
       - "src/**"
       - "include/**"
-      - "CMakeLists.txt"
+      - "test/**"
+      - "**/CMakeLists.txt"
       - "cmake/**"
-      - ".github/workflows/build-cmake.yml"
+      - ".github/workflows/cmake.yml"
 
   pull_request:
     paths:
       - "src/**"
       - "include/**"
-      - "CMakeLists.txt"
+      - "test/**"
+      - "**/CMakeLists.txt"
       - "cmake/**"
-      - ".github/workflows/build-cmake.yml"
+      - ".github/workflows/cmake.yml"
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }}
+    name: Full build on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install OpenSSL / OpenMP
+        run: |
+          sudo apt-get update -q -y
+          sudo apt-get install libomp-dev libssl-dev libpopt-dev libreadline-dev libbsd-dev
+
+      - name: Check out RedisX
+        uses: actions/checkout@v7
+
+      - name: Check out xchange
+        uses: actions/checkout@v7
+        with:
+          repository: Sigmyne/xchange
+          path: xchange
+
+      - name: Build xchange dependency
+        run: |
+          cd xchange
+          cmake -B build -DBUILD_SHARED_LIBS=ON
+          cmake --build build
+
+      - name: Configure CMake
+        run: cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_SHARED_LIBS=ON -DBUILD_CLI=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Install
+        run: cmake --install build --prefix install
+
+      - name: Check Installation
+        run: |
+          echo Installation contents:
+          ls -la install/
+
+  build-os:
+    name: OS builds (defaults)
+    needs: build
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -67,47 +108,10 @@ jobs:
           echo Installation contents:
           dir install
 
-  build-full:
-    name: Build with OpenSSL / OpenMP on Ubuntu
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install OpenSSL / OpenMP
-        run: |
-          sudo apt-get update -q -y
-          sudo apt-get install libomp-dev libssl-dev libpopt-dev libreadline-dev libbsd-dev
-
-      - name: Check out RedisX
-        uses: actions/checkout@v7
-
-      - name: Check out xchange
-        uses: actions/checkout@v7
-        with:
-          repository: Sigmyne/xchange
-          path: xchange
-
-      - name: Build xchange dependency
-        run: |
-          cd xchange
-          cmake -B build -DBUILD_SHARED_LIBS=ON
-          cmake --build build
-
-      - name: Configure CMake
-        run: cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_SHARED_LIBS=ON -DBUILD_CLI=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON
-
-      - name: Build
-        run: cmake --build build
-
-      - name: Install
-        run: cmake --install build --prefix install
-
-      - name: Check Installation
-        run: |
-          echo Installation contents:
-          ls -la install/
-
   build-freebsd:
+    name: Build on FreeBSD (defaults)
+    needs: build
     runs-on: ubuntu-latest
-    name: Build on FreeBSD
     steps:
       - name: Check out RedisX
         uses: actions/checkout@v7
@@ -137,8 +141,9 @@ jobs:
             ls -la install/
 
   build-doc:
+    name: Build with Documentation (Ubuntu)
+    needs: build
     runs-on: ubuntu-latest
-    name: Build Documentation (Ubuntu)
     steps:
       - name: Check out RedisX
         uses: actions/checkout@v7
@@ -167,3 +172,41 @@ jobs:
         run: |
           cmake --install build --prefix install
           ls -la install/
+
+  test-cmake:
+    name: Test (Ubuntu)
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out RedisX
+        uses: actions/checkout@v7
+
+      - name: Check out xchange
+        uses: actions/checkout@v7
+        with:
+          repository: Sigmyne/xchange
+          path: xchange
+
+      - name: Build xchange dependency
+        run: |
+          cd xchange
+          cmake -B build -DBUILD_SHARED_LIBS=ON
+          cmake --build build
+
+      - name: Build
+        run: |
+          cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_TESTING=ON -DBUILD_EXAMPLES=ON
+          cmake --build build
+
+      - name: install Redis
+        run: |
+          sudo apt-get update -q -y
+          sudo apt-get install -q -y redis
+          sudo sed -i "s:^protected mode[[:blank:]]*yes:protected mode no:g" /etc/redis/redis.conf
+
+      - name: Start Redis server
+        run: |
+          sudo service redis-server start
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure

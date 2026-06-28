@@ -59,8 +59,8 @@ jobs:
       with:
         repository: Sigmyne/xchange
         path: xchange
-        
-    - name: Check out RedisX 
+
+    - name: Check out RedisX
       uses: actions/checkout@v6
       with:
         path: redisx
@@ -70,12 +70,12 @@ jobs:
 
     - name: Make headless RedisX README
       run: make -C redisx/doc README.md
-  
+
     - name: Generate xchange apidocs
       uses: mattnotmitt/doxygen-action@edge
       with:
         additional-packages: font-roboto
-        working-directory: ./xchange/doc 
+        working-directory: ./xchange/doc
 
     - name: Link to xchange documentation
       run: |
@@ -103,7 +103,7 @@ jobs:
 
     - name: Copy CHANGELOG
       run: cp redisx/CHANGELOG.md site/doc/
-      
+
     - name: Copy README
       run: cp redisx/doc/README.md site/doc/README.md
 
