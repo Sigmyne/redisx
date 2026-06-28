@@ -123,7 +123,7 @@ RedisEntry *redisxGetTable(Redis *redis, const char *table, int *n) {
  *              X_FAILURE
  *
  */
-int redisxSetValue(Redis *redis, const char *table, const char *key, const char *value, boolean confirm) {
+int redisxSetValue(Redis *redis, const char *table, const char *key, const char *value, XBoolean confirm) {
   static const char *fn = "redisxSetValue";
 
   int status = X_SUCCESS;
@@ -160,7 +160,7 @@ int redisxSetValue(Redis *redis, const char *table, const char *key, const char 
  *                  X_NAME_INVALID  if key is invalid,
  *                  or an error (&lt;0) returned by redisxSendRequestAsync().
  */
-int redisxSetValueAsync(RedisClient *cl, const char *table, const char *key, const char *value, boolean confirm) {
+int redisxSetValueAsync(RedisClient *cl, const char *table, const char *key, const char *value, XBoolean confirm) {
   static const char *fn = "redisxSetValueAsync";
   int status;
 
@@ -379,7 +379,7 @@ static int *rGetMultiSetLengths(const RedisEntry *entries, int n) {
  * @sa redisxMultiSet()
  * @sa redisxLockClient()
  */
-int redisxMultiSetAsync(RedisClient *cl, const char *table, const RedisEntry *entries, int n, boolean confirm) {
+int redisxMultiSetAsync(RedisClient *cl, const char *table, const RedisEntry *entries, int n, XBoolean confirm) {
   static const char *fn = "redisxMultiSetAsync";
   int *L, N, status = X_SUCCESS;
   const char **req;
@@ -420,7 +420,7 @@ int redisxMultiSetAsync(RedisClient *cl, const char *table, const RedisEntry *en
  * \return              X_SUCCESS (0) on success or an error code (&lt;0) from redisx.h / xchange.h.
  *
  */
-int redisxMultiSet(Redis *redis, const char *table, const RedisEntry *entries, int n, boolean confirm) {
+int redisxMultiSet(Redis *redis, const char *table, const RedisEntry *entries, int n, XBoolean confirm) {
   static const char *fn = "redisxMultiSet";
 
   int status = X_SUCCESS;

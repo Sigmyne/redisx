@@ -393,9 +393,9 @@ typedef void (*RedisPushProcessor)(RedisClient *cl, RESP *message, void *ptr);
  */
 typedef int (*RedisSocketConfigurator)(int socket, enum redisx_channel channel);
 
-void redisxSetVerbose(boolean value);
-boolean redisxIsVerbose();
-void redisxDebugTraffic(boolean value);
+void redisxSetVerbose(XBoolean value);
+XBoolean redisxIsVerbose();
+void redisxDebugTraffic(XBoolean value);
 
 int redisxSetReplyTimeout(Redis *redis, int timeoutMillis);
 int redisxSetSocketTimeout(Redis *redis, int millis);
@@ -416,9 +416,9 @@ Redis *redisxInitSentinel(const char *serviceName, const RedisServer *serverList
 int redisxValidateSentinel(const char *serviceName, const RedisServer *serverList, int nServers);
 int redisxCheckValid(const Redis *redis);
 void redisxDestroy(Redis *redis);
-int redisxConnect(Redis *redis, boolean usePipeline);
+int redisxConnect(Redis *redis, XBoolean usePipeline);
 void redisxDisconnect(Redis *redis);
-int redisxReconnect(Redis *redis, boolean usePipeline);
+int redisxReconnect(Redis *redis, XBoolean usePipeline);
 
 int redisxSetTLS(Redis *redis, const char *ca_path, const char *ca_file);
 int redisxSetMutualTLS(Redis *redis, const char *cert_file, const char *key_file);
@@ -426,17 +426,17 @@ int redisxSetTLSCiphers(Redis *redis, const char *cipher_list);
 int redisxSetTLSCipherSuites(Redis *redis, const char *list);
 int redisxSetDHCipherParams(Redis *redis, const char *dh_params_file);
 int redisxSetTLSServerName(Redis *redis, const char *host);
-int redisxSetTLSVerify(Redis *redis, boolean value);
+int redisxSetTLSVerify(Redis *redis, XBoolean value);
 
 RedisCluster *redisxClusterInit(Redis *node);
 Redis *redisxClusterGetShard(RedisCluster *cluster, const char *key);
-boolean redisxClusterIsRedirected(const RESP *reply);
-boolean redisxClusterMoved(const RESP *reply);
-boolean redisxClusterIsMigrating(const RESP *reply);
+XBoolean redisxClusterIsRedirected(const RESP *reply);
+XBoolean redisxClusterMoved(const RESP *reply);
+XBoolean redisxClusterIsMigrating(const RESP *reply);
 int redisxClusterConnect(RedisCluster *cluster);
 int redisxClusterDisconnect(RedisCluster *cluster);
 void redisxClusterDestroy(RedisCluster *cluster);
-Redis *redisxClusterGetRedirection(RedisCluster *cluster, const RESP *redirect, boolean refresh);
+Redis *redisxClusterGetRedirection(RedisCluster *cluster, const RESP *redirect, XBoolean refresh);
 RESP *redisxClusterAskMigrating(Redis *redis, const char **args, const int *lengths, int n, int *status);
 
 int redisxPing(Redis *redis, const char *message);
@@ -444,8 +444,8 @@ enum redisx_protocol redisxGetProtocol(Redis *redis);
 XLookupTable *redisxGetInfo(Redis *redis, const char *parameter);
 RESP *redisxGetHelloData(Redis *redis);
 
-boolean redisxIsConnected(Redis *redis);
-boolean redisxHasPipeline(Redis *redis);
+XBoolean redisxIsConnected(Redis *redis);
+XBoolean redisxHasPipeline(Redis *redis);
 
 RedisClient *redisxGetClient(Redis *redis, enum redisx_channel channel);
 RedisClient *redisxGetLockedConnectedClient(Redis *redis, enum redisx_channel channel);
@@ -462,12 +462,12 @@ RESP *redisxRequest(Redis *redis, const char *command, const char *arg1, const c
 RESP *redisxArrayRequest(Redis *redis, const char **args, const int *length, int n, int *status);
 RESP *redisxGetAttributes(Redis *redis);
 int redisxGetAvailable(RedisClient *cl);
-int redisxSetValue(Redis *redis, const char *table, const char *key, const char *value, boolean confirm);
+int redisxSetValue(Redis *redis, const char *table, const char *key, const char *value, XBoolean confirm);
 RESP *redisxGetValue(Redis*redis, const char *table, const char *key, int *status);
 char *redisxGetStringValue(Redis *redis, const char *table, const char *key, int *len);
 RedisEntry *redisxGetTable(Redis *redis, const char *table, int *n);
 RedisEntry *redisxScanTable(Redis *redis, const char *table, const char *pattern, int *n);
-int redisxMultiSet(Redis *redis, const char *table, const RedisEntry *entries, int n, boolean confirm);
+int redisxMultiSet(Redis *redis, const char *table, const RedisEntry *entries, int n, XBoolean confirm);
 char **redisxGetKeys(Redis *redis, const char *table, int *n);
 char **redisxScanKeys(Redis *redis, const char *pattern, int *n);
 int redisxSetScanCount(Redis *redis, int count);
@@ -500,12 +500,12 @@ RESP *redisxCopyOfRESP(const RESP *resp);
 int redisxCheckRESP(const RESP *resp, enum resp_type expectedType, int expectedSize);
 int redisxCheckDestroyRESP(RESP *resp, enum resp_type, int expectedSize);
 void redisxDestroyRESP(RESP *resp);
-boolean redisxIsScalarType(const RESP *r);
-boolean redisxIsStringType(const RESP *r);
-boolean redisxIsArrayType(const RESP *r);
-boolean redisxIsMapType(const RESP *r);
-boolean redisxHasComponents(const RESP *r);
-boolean redisxIsEqualRESP(const RESP *a, const RESP *b);
+XBoolean redisxIsScalarType(const RESP *r);
+XBoolean redisxIsStringType(const RESP *r);
+XBoolean redisxIsArrayType(const RESP *r);
+XBoolean redisxIsMapType(const RESP *r);
+XBoolean redisxHasComponents(const RESP *r);
+XBoolean redisxIsEqualRESP(const RESP *a, const RESP *b);
 int redisxSplitText(RESP *resp, char **text);
 XField *redisxRESP2XField(const char *name, const RESP *resp);
 char *redisxRESP2JSON(const char *name, const RESP *resp);
@@ -525,8 +525,8 @@ int redisxUnlockClient(RedisClient *cl);
 int redisxSendRequestAsync(RedisClient *cl, const char *command, const char *arg1, const char *arg2, const char *arg3);
 int redisxSendArrayRequestAsync(RedisClient *cl, const char **args, const int *length, int n);
 int redisxClusterAskMigratingAsync(RedisClient *cl, const char **args, const int *lengths, int n);
-int redisxSetValueAsync(RedisClient *cl, const char *table, const char *key, const char *value, boolean confirm);
-int redisxMultiSetAsync(RedisClient *cl, const char *table, const RedisEntry *entries, int n, boolean confirm);
+int redisxSetValueAsync(RedisClient *cl, const char *table, const char *key, const char *value, XBoolean confirm);
+int redisxMultiSetAsync(RedisClient *cl, const char *table, const RedisEntry *entries, int n, XBoolean confirm);
 int redisxGetAvailableAsync(RedisClient *cl);
 RESP *redisxReadReplyAsync(RedisClient *cl, int *pStatus);
 int redisxClearAttributesAsync(RedisClient *cl);

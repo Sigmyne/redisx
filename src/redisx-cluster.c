@@ -36,8 +36,8 @@ typedef struct {
   xmut_type mutex;              ///< mutex for exclusive access to the cluster configuration
   int n_shards;                 ///< the number of shards in the cluster
   RedisShard *shard;            ///< array containing information on each shard
-  boolean usePipeline;          ///< Whether shards should have dedicated pipeline connections
-  boolean reconfiguring;        ///< Whether the cluster is currently being reconfigured.
+  XBoolean usePipeline;          ///< Whether shards should have dedicated pipeline connections
+  XBoolean reconfiguring;        ///< Whether the cluster is currently being reconfigured.
 } ClusterPrivate;
 
 /// \endcond
@@ -468,7 +468,7 @@ Redis *redisxClusterGetShard(RedisCluster *cluster, const char *key) {
  * @sa redisxClusterInit()
  * @sa redisxClusterMoved()
  */
-static Redis *rClusterGetShardByAddress(RedisCluster *cluster, const char *host, int port, boolean refresh) {
+static Redis *rClusterGetShardByAddress(RedisCluster *cluster, const char *host, int port, XBoolean refresh) {
   static const char *fn = "rClusterGetShardByAddress";
 
   ClusterPrivate *cp;
@@ -719,7 +719,7 @@ int redisxClusterDisconnect(RedisCluster *cluster) {
  * @sa redisxClusterIsRedirected()
  * @sa redisxClusterGetShard()
  */
-boolean redisxClusterMoved(const RESP *reply) {
+XBoolean redisxClusterMoved(const RESP *reply) {
   if(!reply) return FALSE;
   if(reply->type != RESP_ERROR) return FALSE;
   if(reply->n < 5) return FALSE;
@@ -740,7 +740,7 @@ boolean redisxClusterMoved(const RESP *reply) {
  * @sa redisxClusterIsRedirected()
  * @sa redisxClusterAskMigrating()
  */
-boolean redisxClusterIsMigrating(const RESP *reply) {
+XBoolean redisxClusterIsMigrating(const RESP *reply) {
   if(!reply) return FALSE;
   if(reply->type != RESP_ERROR) return FALSE;
   if(reply->n < 3) return FALSE;
@@ -759,7 +759,7 @@ boolean redisxClusterIsMigrating(const RESP *reply) {
  * @sa redisxClusterMoved()
  * @sa redisxClusterIsMigrating()
  */
-boolean redisxClusterIsRedirected(const RESP *reply) {
+XBoolean redisxClusterIsRedirected(const RESP *reply) {
   return redisxClusterMoved(reply) || redisxClusterIsMigrating(reply);
 }
 
@@ -781,7 +781,7 @@ boolean redisxClusterIsRedirected(const RESP *reply) {
  * @sa redisxClusterIsMigrating()
  * @sa redisxClusterAskMigrating()
  */
-Redis *redisxClusterGetRedirection(RedisCluster *cluster, const RESP *redirect, boolean refresh) {
+Redis *redisxClusterGetRedirection(RedisCluster *cluster, const RESP *redirect, XBoolean refresh) {
   static const char *fn = "redisxClusterGetRedirection";
 
   const char *tok;
