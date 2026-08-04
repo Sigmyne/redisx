@@ -70,7 +70,7 @@ jobs:
       uses: github/codeql-action/init@v4.37.4
       with:
         languages: ${{ matrix.language }}
-        build-mode: manual
+        build-mode: none
 
     - name: Install build dependencies
       run: sudo apt-get install libpopt-dev libreadline-dev libbsd-dev libssl-dev
