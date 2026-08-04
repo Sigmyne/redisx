@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+ - #37: Use `XBoolean` instead of `boolean` type (requires xchange v1.3).
+
  - #42: Staged GitHub Actions workflows, to skip dependent jobs in case of errors.
 
 
