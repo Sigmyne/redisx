@@ -3,11 +3,11 @@
  *
  * \date May 4, 2018
  * \author Attila Kovacs
- * \version 1.0
+ * \version 1.1
  *
  *  RedisX is a completely free Redis / Valkey client library, available on Github as:
  *
- *   https://github.com/Smithsonian/redisx
+ *   https://github.com/Sigmyne/redisx
  *
  */
 
@@ -32,7 +32,7 @@
 #define REDISX_PATCHLEVEL     0
 
 /// Additional release information in version, e.g. "-1", or "-rc1".
-#define REDISX_RELEASE_STRING "-rc1"
+#define REDISX_RELEASE_STRING "-devel"
 
 
 
