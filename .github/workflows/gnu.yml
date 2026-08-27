@@ -222,7 +222,7 @@ jobs:
             XCHANGE: ${{ github.workspace }}/xchange
           install: |
             apt-get update -q -y
-            apt-get install -q -y make gcc libpopt-dev libreadline-dev libbsd-dev libssl-dev redis
+            apt-get install -q -y make gcc libc6-dev libpopt-dev libreadline-dev libbsd-dev libssl-dev redis
             sed -i "s:^protected mode[[:blank:]]*yes:protected mode no:g" /etc/redis/redis.conf
           run: |
             service redis-server start
