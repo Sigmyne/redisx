@@ -103,7 +103,7 @@ if(BUILD_CLI)
 endif()
 
 # xchange dependency
-find_package(xchange REQUIRED)
+find_package(xchange 1.3 REQUIRED)
 set_package_properties(xchange PROPERTIES
     URL "https://sigmyne.github.io/xchange"
     DESCRIPTION  "structured data representation for C/C++"
