@@ -6,5 +6,5 @@ var redisx_tls_8c =
     [ "redisxSetTLSCiphers", "redisx-tls_8c.html#a11828fc2962a62c27bf8b5627f69a8a0", null ],
     [ "redisxSetTLSCipherSuites", "redisx-tls_8c.html#aece815a388c13dfa9381d194fc65526a", null ],
     [ "redisxSetTLSServerName", "redisx-tls_8c.html#a9cafd12ab9ff4df77c7fc9d6bac33c1a", null ],
-    [ "redisxSetTLSVerify", "redisx-tls_8c.html#a9c8cf16eba455874111651f59f86a6e7", null ]
+    [ "redisxSetTLSVerify", "redisx-tls_8c.html#a1e2f59f0cbc5a91e35a33d441ed4bf57", null ]
 ];

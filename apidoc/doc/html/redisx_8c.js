@@ -4,7 +4,7 @@ var redisx_8c =
     [ "rConsumeInfoReply", "redisx_8c.html#a2fdb234e05f16fb004b34bc016ba9d99", null ],
     [ "redisxArrayRequest", "redisx_8c.html#ac6767cea95b4cc90348796c61ebdac75", null ],
     [ "redisxCheckValid", "redisx_8c.html#a0cdebfd895ab4c61c0fc9e0863a66419", null ],
-    [ "redisxDebugTraffic", "redisx_8c.html#a7cde25fca6ae274d8d0a66d5c8b63ff5", null ],
+    [ "redisxDebugTraffic", "redisx_8c.html#aece17d9b2a262ed1ff8eef3da01e9faf", null ],
     [ "redisxError", "redisx_8c.html#ae722b046fa70a55db725341ef8ee56dc", null ],
     [ "redisxErrorDescription", "redisx_8c.html#a38f3de77ad5a48d37b302bce2e3cd25b", null ],
     [ "redisxGetAttributes", "redisx_8c.html#a48b6b8949276f59cd2f13d6b13384996", null ],
@@ -12,9 +12,9 @@ var redisx_8c =
     [ "redisxGetInfo", "redisx_8c.html#a1693736dbc3d9a3ba17a31cf2bb4246d", null ],
     [ "redisxGetProtocol", "redisx_8c.html#af756044530dd5b424ec64e89e22eb0a0", null ],
     [ "redisxGetTime", "redisx_8c.html#a5dbdb6bef9c8ac3a4a8e901abe505d30", null ],
-    [ "redisxHasPipeline", "redisx_8c.html#a481678923a653e5227f7dab5a1fd272d", null ],
+    [ "redisxHasPipeline", "redisx_8c.html#a887a38057b981c726b252b9587492ece", null ],
     [ "redisxIsGlobPattern", "redisx_8c.html#afed05f00d7dc1b6905b01210b4c8ae6b", null ],
-    [ "redisxIsVerbose", "redisx_8c.html#a484532a0b208bbd9c7a6cb9663361696", null ],
+    [ "redisxIsVerbose", "redisx_8c.html#aa17ed5937465ccdcbcccfa1e76513b4b", null ],
     [ "redisxPing", "redisx_8c.html#afd19b1137e80ed26065d9e6e7039c8fe", null ],
     [ "redisxRequest", "redisx_8c.html#a09092bd97eead5c5fa73fa0d9241018c", null ],
     [ "redisxSelectDB", "redisx_8c.html#aec99fb8b19d6751038bf9c4c6d04f8d0", null ],
@@ -26,5 +26,5 @@ var redisx_8c =
     [ "redisxSetSocketConfigurator", "redisx_8c.html#a085da763bc6a656c649a33dfd296d33f", null ],
     [ "redisxSetSocketErrorHandler", "redisx_8c.html#ad3aaa3b6fb5353a52a7013421baa9b89", null ],
     [ "redisxSetUser", "redisx_8c.html#a3beff3a9e373a0f1de626a8e64da98cf", null ],
-    [ "redisxSetVerbose", "redisx_8c.html#a11454a2359f43b6fd024d25a8148644e", null ]
+    [ "redisxSetVerbose", "redisx_8c.html#aa8b80dd217b6c3224e2731ec048fd63c", null ]
 ];

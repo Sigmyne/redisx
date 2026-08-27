@@ -471,8 +471,8 @@
       <type>Redis *</type>
       <name>redisxClusterGetRedirection</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>ac40bd92e2c9cc4f14521c2efcea57018</anchor>
-      <arglist>(RedisCluster *cluster, const RESP *redirect, boolean refresh)</arglist>
+      <anchor>a87f21e95198aeafd9497702a3d1c90d4</anchor>
+      <arglist>(RedisCluster *cluster, const RESP *redirect, XBoolean refresh)</arglist>
     </member>
     <member kind="function">
       <type>Redis *</type>
@@ -489,32 +489,32 @@
       <arglist>(Redis *node)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxClusterIsMigrating</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a57a19ba90951b891677b1be3af8a8f36</anchor>
+      <anchor>a12539722943497b7c0b23f1cfdc8a1ed</anchor>
       <arglist>(const RESP *reply)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxClusterIsRedirected</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a537ed3806a44fb40f6e8dccd813ad0da</anchor>
+      <anchor>a3371f1ae42e3a6ebaadf3b92580f64eb</anchor>
       <arglist>(const RESP *reply)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxClusterMoved</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a19fc54725ba4725e0281cff59b642e15</anchor>
+      <anchor>afed1869dbd512fc1e8ca11e15672d0d7</anchor>
       <arglist>(const RESP *reply)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>redisxConnect</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>ad71822356ffd40ed4b1c71d065f48809</anchor>
-      <arglist>(Redis *redis, boolean usePipeline)</arglist>
+      <anchor>a6ea667fad42fab81a5580d244cc6d522</anchor>
+      <arglist>(Redis *redis, XBoolean usePipeline)</arglist>
     </member>
     <member kind="function">
       <type>RESP *</type>
@@ -527,8 +527,8 @@
       <type>void</type>
       <name>redisxDebugTraffic</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a7cde25fca6ae274d8d0a66d5c8b63ff5</anchor>
-      <arglist>(boolean value)</arglist>
+      <anchor>aece17d9b2a262ed1ff8eef3da01e9faf</anchor>
+      <arglist>(XBoolean value)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -713,17 +713,17 @@
       <arglist>(Redis *redis, const char *table, const char *key, int *status)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxHasComponents</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a39055bb1b469883dabfaf1b8efe3b6fe</anchor>
+      <anchor>a2daed2a5d0d2798e3ffbe5cf21b1bb8a</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxHasPipeline</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a481678923a653e5227f7dab5a1fd272d</anchor>
+      <anchor>a887a38057b981c726b252b9587492ece</anchor>
       <arglist>(Redis *redis)</arglist>
     </member>
     <member kind="function">
@@ -748,24 +748,24 @@
       <arglist>(const char *serviceName, const RedisServer *serverList, int nServers)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsArrayType</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>af7d1a91b1d89fb11e6b16db04653a871</anchor>
+      <anchor>ab85b8bce13be5301f5befc1cb7883c87</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsConnected</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a94326ebfa5868579c8448cdbb941b3da</anchor>
+      <anchor>a8da5135cf20ed3c56ec466c8ca4d1a94</anchor>
       <arglist>(Redis *redis)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsEqualRESP</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>ac84b780fd0c2ed709d4edd5789e522aa</anchor>
+      <anchor>a438567ab87ff6bf91fcce09f0ae0c817</anchor>
       <arglist>(const RESP *a, const RESP *b)</arglist>
     </member>
     <member kind="function">
@@ -776,31 +776,31 @@
       <arglist>(const char *str)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsMapType</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a460822029ff730cd7a55d64797c329a3</anchor>
+      <anchor>afcaa477965861dcbfbb96d1f018b55b1</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsScalarType</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a944a623a34b5a6a7af064fc0d0cc35bf</anchor>
+      <anchor>ad5974edab3bc21d231945cfa57f242c9</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsStringType</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a7fb3a83bc8345413eb1a722444386abd</anchor>
+      <anchor>a5c7492830a7b581806893447cac7dbcb</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsVerbose</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a484532a0b208bbd9c7a6cb9663361696</anchor>
+      <anchor>aa17ed5937465ccdcbcccfa1e76513b4b</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -828,15 +828,15 @@
       <type>int</type>
       <name>redisxMultiSet</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>aa8fd65a355394af08c86b4f0e943d3a6</anchor>
-      <arglist>(Redis *redis, const char *table, const RedisEntry *entries, int n, boolean confirm)</arglist>
+      <anchor>abfcc67b8f2dd45489bc2617f29b42951</anchor>
+      <arglist>(Redis *redis, const char *table, const RedisEntry *entries, int n, XBoolean confirm)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>redisxMultiSetAsync</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a750023f759dd5192dd3c802a542af770</anchor>
-      <arglist>(RedisClient *cl, const char *table, const RedisEntry *entries, int n, boolean confirm)</arglist>
+      <anchor>a5ab6e996f944efb8c58379f13c42efc1</anchor>
+      <arglist>(RedisClient *cl, const char *table, const RedisEntry *entries, int n, XBoolean confirm)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -898,8 +898,8 @@
       <type>int</type>
       <name>redisxReconnect</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a55a2efad7c8d8f840f4144a217f58965</anchor>
-      <arglist>(Redis *redis, boolean usePipeline)</arglist>
+      <anchor>a6b9739c60ca02c113efd930db1c2c0d5</anchor>
+      <arglist>(Redis *redis, XBoolean usePipeline)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -1122,8 +1122,8 @@
       <type>int</type>
       <name>redisxSetTLSVerify</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a9c8cf16eba455874111651f59f86a6e7</anchor>
-      <arglist>(Redis *redis, boolean value)</arglist>
+      <anchor>a1e2f59f0cbc5a91e35a33d441ed4bf57</anchor>
+      <arglist>(Redis *redis, XBoolean value)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -1136,22 +1136,22 @@
       <type>int</type>
       <name>redisxSetValue</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a1465b1a965ddd685e16bccbf0b34f08b</anchor>
-      <arglist>(Redis *redis, const char *table, const char *key, const char *value, boolean confirm)</arglist>
+      <anchor>af43466b9a55efcb6b4bfe2aa5ed37140</anchor>
+      <arglist>(Redis *redis, const char *table, const char *key, const char *value, XBoolean confirm)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>redisxSetValueAsync</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a9e784632598b0c418a3ae3a87aa09fe4</anchor>
-      <arglist>(RedisClient *cl, const char *table, const char *key, const char *value, boolean confirm)</arglist>
+      <anchor>a4e0206f7ab34da7867971f32a13c990d</anchor>
+      <arglist>(RedisClient *cl, const char *table, const char *key, const char *value, XBoolean confirm)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>redisxSetVerbose</name>
       <anchorfile>redisx_8h.html</anchorfile>
-      <anchor>a11454a2359f43b6fd024d25a8148644e</anchor>
-      <arglist>(boolean value)</arglist>
+      <anchor>aa8b80dd217b6c3224e2731ec048fd63c</anchor>
+      <arglist>(XBoolean value)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -1384,8 +1384,8 @@
       <type>Redis *</type>
       <name>redisxClusterGetRedirection</name>
       <anchorfile>redisx-cluster_8c.html</anchorfile>
-      <anchor>ac40bd92e2c9cc4f14521c2efcea57018</anchor>
-      <arglist>(RedisCluster *cluster, const RESP *redirect, boolean refresh)</arglist>
+      <anchor>a87f21e95198aeafd9497702a3d1c90d4</anchor>
+      <arglist>(RedisCluster *cluster, const RESP *redirect, XBoolean refresh)</arglist>
     </member>
     <member kind="function">
       <type>Redis *</type>
@@ -1402,24 +1402,24 @@
       <arglist>(Redis *node)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxClusterIsMigrating</name>
       <anchorfile>redisx-cluster_8c.html</anchorfile>
-      <anchor>a57a19ba90951b891677b1be3af8a8f36</anchor>
+      <anchor>a12539722943497b7c0b23f1cfdc8a1ed</anchor>
       <arglist>(const RESP *reply)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxClusterIsRedirected</name>
       <anchorfile>redisx-cluster_8c.html</anchorfile>
-      <anchor>a537ed3806a44fb40f6e8dccd813ad0da</anchor>
+      <anchor>a3371f1ae42e3a6ebaadf3b92580f64eb</anchor>
       <arglist>(const RESP *reply)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxClusterMoved</name>
       <anchorfile>redisx-cluster_8c.html</anchorfile>
-      <anchor>a19fc54725ba4725e0281cff59b642e15</anchor>
+      <anchor>afed1869dbd512fc1e8ca11e15672d0d7</anchor>
       <arglist>(const RESP *reply)</arglist>
     </member>
   </compound>
@@ -1492,8 +1492,8 @@
       <type>int</type>
       <name>rConnectAsync</name>
       <anchorfile>redisx-net_8c.html</anchorfile>
-      <anchor>ad4065e4f45daee4c9a4ce04e11a8cc11</anchor>
-      <arglist>(Redis *redis, boolean usePipeline)</arglist>
+      <anchor>a6971a81a02ccac533f4abb344a5726b6</anchor>
+      <arglist>(Redis *redis, XBoolean usePipeline)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -1513,8 +1513,8 @@
       <type>int</type>
       <name>redisxConnect</name>
       <anchorfile>redisx-net_8c.html</anchorfile>
-      <anchor>ad71822356ffd40ed4b1c71d065f48809</anchor>
-      <arglist>(Redis *redis, boolean usePipeline)</arglist>
+      <anchor>a6ea667fad42fab81a5580d244cc6d522</anchor>
+      <arglist>(Redis *redis, XBoolean usePipeline)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -1538,18 +1538,18 @@
       <arglist>(const char *server)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsConnected</name>
       <anchorfile>redisx-net_8c.html</anchorfile>
-      <anchor>a94326ebfa5868579c8448cdbb941b3da</anchor>
+      <anchor>a8da5135cf20ed3c56ec466c8ca4d1a94</anchor>
       <arglist>(Redis *redis)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>redisxReconnect</name>
       <anchorfile>redisx-net_8c.html</anchorfile>
-      <anchor>a55a2efad7c8d8f840f4144a217f58965</anchor>
-      <arglist>(Redis *redis, boolean usePipeline)</arglist>
+      <anchor>a6b9739c60ca02c113efd930db1c2c0d5</anchor>
+      <arglist>(Redis *redis, XBoolean usePipeline)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -1771,15 +1771,15 @@
       <type>int</type>
       <name>redisxMultiSet</name>
       <anchorfile>redisx-tab_8c.html</anchorfile>
-      <anchor>aa8fd65a355394af08c86b4f0e943d3a6</anchor>
-      <arglist>(Redis *redis, const char *table, const RedisEntry *entries, int n, boolean confirm)</arglist>
+      <anchor>abfcc67b8f2dd45489bc2617f29b42951</anchor>
+      <arglist>(Redis *redis, const char *table, const RedisEntry *entries, int n, XBoolean confirm)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>redisxMultiSetAsync</name>
       <anchorfile>redisx-tab_8c.html</anchorfile>
-      <anchor>a750023f759dd5192dd3c802a542af770</anchor>
-      <arglist>(RedisClient *cl, const char *table, const RedisEntry *entries, int n, boolean confirm)</arglist>
+      <anchor>a5ab6e996f944efb8c58379f13c42efc1</anchor>
+      <arglist>(RedisClient *cl, const char *table, const RedisEntry *entries, int n, XBoolean confirm)</arglist>
     </member>
     <member kind="function">
       <type>char **</type>
@@ -1806,15 +1806,15 @@
       <type>int</type>
       <name>redisxSetValue</name>
       <anchorfile>redisx-tab_8c.html</anchorfile>
-      <anchor>a1465b1a965ddd685e16bccbf0b34f08b</anchor>
-      <arglist>(Redis *redis, const char *table, const char *key, const char *value, boolean confirm)</arglist>
+      <anchor>af43466b9a55efcb6b4bfe2aa5ed37140</anchor>
+      <arglist>(Redis *redis, const char *table, const char *key, const char *value, XBoolean confirm)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>redisxSetValueAsync</name>
       <anchorfile>redisx-tab_8c.html</anchorfile>
-      <anchor>a9e784632598b0c418a3ae3a87aa09fe4</anchor>
-      <arglist>(RedisClient *cl, const char *table, const char *key, const char *value, boolean confirm)</arglist>
+      <anchor>a4e0206f7ab34da7867971f32a13c990d</anchor>
+      <arglist>(RedisClient *cl, const char *table, const char *key, const char *value, XBoolean confirm)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -1867,8 +1867,8 @@
       <type>int</type>
       <name>redisxSetTLSVerify</name>
       <anchorfile>redisx-tls_8c.html</anchorfile>
-      <anchor>a9c8cf16eba455874111651f59f86a6e7</anchor>
-      <arglist>(Redis *redis, boolean value)</arglist>
+      <anchor>a1e2f59f0cbc5a91e35a33d441ed4bf57</anchor>
+      <arglist>(Redis *redis, XBoolean value)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -1907,8 +1907,8 @@
       <type>void</type>
       <name>redisxDebugTraffic</name>
       <anchorfile>redisx_8c.html</anchorfile>
-      <anchor>a7cde25fca6ae274d8d0a66d5c8b63ff5</anchor>
-      <arglist>(boolean value)</arglist>
+      <anchor>aece17d9b2a262ed1ff8eef3da01e9faf</anchor>
+      <arglist>(XBoolean value)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -1960,10 +1960,10 @@
       <arglist>(Redis *redis, struct timespec *t)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxHasPipeline</name>
       <anchorfile>redisx_8c.html</anchorfile>
-      <anchor>a481678923a653e5227f7dab5a1fd272d</anchor>
+      <anchor>a887a38057b981c726b252b9587492ece</anchor>
       <arglist>(Redis *redis)</arglist>
     </member>
     <member kind="function">
@@ -1974,10 +1974,10 @@
       <arglist>(const char *str)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsVerbose</name>
       <anchorfile>redisx_8c.html</anchorfile>
-      <anchor>a484532a0b208bbd9c7a6cb9663361696</anchor>
+      <anchor>aa17ed5937465ccdcbcccfa1e76513b4b</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -2061,8 +2061,8 @@
       <type>void</type>
       <name>redisxSetVerbose</name>
       <anchorfile>redisx_8c.html</anchorfile>
-      <anchor>a11454a2359f43b6fd024d25a8148644e</anchor>
-      <arglist>(boolean value)</arglist>
+      <anchor>aa8b80dd217b6c3224e2731ec048fd63c</anchor>
+      <arglist>(XBoolean value)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -2119,45 +2119,45 @@
       <arglist>(const RESP *map, const RESP *key)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxHasComponents</name>
       <anchorfile>resp_8c.html</anchorfile>
-      <anchor>a39055bb1b469883dabfaf1b8efe3b6fe</anchor>
+      <anchor>a2daed2a5d0d2798e3ffbe5cf21b1bb8a</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsArrayType</name>
       <anchorfile>resp_8c.html</anchorfile>
-      <anchor>af7d1a91b1d89fb11e6b16db04653a871</anchor>
+      <anchor>ab85b8bce13be5301f5befc1cb7883c87</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsEqualRESP</name>
       <anchorfile>resp_8c.html</anchorfile>
-      <anchor>ac84b780fd0c2ed709d4edd5789e522aa</anchor>
+      <anchor>a438567ab87ff6bf91fcce09f0ae0c817</anchor>
       <arglist>(const RESP *a, const RESP *b)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsMapType</name>
       <anchorfile>resp_8c.html</anchorfile>
-      <anchor>a460822029ff730cd7a55d64797c329a3</anchor>
+      <anchor>afcaa477965861dcbfbb96d1f018b55b1</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsScalarType</name>
       <anchorfile>resp_8c.html</anchorfile>
-      <anchor>a944a623a34b5a6a7af064fc0d0cc35bf</anchor>
+      <anchor>ad5974edab3bc21d231945cfa57f242c9</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
-      <type>boolean</type>
+      <type>XBoolean</type>
       <name>redisxIsStringType</name>
       <anchorfile>resp_8c.html</anchorfile>
-      <anchor>a7fb3a83bc8345413eb1a722444386abd</anchor>
+      <anchor>a5c7492830a7b581806893447cac7dbcb</anchor>
       <arglist>(const RESP *r)</arglist>
     </member>
     <member kind="function">
