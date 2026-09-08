@@ -106,6 +106,7 @@ ifdef FNMATCH_C
 endif
 
 ifeq ($(WITH_OPENMP),1)
+  CPPFLAGS += -DWITH_OPENMP=1
   CFLAGS += -fopenmp
   LDFLAGS += -fopenmp
 endif

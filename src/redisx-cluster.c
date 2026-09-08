@@ -17,6 +17,10 @@
 
 #define HASH_MASK   (16384 - 1)
 
+#ifndef WITH_OPENMP
+#  define WITH_OPENMP 0
+#endif
+
 /**
  * A shard in a Redis cluster, serving a specific range of hashes.
  *
@@ -646,7 +650,7 @@ int redisxClusterConnect(RedisCluster *cluster) {
 
   xmut_lock(&p->mutex);
 
-#ifdef _OPENMP
+#if WITH_OPENMP
 #  pragma omp parallel for
 #endif
   for(i = 0; i < p->n_shards; i++) {
@@ -692,7 +696,7 @@ int redisxClusterDisconnect(RedisCluster *cluster) {
 
   xmut_lock(&cp->mutex);
 
-#ifdef _OPENMP
+#if WITH_OPENMP
 #  pragma omp parallel for
 #endif
   for(i = 0; i < cp->n_shards; i++) {

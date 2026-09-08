@@ -9,9 +9,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [1.1.0-rc1] - 2026-08-27
 
+Feature release, with fixes and switching from old `boolean` type to unambiguous `XBoolean` (provided by xchange 1.3) 
+internally.
+
 ### Fixed
 
  - #40: Default definition of `LIB` in `test/Makefile`, when not explicitly set by user. (by traitimtrongvag)
+
+ - #49: Frix broken OpenMP support for parallel cluster connect / disconnect.
 
 ### Changed
 
