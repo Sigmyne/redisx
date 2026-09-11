@@ -191,7 +191,7 @@ install-man:
 install-headers:
 	@echo "installing headers to $(DESTDIR)$(includedir)"
 	install -d $(DESTDIR)$(includedir)
-	$(INSTALL_DATA) -D include/* $(DESTDIR)$(includedir)/
+	$(INSTALL_DATA) -D include/redisx.h $(DESTDIR)$(includedir)/
 
 .PHONY: install-html
 install-html:
