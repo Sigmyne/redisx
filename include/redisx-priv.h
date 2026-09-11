@@ -26,23 +26,6 @@
 #  include <openssl/ssl.h>
 #endif
 
-#ifdef _MSC_VER
-#  include <windows.h>
-#  define XTHREAD_ID                  HANDLE      ///< The thread handle
-#  define XTHREAD_IS(handle)          ( handle == GetCurrentThread() )
-#  define XTHREAD_ARG                 LPVOID
-#  define XTHREAD_RTN                 DWORD WINAPI
-
-#  define sched_yield                 SwitchToThread
-#  define strtok_r                    strtok_s    ///< MSC equivalent
-#else
-#  include <pthread.h>
-#  define XTHREAD_ID                  pthread_t   ///< The thread ID
-#  define XTHREAD_IS(tid)             ( tid == pthread_self() )
-#  define XTHREAD_ARG                 void *
-#  define XTHREAD_RTN                 void *
-#endif
-
 
 #define __XCHANGE_INTERNAL_API__
 #include <xmutex.h>
