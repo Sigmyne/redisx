@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [1.1.0-rc1] - 2026-08-27
+## [1.1.0-rc2] - 2026-09-11
 
 Feature release, with fixes and switching from old `boolean` type to unambiguous `XBoolean` (provided by xchange 1.3) 
 internally.
@@ -18,11 +18,17 @@ internally.
 
  - #49: Frix broken OpenMP support for parallel cluster connect / disconnect.
 
+### Added
+
+ - Portable thread macros are now in the public header, so dependent applications may use them also.
+
 ### Changed
 
  - #37: Use `XBoolean` instead of `boolean` type (requires xchange v1.3).
 
  - #42: Staged GitHub Actions workflows, to skip dependent jobs in case of errors.
+ 
+ - GNU `Makefile` no longer install private header (matching CMake behavior).
 
 
 ## [1.0.4] - 2026-06-15
