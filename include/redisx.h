@@ -552,19 +552,36 @@ int redisxDeleteEntries(Redis *redis, const char *pattern);
 
 #ifdef _MSC_VER
 #  include <windows.h>
+
+#  ifndef XMUT_INITIALIZER // Should be in xmutex.h also
+#    define XMUT_INITIALIZER          SRWLOCK_INIT    ///< mutex initializer macro
+#  endif
+
 #  define XTHREAD_ID                  HANDLE      ///< The thread handle
-#  define XTHREAD_IS(handle)          ( handle == GetCurrentThread() )
+#  define XTHREAD_IS(handle)          ( GetThreadId(handle) == GetCurrentThreadId() )
 #  define XTHREAD_ARG                 LPVOID
 #  define XTHREAD_RTN                 DWORD WINAPI
 
+#  define xthread_detach              CloseHandle
+#  define xthread_join(thread)        WaitForSingleObject(thread, INFINITE);
+
 #  define sched_yield                 SwitchToThread
-#  define strtok_r                    strtok_s    ///< MSC equivalent
+
+#  define strtok_r                    strtok_s    ///< MSC equivalent to strtok_r()
 #else
 #  include <pthread.h>
+
+#  ifndef XMUT_INITIALIZER  // Should be in xmutex.h also
+#    define XMUT_INITIALIZER          PTHREAD_MUTEX_INITIALIZER   ///< mutex initializer macro
+#  endif
+
 #  define XTHREAD_ID                  pthread_t   ///< The thread ID
 #  define XTHREAD_IS(tid)             ( tid == pthread_self() )
 #  define XTHREAD_ARG                 void *
 #  define XTHREAD_RTN                 void *
+
+#  define xthread_detach              pthread_detach
+#  define xthread_join(thread)        pthread_join(thread, (void **) NULL);
 #endif
 
 /// \endcond
