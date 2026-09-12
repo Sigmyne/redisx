@@ -287,7 +287,7 @@ static const char **setScriptArgs(const char *script, const char **args, int *na
 }
 
 #if defined(_MSC_VER)
-char *readpassphrase(const char *prompt, char *buf, size_t bufsiz, int flags) {
+static char *readpassphrase(const char *prompt, char *buf, size_t bufsiz, int flags) {
     char c;
     int pos = 0;
 

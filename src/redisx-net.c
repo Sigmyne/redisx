@@ -75,9 +75,29 @@ typedef struct ServerLink {
 /// \endcond
 
 static ServerLink *serverList;
-static xmut_type serverLock;
 
+#ifdef XMUT_INITIALIZER
+  static xmut_type netconf_mutex = XMUT_INITIALIZER;
+#elif __STDC_VERSION__ >= 201112L
+  static xmut_type netconf_mutex;
 
+  static void init_netconf_mutex() {
+    xmut_init(&netconf_mutex);
+  }
+#endif
+
+static void netconf_lock() {
+#if !defined XMUT_INITIALIZER && __STDC_VERSION__ >= 201112L
+  static once_flag netconf_once = ONCE_FLAG_INIT;
+  call_once(&netconf_once, init_netconf_mutex);
+#endif
+
+  xmut_lock(&netconf_mutex);
+}
+
+static void netconf_unlock() {
+  xmut_unlock(&netconf_mutex);
+}
 
 /**
  * Gets an IP address string for a given host name. If more than one IP address is associated with a host name, the first one
@@ -284,10 +304,10 @@ static int rRegisterServer(Redis *redis) {
   x_check_alloc(l);
   l->redis = redis;
 
-  xmut_lock(&serverLock);
+  netconf_lock();
   l->next = serverList;
   serverList = l;
-  xmut_unlock(&serverLock);
+  netconf_unlock();
 
   return X_SUCCESS;
 }
@@ -579,7 +599,7 @@ static void rShutdownAsync(void) {
 static void rUnregisterServer(const Redis *redis) {
   ServerLink *s, *last = NULL;
 
-  xmut_lock(&serverLock);
+  netconf_lock();
 
   // remove this server from the open servers...
   for(s = serverList; s != NULL; ) {
@@ -594,7 +614,7 @@ static void rUnregisterServer(const Redis *redis) {
     s = next;
   }
 
-  xmut_unlock(&serverLock);
+  netconf_unlock();
 }
 
 /**
@@ -853,7 +873,7 @@ int rConnectClientAsync(Redis *redis, enum redisx_channel channel) {
  */
 Redis *redisxInit(const char *server) {
   static const char *fn = "redisxInit";
-  static int isInitialized = FALSE;
+  static int initialized;
 
   Redis *redis;
   RedisPrivate *p;
@@ -865,12 +885,12 @@ Redis *redisxInit(const char *server) {
     return NULL;
   }
 
-  if(!isInitialized) {
-    // Initialize the thread attributes once only to avoid segfaulting...
-    xmut_init(&serverLock);
+  netconf_lock();
+  if(!initialized) {
     atexit(rShutdownAsync);
-    isInitialized = TRUE;
+    initialized = TRUE;
   }
+  netconf_unlock();
 
   // Allocate Redis, including private data...
   p = (RedisPrivate *) calloc(1, sizeof(RedisPrivate));

@@ -87,6 +87,29 @@ static const uint16_t crc_tab[] = { //
         0x6e17, 0x7e36, 0x4e55, 0x5e74, 0x2e93, 0x3eb2, 0x0ed1, 0x1ef0, //
 };
 
+#ifdef XMUT_INITIALIZER
+  static xmut_type mutex = XMUT_INITIALIZER;
+#elif __STDC_VERSION__ >= 201112L
+  static xmut_type mutex;
+
+  static void init_mutex() {
+    xmut_init(&mutex);
+  }
+#endif
+
+static void cluster_lock() {
+#if !defined XMUT_INITIALIZER && __STDC_VERSION__ >= 201112L
+  static once_flag mutex_once = ONCE_FLAG_INIT;
+  call_once(&mutex_once, init_mutex);
+#endif
+
+  xmut_lock(&mutex);
+}
+
+static void cluster_unlock() {
+  xmut_unlock(&mutex);
+}
+
 static uint16_t crc16(const uint8_t *buf, size_t len) {
   uint16_t crc = 0;
   while (len-- > 0) crc = (crc << 8) ^ crc_tab[((crc >> 8) ^ *(buf++)) & 0x00FF];
@@ -329,8 +352,6 @@ static XTHREAD_RTN ClusterRefreshThread(XTHREAD_ARG pCluster) {
  */
 int rClusterRefresh(RedisCluster *cluster) {
   static const char *fn = "rClusterRefresh";
-  static xmut_type mutex;
-  static int initialized;
 
   ClusterPrivate *cp;
   XTHREAD_ID tid;
@@ -340,19 +361,14 @@ int rClusterRefresh(RedisCluster *cluster) {
   cp = (ClusterPrivate *) cluster->priv;
   if(!cp) return x_error(X_NO_INIT, ENXIO, fn, "cluster is not initialized");
 
-  if(!initialized) {
-    xmut_init(&mutex);
-    initialized = 1;
-  }
-
   // Local mutex to prevent race to reconfiguring...
-  xmut_lock(&mutex);
+  cluster_lock();
 
   // Return immediately if the cluster is being reconfigured at present.
   // This is important so we may process all pending MOVED responses while
   // the reconfiguration takes place.
   if(cp->reconfiguring) {
-    xmut_unlock(&mutex);
+    cluster_unlock();
     return X_SUCCESS;
   }
 
@@ -362,7 +378,7 @@ int rClusterRefresh(RedisCluster *cluster) {
   cp->reconfiguring = TRUE;
 
   // Release the reconfigure mutex
-  xmut_unlock(&mutex);
+  cluster_unlock();
 
   // Get exclusive access to the cluster configuration
   xmut_lock(&cp->mutex);
