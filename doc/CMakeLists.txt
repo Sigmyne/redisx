@@ -1,7 +1,7 @@
 # Additional CMake configuration file for building the documentation of the 
 # RedisX library.
 #
-# To invoke simply configure the cmake build in the xchange root directory with
+# To invoke simply configure the cmake build in the redisx root directory with
 # the -DBUILD_DOC=ON option.
 #
 # Author: Attila Kovacs
@@ -29,7 +29,7 @@ set_package_properties(Doxygen PROPERTIES
     URL "https://doxygen.nl/"
     DESCRIPTION  "is a widely-used documentation generator tool in software development"
     TYPE OPTIONAL
-    PURPOSE "Enables HTML documentation for xchange"
+    PURPOSE "Enables HTML documentation for RedisX"
 )
 
 # ----------------------------------------------------------------------------

@@ -31,7 +31,7 @@ jobs:
       - name: Install OpenSSL / OpenMP
         run: |
           sudo apt-get update -q -y
-          sudo apt-get install libomp-dev libssl-dev libpopt-dev libreadline-dev libbsd-dev
+          sudo apt-get install doxygen libomp-dev libssl-dev libpopt-dev libreadline-dev libbsd-dev
 
       - name: Check out RedisX
         uses: actions/checkout@v7
@@ -49,7 +49,7 @@ jobs:
           cmake --build build
 
       - name: Configure CMake
-        run: cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_SHARED_LIBS=ON -DBUILD_CLI=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON
+        run: cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_SHARED_LIBS=ON -DBUILD_CLI=ON -DBUILD_DOC=ON -DENABLE_TLS=ON -DENABLE_OPENMP=ON
 
       - name: Build
         run: cmake --build build
@@ -139,39 +139,6 @@ jobs:
             cmake --build build
             cmake --install build --prefix install
             ls -la install/
-
-  build-doc:
-    name: Build with Documentation (Ubuntu)
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out RedisX
-        uses: actions/checkout@v7
-
-      - name: Check out xchange
-        uses: actions/checkout@v7
-        with:
-          repository: Sigmyne/xchange
-          path: xchange
-
-      - name: Install doxygen
-        run: sudo apt-get install doxygen
-
-      - name: Build xchange dependency
-        run: |
-          cd xchange
-          cmake -B build
-          cmake --build build
-
-      - name: Build HTML documentation
-        run: |
-          cmake -B build -Dxchange_DIR="xchange/build" -DBUILD_DOC=ON
-          cmake --build build
-
-      - name: Install docs
-        run: |
-          cmake --install build --prefix install
-          ls -la install/
 
   test-cmake:
     name: Test (Ubuntu)

@@ -31,7 +31,7 @@ $(BIN)/%: $(OBJ)/%.o $(LIBREDISX)
 	$(CC) -o $@ $< $(LDFLAGS) -lpopt -lredisx
 
 # Create sub-directories for build targets
-dep $(OBJ) $(LIB) $(BIN) apidoc:
+dep $(OBJ) $(LIB) $(BIN):
 	mkdir -p $@
 
 # Remove intermediate files locally
