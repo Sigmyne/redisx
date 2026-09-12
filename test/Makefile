@@ -23,11 +23,13 @@ ifneq ($(VALKEY),)
   ONLINE = 1
 endif
 
+TESTS := test-ping test-info test-hello test-tab test-hash
+
 .PHONY: all
 all: tests run
 
 .PHONY: tests
-tests: test-ping test-info test-hello test-tab test-hash
+tests: $(TESTS)
 
 .PHONY: run
 run: redisx-cli tests

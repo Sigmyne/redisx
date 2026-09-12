@@ -1,7 +1,7 @@
 # Additional CMake configuration file for building the C++ regression testing 
-# programs of the RedisX library. The programs are added to the test suite.
+# programs of the smax-clib library. The programs are added to the test suite.
 #
-# To invoke simply configure the cmake build in the xchange root directory with
+# To invoke simply configure the cmake build in the smax-clib root directory with
 # the -DBUILD_TESTING=ON options.
 #
 # Author: Attila Kovacs

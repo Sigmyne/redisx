@@ -1,7 +1,7 @@
 # Additional CMake configuration file for building the xchange library from
 # source
 #
-# To invoke simply configure the cmake build in the xchange root directory.
+# To invoke simply configure the cmake build in the redisx root directory.
 #
 # Author: Attila Kovacs
 
