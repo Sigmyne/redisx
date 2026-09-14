@@ -195,14 +195,14 @@ install-headers:
 
 .PHONY: install-html
 install-html:
-ifneq ($(wildcard apidoc/html/search/*),)
+ifneq ($(wildcard doc/html/search/*),)
 	@echo "installing API documentation to $(DESTDIR)$(htmldir)"
 	install -d $(DESTDIR)$(htmldir)/search
-	$(INSTALL_DATA) -D apidoc/html/search/* $(DESTDIR)$(htmldir)/search/
-	$(INSTALL_DATA) -D apidoc/html/*.* $(DESTDIR)$(htmldir)/
+	$(INSTALL_DATA) -D doc/html/search/* $(DESTDIR)$(htmldir)/search/
+	$(INSTALL_DATA) -D doc/html/*.* $(DESTDIR)$(htmldir)/
 	@echo "installing Doxygen tag file to $(DESTDIR)$(docdir)"
 	install -d $(DESTDIR)$(docdir)
-	$(INSTALL_DATA) -D apidoc/*.tag $(DESTDIR)$(docdir)/
+	$(INSTALL_DATA) -D doc/*.tag $(DESTDIR)$(docdir)/
 else
 	@echo "WARNING! Skipping apidoc install: needs doxygen and 'dox' target"
 endif

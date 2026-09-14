@@ -2,7 +2,7 @@
 # RedisX library. The examples are also added to the test suite so they 
 # may be checked for functionality.
 #
-# To invoke simply configure the cmake build in the xchange root directory with
+# To invoke simply configure the cmake build in the redisx root directory with
 # the -DBUILD_EXAMPLES=ON option.
 #
 # Author: Attila Kovacs
@@ -22,6 +22,7 @@ if(NOT PROJECT_NAME)
     include(GNUInstallDirs)
     
     find_package(redisx)
+    find_package(xchange)
     
     check_library_exists(m exp "" HAS_MATHLIB)
     if(HAS_MATHLIB)
