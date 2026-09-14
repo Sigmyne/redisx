@@ -17,6 +17,8 @@ internally.
  - #40: Default definition of `LIB` in `test/Makefile`, when not explicitly set by user. (by traitimtrongvag)
 
  - #49: Frix broken OpenMP support for parallel cluster connect / disconnect.
+ 
+ - #51: Thread safe portable mutex initializations
 
 ### Added
 
@@ -27,6 +29,8 @@ internally.
  - #37: Use `XBoolean` instead of `boolean` type (requires xchange v1.3).
 
  - #42: Staged GitHub Actions workflows, to skip dependent jobs in case of errors.
+ 
+ - #51: Various tweaks to build configs (esp. for GNU make).
  
  - GNU `Makefile` no longer install private header (matching CMake behavior).
 
