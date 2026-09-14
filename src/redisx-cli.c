@@ -175,7 +175,7 @@ static void PushProcessor(RedisClient *cl, RESP *resp, void *ptr) {
 }
 
 static int interactive(Redis *redis) {
-  XTHREAD_ID listenerTID;
+  xthread_type listenerTID;
   size_t len = strlen(host) + 20;
   char *prompt = malloc(len);
 
@@ -188,13 +188,7 @@ static int interactive(Redis *redis) {
 
   using_history();
 
-#if defined(_MSC_VER)
-  listenerTID = CreateThread(NULL, 0, ListenerThread, NULL, 0, NULL);
-  if(listenerTID == NULL)
-#else
-  if(pthread_create(&listenerTID, NULL, ListenerThread, NULL) < 0)
-#endif
-  {
+  if(xthread_create(&listenerTID, ListenerThread, NULL) < 0) {
     perror("ERROR! launching listener thread");
     exit(1);
   }

@@ -26,20 +26,6 @@
 
 /// \cond PRIVATE
 
-#if DEBUG
-#  define SET_PRIORITIES              FALSE       ///< Disable if you want to use gdb to debug...
-#endif
-
-#if defined(_MSC_VER)
-#  define REDISX_LISTENER_PRIORITY    THREAD_PRIORITY_HIGHEST
-#else
-#  define XPRIO_MIN                   (sched_get_priority_min(SCHED_RR))
-#  define XPRIO_MAX                   (sched_get_priority_max(SCHED_RR))
-#  define XPRIO_RANGE                 (XPRIO_MAX - XPRIO_MIN)
-
-#  define REDISX_LISTENER_PRIORITY    (XPRIO_MIN + (int) (REDISX_LISTENER_REL_PRIORITY * XPRIO_RANGE))
-#endif
-
 extern int debugTraffic;            ///< Whether to print excerpts of all traffic to/from the Redis server.
 
 /// \endcond

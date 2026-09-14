@@ -354,7 +354,7 @@ int rClusterRefresh(RedisCluster *cluster) {
   static const char *fn = "rClusterRefresh";
 
   ClusterPrivate *cp;
-  XTHREAD_ID tid;
+  xthread_type tid;
 
   if(!cluster) return x_error(X_NULL, EINVAL, fn, "cluster is NULL");
 
@@ -384,13 +384,7 @@ int rClusterRefresh(RedisCluster *cluster) {
   xmut_lock(&cp->mutex);
 
   errno = 0;
-#if defined(_MSC_VER)
-  tid = CreateThread(NULL, 0, ClusterRefreshThread, cluster, 0, NULL);
-  if(tid == NULL)
-#else
-  if(pthread_create(&tid, NULL, ClusterRefreshThread, cluster) != 0)
-#endif
-  {
+  if(xthread_create(&tid, ClusterRefreshThread, cluster) < 0) {
     xmut_unlock(&cp->mutex);
     return x_error(X_FAILURE, errno, fn, "failed to start refresher thread");
   }

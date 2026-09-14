@@ -557,13 +557,20 @@ int redisxDeleteEntries(Redis *redis, const char *pattern);
 #    define XMUT_INITIALIZER          SRWLOCK_INIT    ///< mutex initializer macro
 #  endif
 
-#  define XTHREAD_ID                  HANDLE      ///< The thread handle
-#  define XTHREAD_IS(handle)          ( GetThreadId(handle) == GetCurrentThreadId() )
-#  define XTHREAD_ARG                 LPVOID
-#  define XTHREAD_RTN                 DWORD WINAPI
+typedef HANDLE                        xthread_type;   ///< The thread handle
 
+#  define XTHREAD_ARG                 LPVOID          ///< thread function argument type
+#  define XTHREAD_RTN                 DWORD WINAPI    ///< thread function return type
+
+#  define xthread_create(pHandle, call, arg) ( \
+   *pHandle = CreateThread(NULL, 0, (call), arg, 0, NULL), \
+   (*pHandle == NULL) ? -1 : 0 \
+)
+#  define xthread_set_prio(handle, prio)          SetThreadPriority(handle, prio);
+#  define xthread_current_equals(handle)          ( GetThreadId(handle) == GetCurrentThreadId() )
 #  define xthread_detach              CloseHandle
 #  define xthread_join(thread)        WaitForSingleObject(thread, INFINITE);
+#  define xthread_return()            return 0
 
 #  define sched_yield                 SwitchToThread
 
@@ -575,13 +582,21 @@ int redisxDeleteEntries(Redis *redis, const char *pattern);
 #    define XMUT_INITIALIZER          PTHREAD_MUTEX_INITIALIZER   ///< mutex initializer macro
 #  endif
 
-#  define XTHREAD_ID                  pthread_t   ///< The thread ID
-#  define XTHREAD_IS(tid)             ( tid == pthread_self() )
-#  define XTHREAD_ARG                 void *
-#  define XTHREAD_RTN                 void *
+typedef pthread_t                     xthread_type;   ///< The thread ID
 
+#  define XTHREAD_ARG                 void *      ///< thread function argument type
+#  define XTHREAD_RTN                 void *      ///< thread function return type
+
+#  define xthread_create(ptid, call, arg)         pthread_create(ptid, NULL, call, arg)
+#  define xthread_set_prio(tid, prio) ({ \
+  struct sched_param param = {}; \
+  param.sched_priority = prio; \
+  pthread_setschedparam(tid, SCHED_RR, &param); \
+})
+#  define xthread_current_equals(tid)             ( tid == pthread_self() )
 #  define xthread_detach              pthread_detach
 #  define xthread_join(thread)        pthread_join(thread, (void **) NULL);
+#  define xthread_return()            return NULL
 #endif
 
 /// \endcond
