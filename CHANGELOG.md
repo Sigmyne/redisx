@@ -7,16 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [1.1.0-rc2] - 2026-09-11
+## [Unreleased]
 
-Feature release, with fixes and switching from old `boolean` type to unambiguous `XBoolean` (provided by xchange 1.3) 
-internally.
+Feature release, with bug fixes.
 
 ### Fixed
 
  - #40: Default definition of `LIB` in `test/Makefile`, when not explicitly set by user. (by traitimtrongvag)
 
- - #49: Frix broken OpenMP support for parallel cluster connect / disconnect.
+ - #49: Fix broken OpenMP support for parallel cluster connect / disconnect.
  
  - #51: Thread safe portable mutex initializations
 
@@ -29,6 +28,8 @@ internally.
  - #37: Use `XBoolean` instead of `boolean` type (requires xchange v1.3).
 
  - #42: Staged GitHub Actions workflows, to skip dependent jobs in case of errors.
+ 
+ - #51: Various tweaks to build configs (esp. for GNU make).
  
  - GNU `Makefile` no longer install private header (matching CMake behavior).
 
