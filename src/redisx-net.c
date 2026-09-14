@@ -1170,10 +1170,6 @@ XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
   void (*consume)(RESP *response);
   int status;
 
-#if !defined(_MSC_VER)
-  pthread_detach(pthread_self());
-#endif
-
   xvprintf("Redis-X> Started processing pipelined responses...\n");
 
   status = redisxCheckValid(redis);
@@ -1189,7 +1185,7 @@ XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
   cl = redis->pipeline;
   cp = (ClientPrivate *) cl->priv;
 
-  while(cp->isEnabled && p->isPipelineListenerEnabled && XTHREAD_IS(p->pipelineListenerTID)) {
+  while(cp->isEnabled && p->isPipelineListenerEnabled && xthread_current_equals(p->pipelineListenerTID)) {
     // Discard the response from the prior iteration
     if(reply) redisxDestroyRESP(reply);
 
@@ -1226,17 +1222,12 @@ XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
 
   rConfigLock(redis);
   // If we are the current listener thread, then mark the listener as disabled.
-  if(XTHREAD_IS(p->pipelineListenerTID)) p->isPipelineListenerEnabled = FALSE;
+  if(xthread_current_equals(p->pipelineListenerTID)) p->isPipelineListenerEnabled = FALSE;
   rConfigUnlock(redis);
 
   if(reply != NULL) redisxDestroyRESP(reply);
 
-#if defined(_MSC_VER)
-  CloseHandle(GetCurrentThread());
-  return 0;
-#else
-  return NULL;
-#endif
+  xthread_return();
 }
 
 /**
@@ -1251,33 +1242,19 @@ XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
 static int rStartPipelineListenerAsync(Redis *redis) {
   RedisPrivate *p = (RedisPrivate *) redis->priv;
 
-#if SET_PRIORITIES && !defined(_MSC_VER)
-  struct sched_param param;
-#endif
-
   p->isPipelineListenerEnabled = TRUE;
 
-#if defined(_MSC_VER)
-  p->pipelineListenerTID = CreateThread(NULL, 0, RedisPipelineListener, redis, 0, NULL);
-  if(p->pipelineListenerTID == NULL)
-#else
-  if (pthread_create(&p->pipelineListenerTID, NULL, RedisPipelineListener, redis) == -1)
-#endif
-  {
+  if (xthread_create(&p->pipelineListenerTID, RedisPipelineListener, redis) < 0) {
     perror("ERROR! Redis-X : create PipelineListener thread");
     p->isPipelineListenerEnabled = FALSE;
     return -1;
   }
 
 #if SET_PRIORITIES
-#  if defined(_MSC_VER)
-  SetThreadPriority(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
-#  else
-  param.sched_priority = REDISX_LISTENER_PRIORITY;
-  pthread_attr_setschedparam(&threadConfig, &param);
-  pthread_setschedparam(p->pipelineListenerTID, SCHED_RR, &param);
-#  endif
+  xthread_set_prio(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
 #endif
+
+  xthread_detach(p->pipelineListenerTID);
 
   return 0;
 }

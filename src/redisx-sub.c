@@ -539,10 +539,6 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
   RESP *reply = NULL, **component;
   int i, status;
 
-#if !defined(_MSC_VER)
-  pthread_detach(pthread_self());
-#endif
-
   xvprintf("Redis-X> Started processing subsciptions...\n");
 
   status = redisxCheckValid(redis);
@@ -558,7 +554,7 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
   cl = redis->subscription;
   cp = (ClientPrivate *) cl->priv;
 
-  while(cp->isEnabled && p->isSubscriptionListenerEnabled && XTHREAD_IS(p->subscriptionListenerTID)) {
+  while(cp->isEnabled && p->isSubscriptionListenerEnabled && xthread_current_equals(p->subscriptionListenerTID)) {
     // Discard the response from the prior iteration
     if(reply) redisxDestroyRESP(reply);
 
@@ -627,7 +623,7 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
 
   if(rConfigLock(redis) == X_SUCCESS) {
     // If we are the current listener thread, then mark the listener as disabled.
-    if(XTHREAD_IS(p->subscriptionListenerTID)) p->isSubscriptionListenerEnabled = FALSE;
+    if(xthread_current_equals(p->subscriptionListenerTID)) p->isSubscriptionListenerEnabled = FALSE;
     rConfigUnlock(redis);
   }
 
@@ -635,12 +631,7 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
 
   redisxDestroyRESP(reply);
 
-#if defined(_MSC_VER)
-  CloseHandle(GetCurrentThread());
-  return 0;
-#else
-  return NULL;
-#endif
+  xthread_return();
 }
 
 /// \endcond
@@ -657,33 +648,19 @@ XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
 static int rStartSubscriptionListenerAsync(Redis *redis) {
   RedisPrivate *p = (RedisPrivate *) redis->priv;
 
-#if SET_PRIORITIES && !defined(_MSC_VER)
-  struct sched_param param;
-#endif
-
   p->isSubscriptionListenerEnabled = TRUE;
 
-#if defined(_MSC_VER)
-  p->subscriptionListenerTID = CreateThread(NULL, 0, RedisSubscriptionListener, redis, 0, NULL);
-  if(p->subscriptionListenerTID == NULL)
-#else
-  if (pthread_create(&p->subscriptionListenerTID, NULL, RedisSubscriptionListener, redis) == -1)
-#endif
-  {
+  if (xthread_create(&p->subscriptionListenerTID, RedisSubscriptionListener, redis) < 0) {
     perror("ERROR! Redis-X : create SubscriptionListener thread");
     p->isSubscriptionListenerEnabled = FALSE;
     return -1;
   }
 
 #if SET_PRIORITIES
-#  if defined(_MSC_VER)
-  SetThreadPriority(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
-#  else
-  param.sched_priority = REDISX_LISTENER_PRIORITY;
-  pthread_attr_setschedparam(&threadConfig, &param);
-  pthread_setschedparam(p->subscriptionListenerTID, SCHED_RR, &param);
-#  endif
+  xthread_set_prio(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
 #endif
+
+  xthread_detach(p->pipelineListenerTID);
 
   return 0;
 }

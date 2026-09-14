@@ -36,6 +36,19 @@
 
 #define REDISX_LISTENER_YIELD_COUNT   10  ///< yield after this many processed listener messages, <= 0 to disable yielding
 
+#if DEBUG
+#  define SET_PRIORITIES              FALSE       ///< Disable if you want to use gdb to debug...
+#endif
+
+#if defined(_MSC_VER)
+#  define REDISX_LISTENER_PRIORITY    THREAD_PRIORITY_HIGHEST
+#else
+#  define XPRIO_MIN                   (sched_get_priority_min(SCHED_RR))
+#  define XPRIO_MAX                   (sched_get_priority_max(SCHED_RR))
+#  define XPRIO_RANGE                 (XPRIO_MAX - XPRIO_MIN)
+
+#  define REDISX_LISTENER_PRIORITY    (XPRIO_MIN + (int) (REDISX_LISTENER_REL_PRIORITY * XPRIO_RANGE))
+#endif
 
 typedef struct MessageConsumer {
   Redis *redis;
@@ -128,7 +141,19 @@ typedef struct {
 
   RedisSentinel *sentinel;      ///< Sentinel (high-availability) server configuration.
   RedisCluster *cluster;        ///< Cluster, in which this instance is a member
+#if DEBUG
+#  define SET_PRIORITIES              FALSE       ///< Disable if you want to use gdb to debug...
+#endif
 
+#if defined(_MSC_VER)
+#  define REDISX_LISTENER_PRIORITY    THREAD_PRIORITY_HIGHEST
+#else
+#  define XPRIO_MIN                   (sched_get_priority_min(SCHED_RR))
+#  define XPRIO_MAX                   (sched_get_priority_max(SCHED_RR))
+#  define XPRIO_RANGE                 (XPRIO_MAX - XPRIO_MIN)
+
+#  define REDISX_LISTENER_PRIORITY    (XPRIO_MIN + (int) (REDISX_LISTENER_REL_PRIORITY * XPRIO_RANGE))
+#endif
   int in_family;                ///< AF_INET or AF_INET6
   union {
     struct in_addr v4;          ///< IPv4 address
@@ -145,8 +170,8 @@ typedef struct {
   RedisClient *clients;
   int scanCount;                ///< Count argument to use in SCAN commands, or <= 0 for default
 
-  XTHREAD_ID pipelineListenerTID;
-  XTHREAD_ID subscriptionListenerTID;
+  xthread_type pipelineListenerTID;
+  xthread_type subscriptionListenerTID;
 
   XBoolean isPipelineListenerEnabled;
   XBoolean isSubscriptionListenerEnabled;
