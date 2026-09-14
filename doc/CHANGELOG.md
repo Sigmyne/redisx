@@ -9,8 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [1.1.0-rc2] - 2026-09-11
 
-Feature release, with fixes and switching from old `boolean` type to unambiguous `XBoolean` (provided by xchange 1.3) 
-internally.
+Feature release, with bug fixes.
 
 ### Fixed
 
