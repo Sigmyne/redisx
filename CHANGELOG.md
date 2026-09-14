@@ -17,6 +17,8 @@ internally.
  - #40: Default definition of `LIB` in `test/Makefile`, when not explicitly set by user. (by traitimtrongvag)
 
  - #49: Frix broken OpenMP support for parallel cluster connect / disconnect.
+ 
+ - #51: Thread safe portable mutex initializations
 
 ### Added
 
