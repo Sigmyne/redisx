@@ -140,6 +140,30 @@ void rDestroyClientTLS(ClientPrivate *cp) {
   return status;
 }
 
+#ifdef XMUT_INITIALIZER
+  static xmut_type tls_mutex = XMUT_INITIALIZER;
+#elif __STDC_VERSION__ >= 201112L
+  static xmut_type tls_mutex;
+
+  static void init_tls_mutex() {
+    xmut_init(&tls_mutex);
+  }
+#endif
+
+
+static  void tls_lock() {
+#if !defined XMUT_INITIALIZER && __STDC_VERSION__ >= 201112L
+  static once_flag mutex_once = ONCE_FLAG_INIT;
+  call_once(&mutex_once, init_mutex);
+#endif
+
+  xmut_lock(&tls_mutex);
+}
+
+static void tls_unlock() {
+  xmut_unlock(&tls_mutex);
+}
+
 /**
  * Connects a client using the specified TLS configuration.
  *
@@ -149,7 +173,6 @@ void rDestroyClientTLS(ClientPrivate *cp) {
  */
 int rConnectTLSClientAsync(ClientPrivate *cp, const TLSConfig *tls) {
   static const char *fn = "rConnectClientTLS";
-  static xmut_type mutex;
   static int initialized;
 
   const SSL_METHOD *method;
@@ -157,20 +180,17 @@ int rConnectTLSClientAsync(ClientPrivate *cp, const TLSConfig *tls) {
 
   if(!tls->certificate) return x_error(X_NULL, EINVAL, fn, "certificate is NULL");
 
-  if(!initialized) {
-    xmut_init(&mutex);
-    initialized = TRUE;
-  }
+
 
   // Initialize SSL lib only once...
-  xmut_lock(&mutex);
+  tls_lock();
   if(!initialized) {
     SSL_library_init();
     SSL_load_error_strings();
     SSLeay_add_ssl_algorithms();
     initialized = TRUE;
   }
-  xmut_unlock(&mutex);
+  tls_unlock();
 
   method = TLS_client_method();
 
