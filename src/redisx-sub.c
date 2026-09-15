@@ -657,10 +657,10 @@ static int rStartSubscriptionListenerAsync(Redis *redis) {
   }
 
 #if SET_PRIORITIES
-  xthread_set_prio(p->pipelineListenerTID, REDISX_LISTENER_PRIORITY);
+  xthread_set_prio(p->subscriptionListenerTID, REDISX_LISTENER_PRIORITY);
 #endif
 
-  xthread_detach(p->pipelineListenerTID);
+  xthread_detach(p->subscriptionListenerTID);
 
   return 0;
 }
