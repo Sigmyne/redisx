@@ -554,48 +554,130 @@ int redisxDeleteEntries(Redis *redis, const char *pattern);
 #  include <windows.h>
 
 #  ifndef XMUT_INITIALIZER // Should be in xmutex.h also
-#    define XMUT_INITIALIZER          SRWLOCK_INIT    ///< mutex initializer macro
+#    define XMUT_INITIALIZER          SRWLOCK_INIT      ///< portable mutex initializer macro
 #  endif
 
-typedef HANDLE                        xthread_type;   ///< The thread handle
+typedef HANDLE                        xthread_type;     ///< portable thread handle
 
-#  define XTHREAD_ARG                 LPVOID          ///< thread function argument type
-#  define XTHREAD_RTN                 DWORD WINAPI    ///< thread function return type
+typedef LPVOID                        xthread_arg_type; ///< portable thread function argument type
+typedef DWORD                         xthread_rtn_type; ///< portable thread function return type
 
+/**
+ * Portable thread creation.
+ *
+ * @param pHandle       pointer to xthread_type thread handle.
+ * @param call          portable thread function whioch takes an xthread_arg_type argument and returns
+ *                      an xthread_rtn_type result.
+ * @param arg           pointer argument to pass to `call` function.
+ *
+ * @return              0 if successful, or else -1 if there was an error.
+ */
 #  define xthread_create(pHandle, call, arg) ( \
    *pHandle = CreateThread(NULL, 0, (call), arg, 0, NULL), \
    (*pHandle == NULL) ? -1 : 0 \
 )
+
+/**
+ * Portable thread priority adjustment function.
+ *
+ * @param handle        xthread_type thread handle.
+ * @param prio          priority level appropriate for the OS / platform.
+ */
 #  define xthread_set_prio(handle, prio)          SetThreadPriority(handle, prio);
+
+/**
+ * Portable check if the current thread is the same as the one specified by the handle.
+ *
+ * @param handle        the thread handle against which to check the current thread
+ * @return              TRUE (1) if the current thread matches the handle, or else FALSE (0)
+ */
 #  define xthread_current_equals(handle)          ( GetThreadId(handle) == GetCurrentThreadId() )
+
+/**
+ * Portable detachment of the thread, which releasing its resources. The thread will continue
+ * to run but it may no longer be joined after.
+ *
+ * @param handle        the handle of the thread to detach.
+ */
 #  define xthread_detach              CloseHandle
-#  define xthread_join(thread)        WaitForSingleObject(thread, INFINITE);
+
+/**
+ * Portable way of joining a thread, which blocks until the thread finishes its processing.
+ *
+ * @param handle        the handle of the thread for which to wait.
+ */
+#  define xthread_join(handle)        WaitForSingleObject(handle, INFINITE);
+
+/**
+ * Generic return statement (with no result) to use within portable threads.
+ */
 #  define xthread_return()            return 0
 
 #  define sched_yield                 SwitchToThread
 
-#  define strtok_r                    strtok_s    ///< MSC equivalent to strtok_r()
+#  define strtok_r                    strtok_s          ///< MSVC equivalent to strtok_r()
 #else
 #  include <pthread.h>
 
 #  ifndef XMUT_INITIALIZER  // Should be in xmutex.h also
-#    define XMUT_INITIALIZER          PTHREAD_MUTEX_INITIALIZER   ///< mutex initializer macro
+#    define XMUT_INITIALIZER          PTHREAD_MUTEX_INITIALIZER   ///< portable mutex initializer macro
 #  endif
 
-typedef pthread_t                     xthread_type;   ///< The thread ID
+typedef pthread_t                     xthread_type;     ///< portable thread identifier
 
-#  define XTHREAD_ARG                 void *      ///< thread function argument type
-#  define XTHREAD_RTN                 void *      ///< thread function return type
+typedef void*                         xthread_arg_type; ///< portable thread function argument type
+typedef void*                         xthread_rtn_type; ///< portable thread function return type
 
+/**
+ * Portable thread creation.
+ *
+ * @param ptid          pointer to xthread_type thread id.
+ * @param call          portable thread function whioch takes an xthread_arg_type argument and returns
+ *                      an xthread_rtn_type result.
+ * @param arg           pointer argument to pass to `call` function.
+ *
+ * @return              0 if successful, or else -1 if there was an error.
+ */
 #  define xthread_create(ptid, call, arg)         pthread_create(ptid, NULL, call, arg)
+
+/**
+ * Portable thread priority adjustment function.
+ *
+ * @param tid           xthread_type thread ID.
+ * @param prio          priority level appropriate for the OS / platform.
+ */
 #  define xthread_set_prio(tid, prio) ({ \
   struct sched_param param = {}; \
   param.sched_priority = prio; \
   pthread_setschedparam(tid, SCHED_RR, &param); \
 })
+
+/**
+ * Portable check if the current thread is the same as the one specified by the handle.
+ *
+ * @param tid           the thread ID against which to check the current thread
+ * @return              TRUE (1) if the current thread matches the tid, or else FALSE (0)
+ */
 #  define xthread_current_equals(tid)             ( tid == pthread_self() )
+
+/**
+ * Portable detachment of the thread, which releasing its resources. The thread will continue
+ * to run but it may no longer be joined after.
+ *
+ * @param tid           the ID of the thread to detach.
+ */
 #  define xthread_detach              pthread_detach
-#  define xthread_join(thread)        pthread_join(thread, (void **) NULL);
+
+/**
+ * Portable way of joining a thread, which blocks until the thread finishes its processing.
+ *
+ * @param tid           the ID of the thread for which to wait.
+ */
+#  define xthread_join(tid)           pthread_join(tid, (void **) NULL);
+
+/**
+ * Generic return statement (with no result) to use within portable threads.
+ */
 #  define xthread_return()            return NULL
 #endif
 

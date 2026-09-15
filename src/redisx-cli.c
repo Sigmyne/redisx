@@ -100,7 +100,7 @@ static void printResult(const RESP *reply, const RESP *attr, const RESP *push) {
    }
 }
 
-static XTHREAD_RTN ListenerThread(XTHREAD_ARG nil) {
+static xthread_rtn_type ListenerThread(xthread_arg_type nil) {
   (void) nil;
 
   while(TRUE) {

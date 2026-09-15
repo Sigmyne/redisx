@@ -1159,7 +1159,7 @@ XBoolean redisxIsConnected(Redis *redis) {
  * \return              Always NULL.
  *
  */
-XTHREAD_RTN RedisPipelineListener(XTHREAD_ARG pRedis) {
+xthread_rtn_type RedisPipelineListener(xthread_arg_type pRedis) {
   static long counter, lastError;
 
   Redis *redis = (Redis *) pRedis;

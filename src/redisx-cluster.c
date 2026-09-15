@@ -311,7 +311,7 @@ static void rClusterSetShardsAsync(RedisCluster *cluster, RedisShard *shard, int
  *
  * @param pCluster
  */
-static XTHREAD_RTN ClusterRefreshThread(XTHREAD_ARG pCluster) {
+static xthread_rtn_type ClusterRefreshThread(xthread_arg_type pCluster) {
   RedisCluster *cluster = (RedisCluster *) pCluster;
   ClusterPrivate *cp = (ClusterPrivate *) cluster->priv;
   int i;

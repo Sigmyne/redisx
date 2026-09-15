@@ -529,7 +529,7 @@ static void rNotifyConsumers(Redis *redis, char *pattern, char *channel, char *m
  * \return              Always NULL.
  *
  */
-XTHREAD_RTN RedisSubscriptionListener(XTHREAD_ARG pRedis) {
+xthread_rtn_type RedisSubscriptionListener(xthread_arg_type pRedis) {
   static long counter, lastError;
 
   Redis *redis = (Redis *) pRedis;
