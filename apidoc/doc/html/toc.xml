@@ -367,7 +367,7 @@
           <topic label="rCloseClientAsync" href="redisx-net_8c.html#abc9dd988935375c5459bcaa09c17fa47"/>
           <topic label="rConnectAsync" href="redisx-net_8c.html#a6971a81a02ccac533f4abb344a5726b6"/>
           <topic label="rDisconnectAsync" href="redisx-net_8c.html#a42981dc95de662c10e96bdbc9dfc980e"/>
-          <topic label="RedisPipelineListener" href="redisx-net_8c.html#a19725a59f39ac4ee649e12fb32557526"/>
+          <topic label="RedisPipelineListener" href="redisx-net_8c.html#a6828bcfd9fd555f23327fcb0f5a415cf"/>
           <topic label="redisxConnect" href="redisx-net_8c.html#a6ea667fad42fab81a5580d244cc6d522"/>
           <topic label="redisxDestroy" href="redisx-net_8c.html#ac54dd4c46d8615db4da02702c18f062b"/>
           <topic label="redisxDisconnect" href="redisx-net_8c.html#acae5ab8af4db1c4ab13c4069aa744a44"/>

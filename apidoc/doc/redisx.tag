@@ -1503,11 +1503,11 @@
       <arglist>(Redis *redis)</arglist>
     </member>
     <member kind="function">
-      <type>XTHREAD_RTN</type>
+      <type>xthread_rtn_type</type>
       <name>RedisPipelineListener</name>
       <anchorfile>redisx-net_8c.html</anchorfile>
-      <anchor>a19725a59f39ac4ee649e12fb32557526</anchor>
-      <arglist>(XTHREAD_ARG pRedis)</arglist>
+      <anchor>a6828bcfd9fd555f23327fcb0f5a415cf</anchor>
+      <arglist>(xthread_arg_type pRedis)</arglist>
     </member>
     <member kind="function">
       <type>int</type>

@@ -4,7 +4,7 @@ var redisx_net_8c =
     [ "rCloseClientAsync", "redisx-net_8c.html#abc9dd988935375c5459bcaa09c17fa47", null ],
     [ "rConnectAsync", "redisx-net_8c.html#a6971a81a02ccac533f4abb344a5726b6", null ],
     [ "rDisconnectAsync", "redisx-net_8c.html#a42981dc95de662c10e96bdbc9dfc980e", null ],
-    [ "RedisPipelineListener", "redisx-net_8c.html#a19725a59f39ac4ee649e12fb32557526", null ],
+    [ "RedisPipelineListener", "redisx-net_8c.html#a6828bcfd9fd555f23327fcb0f5a415cf", null ],
     [ "redisxConnect", "redisx-net_8c.html#a6ea667fad42fab81a5580d244cc6d522", null ],
     [ "redisxDestroy", "redisx-net_8c.html#ac54dd4c46d8615db4da02702c18f062b", null ],
     [ "redisxDisconnect", "redisx-net_8c.html#acae5ab8af4db1c4ab13c4069aa744a44", null ],

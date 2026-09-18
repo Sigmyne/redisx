@@ -48,7 +48,8 @@ with multiple Redis servers simultaneously also. __RedisX__ is free to use, in a
 restrictions.
 
 While there are other C/C++ Redis clients available, this one is C99 compatible, and hence can be used on older 
-platforms also. It is also small and fast, but still capable and versatile.
+platforms also. It is also small and fast, but still capable and versatile. __RedisX__ is suitable for POSIX (e.g. 
+Linux, BSD, MacOS, LynxOS), Windows, Android, as well as embedded and bare-metal platforms alike.
 
 Rather than providing high-level support for every possible Redis command (which would be challenging given the pace 
 new commands are being introduced all the time), it provides a basic framework for synchronous and asynchronous 

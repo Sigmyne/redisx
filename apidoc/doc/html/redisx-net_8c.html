@@ -175,7 +175,7 @@ Functions</h2></td></tr>
 <tr class="memitem:abc9dd988935375c5459bcaa09c17fa47" id="r_abc9dd988935375c5459bcaa09c17fa47"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abc9dd988935375c5459bcaa09c17fa47">rCloseClientAsync</a> (<a class="el" href="structRedisClient.html">RedisClient</a> *cl)</td></tr>
 <tr class="memitem:a6971a81a02ccac533f4abb344a5726b6" id="r_a6971a81a02ccac533f4abb344a5726b6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6971a81a02ccac533f4abb344a5726b6">rConnectAsync</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a4ad48ff69acdb7acacbe9566a1b01a8c">XBoolean</a> usePipeline)</td></tr>
 <tr class="memitem:a42981dc95de662c10e96bdbc9dfc980e" id="r_a42981dc95de662c10e96bdbc9dfc980e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a42981dc95de662c10e96bdbc9dfc980e">rDisconnectAsync</a> (<a class="el" href="structRedis.html">Redis</a> *redis)</td></tr>
-<tr class="memitem:a19725a59f39ac4ee649e12fb32557526" id="r_a19725a59f39ac4ee649e12fb32557526"><td class="memItemLeft">XTHREAD_RTN&#160;</td><td class="memItemRight"><a class="el" href="#a19725a59f39ac4ee649e12fb32557526">RedisPipelineListener</a> (XTHREAD_ARG pRedis)</td></tr>
+<tr class="memitem:a6828bcfd9fd555f23327fcb0f5a415cf" id="r_a6828bcfd9fd555f23327fcb0f5a415cf"><td class="memItemLeft">xthread_rtn_type&#160;</td><td class="memItemRight"><a class="el" href="#a6828bcfd9fd555f23327fcb0f5a415cf">RedisPipelineListener</a> (xthread_arg_type pRedis)</td></tr>
 <tr class="memitem:a6ea667fad42fab81a5580d244cc6d522" id="r_a6ea667fad42fab81a5580d244cc6d522"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6ea667fad42fab81a5580d244cc6d522">redisxConnect</a> (<a class="el" href="structRedis.html">Redis</a> *redis, <a class="elRef" href="../../xchange/doc/html/xchange_8h.html#a4ad48ff69acdb7acacbe9566a1b01a8c">XBoolean</a> usePipeline)</td></tr>
 <tr class="memitem:ac54dd4c46d8615db4da02702c18f062b" id="r_ac54dd4c46d8615db4da02702c18f062b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac54dd4c46d8615db4da02702c18f062b">redisxDestroy</a> (<a class="el" href="structRedis.html">Redis</a> *redis)</td></tr>
 <tr class="memitem:acae5ab8af4db1c4ab13c4069aa744a44" id="r_acae5ab8af4db1c4ab13c4069aa744a44"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acae5ab8af4db1c4ab13c4069aa744a44">redisxDisconnect</a> (<a class="el" href="structRedis.html">Redis</a> *redis)</td></tr>
@@ -278,16 +278,16 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a19725a59f39ac4ee649e12fb32557526" name="a19725a59f39ac4ee649e12fb32557526"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19725a59f39ac4ee649e12fb32557526">&#9670;&#160;</a></span>RedisPipelineListener()</h2>
+<a id="a6828bcfd9fd555f23327fcb0f5a415cf" name="a6828bcfd9fd555f23327fcb0f5a415cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6828bcfd9fd555f23327fcb0f5a415cf">&#9670;&#160;</a></span>RedisPipelineListener()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XTHREAD_RTN RedisPipelineListener </td>
+          <td class="memname">xthread_rtn_type RedisPipelineListener </td>
           <td>(</td>
-          <td class="paramtype">XTHREAD_ARG</td>          <td class="paramname"><span class="paramname"><em>pRedis</em></span></td><td>)</td>
+          <td class="paramtype">xthread_arg_type</td>          <td class="paramname"><span class="paramname"><em>pRedis</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
