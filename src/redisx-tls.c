@@ -25,6 +25,17 @@
 #  include <openssl/err.h>
 /// \cond PRIVATE
 
+
+static xmut_type tls_mutex = XMUT_INITIALIZER;
+
+static  void tls_lock() {
+  xmut_lock(&tls_mutex);
+}
+
+static void tls_unlock() {
+  xmut_unlock(&tls_mutex);
+}
+
 /**
  * Clear TLS configuration settings, freeing resources used.
  *
@@ -138,30 +149,6 @@ void rDestroyClientTLS(ClientPrivate *cp) {
   BIO_free(in);
 
   return status;
-}
-
-#ifdef XMUT_INITIALIZER
-  static xmut_type tls_mutex = XMUT_INITIALIZER;
-#elif __STDC_VERSION__ >= 201112L
-  static xmut_type tls_mutex;
-
-  static void init_tls_mutex() {
-    xmut_init(&tls_mutex);
-  }
-#endif
-
-
-static  void tls_lock() {
-#if !defined XMUT_INITIALIZER && __STDC_VERSION__ >= 201112L
-  static once_flag mutex_once = ONCE_FLAG_INIT;
-  call_once(&mutex_once, init_mutex);
-#endif
-
-  xmut_lock(&tls_mutex);
-}
-
-static void tls_unlock() {
-  xmut_unlock(&tls_mutex);
 }
 
 /**

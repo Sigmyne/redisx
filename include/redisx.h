@@ -32,7 +32,7 @@
 #define REDISX_PATCHLEVEL     0
 
 /// Additional release information in version, e.g. "-1", or "-rc1".
-#define REDISX_RELEASE_STRING "-rc3"
+#define REDISX_RELEASE_STRING "-devel"
 
 
 
@@ -559,8 +559,8 @@ int redisxDeleteEntries(Redis *redis, const char *pattern);
 
 typedef HANDLE                        xthread_type;     ///< portable thread handle
 
-typedef LPVOID                        xthread_arg_type; ///< portable thread function argument type
-typedef DWORD                         xthread_rtn_type; ///< portable thread function return type
+#  define xthread_arg_type            LPVOID            ///< portable thread function argument type
+#  define xthread_rtn_type            DWORD WINAPI      ///< portable thread function return type
 
 /**
  * Portable thread creation.

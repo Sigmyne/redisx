@@ -87,22 +87,9 @@ static const uint16_t crc_tab[] = { //
         0x6e17, 0x7e36, 0x4e55, 0x5e74, 0x2e93, 0x3eb2, 0x0ed1, 0x1ef0, //
 };
 
-#ifdef XMUT_INITIALIZER
-  static xmut_type mutex = XMUT_INITIALIZER;
-#elif __STDC_VERSION__ >= 201112L
-  static xmut_type mutex;
-
-  static void init_mutex() {
-    xmut_init(&mutex);
-  }
-#endif
+static xmut_type mutex = XMUT_INITIALIZER;
 
 static void cluster_lock() {
-#if !defined XMUT_INITIALIZER && __STDC_VERSION__ >= 201112L
-  static once_flag mutex_once = ONCE_FLAG_INIT;
-  call_once(&mutex_once, init_mutex);
-#endif
-
   xmut_lock(&mutex);
 }
 

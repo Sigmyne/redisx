@@ -76,22 +76,9 @@ typedef struct ServerLink {
 
 static ServerLink *serverList;
 
-#ifdef XMUT_INITIALIZER
-  static xmut_type netconf_mutex = XMUT_INITIALIZER;
-#elif __STDC_VERSION__ >= 201112L
-  static xmut_type netconf_mutex;
-
-  static void init_netconf_mutex() {
-    xmut_init(&netconf_mutex);
-  }
-#endif
+static xmut_type netconf_mutex = XMUT_INITIALIZER;
 
 static void netconf_lock() {
-#if !defined XMUT_INITIALIZER && __STDC_VERSION__ >= 201112L
-  static once_flag netconf_once = ONCE_FLAG_INIT;
-  call_once(&netconf_once, init_netconf_mutex);
-#endif
-
   xmut_lock(&netconf_mutex);
 }
 
