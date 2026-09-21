@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [1.1.0-rc3] - 2026-09-18
+## [1.1.0-rc4] - 2026-09-21
 
 Upcoming feature release, with bug fixes.
 
@@ -17,7 +17,7 @@ Upcoming feature release, with bug fixes.
 
  - #49: Fix broken OpenMP support for parallel cluster connect / disconnect.
  
- - #51: Thread safe portable mutex initializations
+ - #51: Thread safe portable mutex initializations (Windows and POSIX).
 
 ### Added
 
