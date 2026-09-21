@@ -32,7 +32,7 @@
 #define REDISX_PATCHLEVEL     0
 
 /// Additional release information in version, e.g. "-1", or "-rc1".
-#define REDISX_RELEASE_STRING "-devel"
+#define REDISX_RELEASE_STRING "-rc4"
 
 
 
@@ -559,6 +559,8 @@ int redisxDeleteEntries(Redis *redis, const char *pattern);
 
 typedef HANDLE                        xthread_type;     ///< portable thread handle
 
+// MSVC does not handle the typedef correctly on Window x86, but macros work for
+// thread call arrgumnent / return types.
 #  define xthread_arg_type            LPVOID            ///< portable thread function argument type
 #  define xthread_rtn_type            DWORD WINAPI      ///< portable thread function return type
 
