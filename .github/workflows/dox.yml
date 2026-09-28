@@ -108,7 +108,7 @@ jobs:
       run: cp redisx/doc/README.md site/doc/README.md
 
     - name: Copy API documentation
-      run: cp -a redisx/doc site/apidoc
+      run: cp -a redisx/doc/html site/apidoc
 
     - name: Push to pages
       run: |
