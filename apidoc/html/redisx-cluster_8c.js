@@ -5,10 +5,10 @@ var redisx_cluster_8c =
     [ "redisxClusterConnect", "redisx-cluster_8c.html#a83dadbc667e48fab6272bed1025a3db8", null ],
     [ "redisxClusterDestroy", "redisx-cluster_8c.html#a3b2fb45ad35cbc4e501db00f5c416ef9", null ],
     [ "redisxClusterDisconnect", "redisx-cluster_8c.html#aaf2048bd9d3c86f57234c856ec7e1350", null ],
-    [ "redisxClusterGetRedirection", "redisx-cluster_8c.html#ac40bd92e2c9cc4f14521c2efcea57018", null ],
+    [ "redisxClusterGetRedirection", "redisx-cluster_8c.html#a87f21e95198aeafd9497702a3d1c90d4", null ],
     [ "redisxClusterGetShard", "redisx-cluster_8c.html#a383492763c7162b48bb86e9523bfff69", null ],
     [ "redisxClusterInit", "redisx-cluster_8c.html#a325731b1f8f467cf2c84700b345049ba", null ],
-    [ "redisxClusterIsMigrating", "redisx-cluster_8c.html#a57a19ba90951b891677b1be3af8a8f36", null ],
-    [ "redisxClusterIsRedirected", "redisx-cluster_8c.html#a537ed3806a44fb40f6e8dccd813ad0da", null ],
-    [ "redisxClusterMoved", "redisx-cluster_8c.html#a19fc54725ba4725e0281cff59b642e15", null ]
+    [ "redisxClusterIsMigrating", "redisx-cluster_8c.html#a12539722943497b7c0b23f1cfdc8a1ed", null ],
+    [ "redisxClusterIsRedirected", "redisx-cluster_8c.html#a3371f1ae42e3a6ebaadf3b92580f64eb", null ],
+    [ "redisxClusterMoved", "redisx-cluster_8c.html#afed1869dbd512fc1e8ca11e15672d0d7", null ]
 ];

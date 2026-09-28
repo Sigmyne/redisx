@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['level_20configuration_0',['Socket-level configuration',['../index.html#autotoc_md34',1,'']]],
-  ['level_20errors_1',['Socket-level errors',['../index.html#autotoc_md70',1,'']]],
-  ['line_20interface_20redisx_20cli_2',['Command-line interface (&lt;span class=&quot;tt&quot;&gt;redisx-cli&lt;/span&gt;)',['../index.html#autotoc_md25',1,'']]],
-  ['linking_20your_20application_20against_20redisx_3',['Linking your application against RedisX',['../index.html#autotoc_md27',1,'']]],
-  ['links_4',['Related links',['../index.html#autotoc_md19',1,'']]],
-  ['list_5',['Deprecated List',['../deprecated.html',1,'']]],
-  ['listing_20and_20scanning_6',['Listing and Scanning',['../index.html#autotoc_md48',1,'']]],
-  ['loading_20and_20execution_7',['LUA script loading and execution',['../index.html#autotoc_md56',1,'']]],
-  ['lua_20script_20loading_20and_20execution_8',['LUA script loading and execution',['../index.html#autotoc_md56',1,'']]],
-  ['lua_20scripts_9',['Atomic execution blocks and LUA scripts',['../index.html#autotoc_md54',1,'']]]
+  ['package_0',['Homebrew package',['../index.html#autotoc_md16',1,'']]],
+  ['packages_1',['Linux packages',['../index.html#autotoc_md15',1,'']]],
+  ['pipelined_20transactions_2',['Pipelined transactions',['../index.html#autotoc_md57',1,'']]],
+  ['pipelining_3',['Advanced queries and pipelining',['../index.html#autotoc_md54',1,'']]],
+  ['plans_4',['Future plans',['../index.html#autotoc_md69',1,'']]],
+  ['prerequisites_5',['Prerequisites',['../index.html#autotoc_md9',1,'']]],
+  ['processing_6',['Asynchronous client processing',['../index.html#autotoc_md55',1,'']]],
+  ['pub_20sub_20support_7',['Publish / subscribe (PUB/SUB) support',['../index.html#autotoc_md45',1,'']]],
+  ['publish_20subscribe_20pub_20sub_20support_8',['Publish / subscribe (PUB/SUB) support',['../index.html#autotoc_md45',1,'']]],
+  ['push_20notifications_9',['Push notifications',['../index.html#autotoc_md38',1,'']]]
 ];

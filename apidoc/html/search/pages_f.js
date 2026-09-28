@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['management_0',['Manual connection management',['../index.html#autotoc_md67',1,'']]],
-  ['managing_20redis_20server_20connections_1',['Managing Redis server connections',['../index.html#autotoc_md29',1,'']]],
-  ['manual_20connection_20management_2',['Manual connection management',['../index.html#autotoc_md67',1,'']]],
-  ['messages_3',['Broadcasting messages',['../index.html#autotoc_md51',1,'']]]
+  ['queries_0',['Simple Redis queries',['../index.html#autotoc_md35',1,'']]],
+  ['queries_20and_20pipelining_1',['Advanced queries and pipelining',['../index.html#autotoc_md54',1,'']]]
 ];

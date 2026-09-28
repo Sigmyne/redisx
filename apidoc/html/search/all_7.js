@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['data_0',['Accessing key / value data',['../index.html#autotoc_md46',1,'']]],
-  ['data_20type_1',['RESP data type',['../index.html#autotoc_md44',1,'']]],
-  ['debug_20support_2',['Debug support',['../index.html#autotoc_md72',1,'']]],
-  ['deprecated_20list_3',['Deprecated List',['../deprecated.html',1,'']]],
-  ['detecting_20cluster_20reconfiguration_4',['Detecting cluster reconfiguration',['../index.html#autotoc_md66',1,'']]],
-  ['disconnecting_5',['Disconnecting',['../index.html#autotoc_md37',1,'']]],
-  ['disconnection_20hooks_6',['Connection &amp;amp; disconnection hooks',['../index.html#autotoc_md35',1,'']]]
+  ['general_20features_0',['General Features',['../index.html#autotoc_md5',1,'']]],
+  ['getting_20and_20setting_20keyed_20values_1',['Getting and setting keyed values',['../index.html#autotoc_md42',1,'']]],
+  ['gnu_20make_2',['Build / install using GNU make',['../index.html#autotoc_md12',1,'']]],
+  ['gnu_20makefile_3',['Using a GNU &lt;span class=&quot;tt&quot;&gt;Makefile&lt;/span&gt;',['../index.html#autotoc_md21',1,'']]],
+  ['guide_4',['User&apos;s guide',['../index.html',1,'']]]
 ];

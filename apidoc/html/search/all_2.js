@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['2_202025_2011_2017_0',['[1.0.2] - 2025-11-17',['../md_CHANGELOG.html#autotoc_md6',1,'']]],
-  ['2025_2005_2006_1',['[1.0.0] - 2025-05-06',['../md_CHANGELOG.html#autotoc_md11',1,'']]],
-  ['2025_2008_2001_2',['[1.0.1] - 2025-08-01',['../md_CHANGELOG.html#autotoc_md8',1,'']]],
-  ['2025_2011_2017_3',['[1.0.2] - 2025-11-17',['../md_CHANGELOG.html#autotoc_md6',1,'']]],
-  ['2026_2002_2016_4',['[1.0.3] - 2026-02-16',['../md_CHANGELOG.html#autotoc_md3',1,'']]]
+  ['basics_0',['Cluster basics',['../index.html#autotoc_md60',1,'']]],
+  ['blocks_1',['Execution blocks',['../index.html#autotoc_md50',1,'']]],
+  ['blocks_20and_20lua_20scripts_2',['Atomic execution blocks and LUA scripts',['../index.html#autotoc_md49',1,'']]],
+  ['broadcasting_20messages_3',['Broadcasting messages',['../index.html#autotoc_md46',1,'']]],
+  ['build_20install_20using_20cmake_4',['Build / install using CMake',['../index.html#autotoc_md13',1,'']]],
+  ['build_20install_20using_20gnu_20make_5',['Build / install using GNU make',['../index.html#autotoc_md12',1,'']]],
+  ['building_20and_20installation_6',['Building and installation',['../index.html#autotoc_md11',1,'']]],
+  ['bundled_20attributes_7',['Bundled Attributes',['../index.html#autotoc_md37',1,'Bundled Attributes'],['../index.html#autotoc_md56',1,'Bundled Attributes']]]
 ];

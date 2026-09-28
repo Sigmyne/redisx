@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unreleased_0',['[Unreleased]',['../md_CHANGELOG.html#autotoc_md1',1,'']]]
+  ['your_20application_20against_20redisx_0',['Linking your application against RedisX',['../index.html#autotoc_md20',1,'']]]
 ];

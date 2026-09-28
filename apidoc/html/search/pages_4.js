@@ -1,17 +1,9 @@
 var searchData=
 [
-  ['a_20simple_20example_0',['A simple example',['../index.html#autotoc_md15',1,'']]],
-  ['accessing_20key_20value_20data_1',['Accessing key / value data',['../index.html#autotoc_md46',1,'']]],
-  ['advanced_20queries_20and_20pipelining_2',['Advanced queries and pipelining',['../index.html#autotoc_md59',1,'']]],
-  ['against_20redisx_3',['Linking your application against RedisX',['../index.html#autotoc_md27',1,'']]],
-  ['amp_20disconnection_20hooks_4',['Connection &amp;amp; disconnection hooks',['../index.html#autotoc_md35',1,'']]],
-  ['and_20execution_5',['LUA script loading and execution',['../index.html#autotoc_md56',1,'']]],
-  ['and_20lua_20scripts_6',['Atomic execution blocks and LUA scripts',['../index.html#autotoc_md54',1,'']]],
-  ['and_20pipelining_7',['Advanced queries and pipelining',['../index.html#autotoc_md59',1,'']]],
-  ['and_20scanning_8',['Listing and Scanning',['../index.html#autotoc_md48',1,'']]],
-  ['and_20setting_20keyed_20values_9',['Getting and setting keyed values',['../index.html#autotoc_md47',1,'']]],
-  ['application_20against_20redisx_10',['Linking your application against RedisX',['../index.html#autotoc_md27',1,'']]],
-  ['asynchronous_20client_20processing_11',['Asynchronous client processing',['../index.html#autotoc_md60',1,'']]],
-  ['atomic_20execution_20blocks_20and_20lua_20scripts_12',['Atomic execution blocks and LUA scripts',['../index.html#autotoc_md54',1,'']]],
-  ['attributes_13',['Attributes',['../index.html#autotoc_md42',1,'Bundled Attributes'],['../index.html#autotoc_md61',1,'Bundled Attributes']]]
+  ['error_20handling_0',['Error handling',['../index.html#autotoc_md64',1,'']]],
+  ['errors_1',['Socket-level errors',['../index.html#autotoc_md65',1,'']]],
+  ['example_2',['A simple example',['../index.html#autotoc_md3',1,'']]],
+  ['execution_3',['LUA script loading and execution',['../index.html#autotoc_md51',1,'']]],
+  ['execution_20blocks_4',['Execution blocks',['../index.html#autotoc_md50',1,'']]],
+  ['execution_20blocks_20and_20lua_20scripts_5',['Atomic execution blocks and LUA scripts',['../index.html#autotoc_md49',1,'']]]
 ];

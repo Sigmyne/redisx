@@ -8,11 +8,11 @@ var redisx_tab_8c =
     [ "redisxGetStringValue", "redisx-tab_8c.html#afc875f142146282860b6a8a3ac2f0fc8", null ],
     [ "redisxGetTable", "redisx-tab_8c.html#af4290857fc98baac7edd15edb6d0bcac", null ],
     [ "redisxGetValue", "redisx-tab_8c.html#a01bf1f5d830d1af19456ab78457a54ab", null ],
-    [ "redisxMultiSet", "redisx-tab_8c.html#aa8fd65a355394af08c86b4f0e943d3a6", null ],
-    [ "redisxMultiSetAsync", "redisx-tab_8c.html#a750023f759dd5192dd3c802a542af770", null ],
+    [ "redisxMultiSet", "redisx-tab_8c.html#abfcc67b8f2dd45489bc2617f29b42951", null ],
+    [ "redisxMultiSetAsync", "redisx-tab_8c.html#a5ab6e996f944efb8c58379f13c42efc1", null ],
     [ "redisxScanKeys", "redisx-tab_8c.html#a2536b2244c4d05ca5d595ed00826abd4", null ],
     [ "redisxScanTable", "redisx-tab_8c.html#a838e534835b9b345925e652e3b053815", null ],
     [ "redisxSetScanCount", "redisx-tab_8c.html#a3bd0d2964966ed6655358ff2fe0802c0", null ],
-    [ "redisxSetValue", "redisx-tab_8c.html#a1465b1a965ddd685e16bccbf0b34f08b", null ],
-    [ "redisxSetValueAsync", "redisx-tab_8c.html#a9e784632598b0c418a3ae3a87aa09fe4", null ]
+    [ "redisxSetValue", "redisx-tab_8c.html#af43466b9a55efcb6b4bfe2aa5ed37140", null ],
+    [ "redisxSetValueAsync", "redisx-tab_8c.html#a4e0206f7ab34da7867971f32a13c990d", null ]
 ];

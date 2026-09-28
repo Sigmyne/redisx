@@ -1,4 +1,4 @@
-<plugin name="edu.harvard.cfa.xchange" id="edu.harvard.cfa.xchange"
+<plugin name="com.sigmyne.redisx" id="com.sigmyne.redisx"
         version="1.0.0" provider-name="Doxygen">
   <extension point="org.eclipse.help.toc">
     <toc file="toc.xml" primary="true" />
