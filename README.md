@@ -21,7 +21,7 @@ A free, simple, and light-weight C/C++ Redis / Valkey client library.
  
 Author: Attila Kovacs
 
-Updated for 1.0 and later releases.
+Updated for 1.1 and later releases.
 
 ## Table of Contents
 
