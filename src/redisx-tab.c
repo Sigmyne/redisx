@@ -973,13 +973,12 @@ void redisxDestroyKeys(char **keys, int count) {
  * Removes all Redis entries that match the specified table:field name pattern.
  *
  * NOTES:
- * <ol>
- * <li>This function uses the `fnmatch()` function of LIBC, which is part of the
- * POSIX.1-2001 standard, and is hence not available in C99 in general. Hence, when
- * compiling the library for the C99 standard, this function is disabled by default
- * unless you set `_POSIX_C_SOURCE` to a value larger than, or equal to, 200112L
- * also.</li>
- * </ol>
+ *
+ * - This function uses the `fnmatch()` function of LIBC, which is part of the
+ *   POSIX.1-2001 standard, and is hence not available in C99 in general. Hence, when
+ *   compiling the library for the C99 standard, this function is disabled by default
+ *   unless you set `_POSIX_C_SOURCE` to a value larger than, or equal to, 200112L
+ *   also.
  *
  * \param redis     Pointer to the Redis instance.
  * \param pattern   Glob pattern of aggregate table:field IDs to delete

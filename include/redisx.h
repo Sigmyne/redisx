@@ -29,10 +29,10 @@
 #define REDISX_MINOR_VERSION  1
 
 /// Integer sub version of the release
-#define REDISX_PATCHLEVEL     0
+#define REDISX_PATCHLEVEL     1
 
 /// Additional release information in version, e.g. "-1", or "-rc1".
-#define REDISX_RELEASE_STRING ""
+#define REDISX_RELEASE_STRING "-devel"
 
 
 
@@ -169,9 +169,8 @@ enum redisx_protocol {
  * \brief Structure that represents a Redis response (RESP format).
  *
  * REFERENCES:
- * <ol>
- * <li>https://github.com/redis/redis-specifications/tree/master/protocol</li>
- * </ol>
+ *
+ *  - https://github.com/redis/redis-specifications/tree/master/protocol
  *
  * \sa redisxDestroyRESP()
  * \sa redisxIsScalarType()
@@ -268,25 +267,22 @@ typedef struct Redis {
  * A type of function that handles Redis PUB/SUB messages. These functions should follow a set of
  * basic rules:
  *
- * <ul>
- * <li>The call should return promptly and never block for significant periods. If it has blocking
- * calls or if extended processing is required, the function should simply place a copy of the
- * necessary information on a queue and process queued entries in a separate thread. (The call
- * arguments will not persist beyond the scope of the call, so don't attempt to place them
- * directly in a queue.)</li>
+ *  - The call should return promptly and never block for significant periods. If it has blocking
+ *    calls or if extended processing is required, the function should simply place a copy of the
+ *    necessary information on a queue and process queued entries in a separate thread. (The call
+ *    arguments will not persist beyond the scope of the call, so don't attempt to place them
+ *    directly in a queue.)
  *
- * <li>The subscriber call should not attempt to modify or free() the strings it is called with.
- * The same strings maybe used by other subscribers, and thus modifying their content would
- * produce unpredictable results with those subscribers.</li>
+ *  - The subscriber call should not attempt to modify or free() the strings it is called with.
+ *    The same strings maybe used by other subscribers, and thus modifying their content would
+ *    produce unpredictable results with those subscribers.
  *
- * <li>If the call needs to manipulate the supplied string arguments, it should operate on copies
- * (e.g. obtained via
- * xStringCopy()).</li>
+ *  - If the call needs to manipulate the supplied string arguments, it should operate on copies
+ *    (e.g. obtained via xStringCopy()).
  *
- * <li>The caller should free up any temporary resources it allocates, including copies of the
- * argument strings, before returning. However, it should never call free() on the supplied
- * arguments directly.</li>
- * </ul>
+ *  - The caller should free up any temporary resources it allocates, including copies of the
+ *    argument strings, before returning. However, it should never call free() on the supplied
+ *    arguments directly.
  *
  * @param pattern  The subscription pattern for which this notification came for
  *                 or NULL if not a pattern match.
@@ -310,19 +306,21 @@ typedef void (*RedisSubscriberCall)(const char *pattern, const char *channel, co
  * it can also interact with the Redis instance in limited ways. The implementation should follow a set of
  * basic rules:
  *
- * <ul>
- * <li>It should not call synchronized functions on the affected client, including attempts to connect,
- * disconnect, or reconnect the client.</li>
- * <li>It may call `Async` functions for the client (the client is in a locked state when the handler is
- * called).</li>
- * <li>It should not attempt to lock or unlock the affected client.</li>
- * <li>It may use `errno` to gather information about the source of the error, and may even change or reset
- * `errno`, to change behavior (e.g. re-setting to `EAGAIN` or `EWOULBLOCK` will keep the client connected
- * and the return status of the failed call will become X_TIMEDOUT; or setting it to any other value will
- * disconnect the client and the failed call will return X_NO_SERVICE instead.).</li>
- * <li>The limitations can by bypassed by placing the error on a queue and let an asynchronous thread
- * take it from there.</li>
- * </ul>
+ * - It should not call synchronized functions on the affected client, including attempts to connect,
+ *   disconnect, or reconnect the client.
+ *
+ * - It may call `Async` functions for the client (the client is in a locked state when the handler is
+ *   called).
+ *
+ * - It should not attempt to lock or unlock the affected client.
+ *
+ * - It may use `errno` to gather information about the source of the error, and may even change or reset
+ *   `errno`, to change behavior (e.g. re-setting to `EAGAIN` or `EWOULBLOCK` will keep the client connected
+ *   and the return status of the failed call will become X_TIMEDOUT; or setting it to any other value will
+ *   disconnect the client and the failed call will return X_NO_SERVICE instead.).
+ *
+ * - The limitations can by bypassed by placing the error on a queue and let an asynchronous thread
+ *   take it from there.
  *
  * @param redis     Pointer to the RedisX instance
  * @param channel   the channel over which the error occurred
@@ -334,16 +332,16 @@ typedef void (*RedisErrorHandler)(Redis *redis, enum redisx_channel channel, con
  * A user-defined function for consuming responses from a Redis pipeline connection. The implementation
  * should follow a set of simple rules:
  *
- * <ul>
- * <li>the implementation should not destroy the RESP data. The RESP will be destroyed automatically
- * after the call returns. However, the call may retain any data from the RESP itself, provided
- * the data is de-referenced from the RESP before return.<li>
- * <li>The implementation should not block (aside from maybe a quick mutex unlock) and return quickly,
- * so as to not block the client for long periods</li>
- * <li>If extensive processing or blocking calls are required to process the message, it is best to
- * simply place a copy of the RESP on a queue and then return quickly, and then process the message
- * asynchronously in a background thread.</li>
- * </ul>
+ * - the implementation should not destroy the RESP data. The RESP will be destroyed automatically
+ *   after the call returns. However, the call may retain any data from the RESP itself, provided
+ *   the data is de-referenced from the RESP before return.
+ *
+ * - The implementation should not block (aside from maybe a quick mutex unlock) and return quickly,
+ *   so as to not block the client for long periods
+ *
+ * - If extensive processing or blocking calls are required to process the message, it is best to
+ *   simply place a copy of the RESP on a queue and then return quickly, and then process the message
+ *   asynchronously in a background thread.
  *
  * @param response     A response received from the pipeline client.
  *
@@ -355,23 +353,23 @@ typedef void (*RedisPipelineProcessor)(RESP *response);
  * A user-defined function for consuming push messages from a Redis client. The implementation
  * should follow a set of simple rules:
  *
- * <ul>
- * <li>the implementation should not destroy the RESP data. The RESP will be destroyed automatically
- * after the call returns. However, the call may retain any data from the RESP itself, provided
- * that such data is de-referenced from the RESP before the return.<li>
- * <li>The implementation should not block (aside from maybe a quick mutex unlock) and return quickly,
- * so as to not block the client for long periods</li>
- * <li>If extensive processing or blocking calls are required to process the message, it is best to
- * simply place a copy of the RESP on a queue and then return quickly, and then process the message
- * asynchronously in a background thread.</li>
- * <li>The client on which the push notification originated will be locked when this function is
- * called, waiting for a response to an earlier query. Thus the implementation should not attempt to
- * lock the client again or release the lock. It may send asynchronous requests on the client, e.g. via
- * redisxSendRequestAsync(), but it should not try to read a response (given that the client is
- * blocked for another read operation). If more flexible client access is needed, the implementation
- * should make a copy of the RESP and place it on a queue for asynchronous processing by another thread.
- * </li>
- * </ul>
+ * - the implementation should not destroy the RESP data. The RESP will be destroyed automatically
+ *   after the call returns. However, the call may retain any data from the RESP itself, provided
+ *   that such data is de-referenced from the RESP before the return.
+ *
+ * - The implementation should not block (aside from maybe a quick mutex unlock) and return quickly,
+ *   so as to not block the client for long periods
+ *
+ * - If extensive processing or blocking calls are required to process the message, it is best to
+ *   simply place a copy of the RESP on a queue and then return quickly, and then process the message
+ *   asynchronously in a background thread.
+ *
+ * - The client on which the push notification originated will be locked when this function is
+ *   called, waiting for a response to an earlier query. Thus the implementation should not attempt to
+ *   lock the client again or release the lock. It may send asynchronous requests on the client, e.g. via
+ *   redisxSendRequestAsync(), but it should not try to read a response (given that the client is
+ *   blocked for another read operation). If more flexible client access is needed, the implementation
+ *   should make a copy of the RESP and place it on a queue for asynchronous processing by another thread.
  *
  * @param cl          The Redis client that sent the push. The client is locked for exlusive
  *                    access when this function is called.

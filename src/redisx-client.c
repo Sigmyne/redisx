@@ -861,12 +861,11 @@ static void rProcessPushMessageAsync(RedisClient *cl, RESP *resp) {
  * This function should be called only if the caller has an exclusive lock on the client's
  * mutex. Also, there are a few rules the caller should follow:
  *
- * <ul>
- * <li>The caller should not block the client for long and return quickly. If it has
- * blocking calls, or requires extensive processing, it should make a copy of the
- * RESP first, and release the lock immediately after.</li>
- * <li>The caller must not attempt to call free() on the returned RESP</li>
- * </ul>
+ * - The caller should not block the client for long and return quickly. If it has
+ *   blocking calls, or requires extensive processing, it should make a copy of the
+ *   RESP first, and release the lock immediately after.
+ *
+ * - The caller must not attempt to call free() on the returned RESP
  *
  * Normally the user would typically call this function right after a redisxReadReplyAsync()
  * call, for which attributes are expected. The caller might also want to call

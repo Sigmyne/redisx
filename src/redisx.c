@@ -542,16 +542,16 @@ XBoolean redisxHasPipeline(Redis *redis) {
  * Sets the function processing valid pipeline responses. The implementation should follow a
  * simple set of rules:
  *
- * <ul>
- * <li>the implementation should not destroy the RESP data. The RESP will be destroyed automatically
- * after the call returns. However, the call may retain any data from the RESP itself, provided
- * the data is de-referenced from the RESP before return.<li>
- * <li>The implementation should not block (aside from maybe a quick mutex unlock) and return quickly,
- * so as to not block the client for long periods</li>
- * <li>If extensive processing or blocking calls are required to process the message, it is best to
- * simply place a copy of the RESP on a queue and then return quickly, and then process the message
- * asynchronously in a background thread.</li>
- * </ul>
+ * - the implementation should not destroy the RESP data. The RESP will be destroyed automatically
+ *   after the call returns. However, the call may retain any data from the RESP itself, provided
+ *   the data is de-referenced from the RESP before return.
+ *
+ * - The implementation should not block (aside from maybe a quick mutex unlock) and return quickly,
+ *   so as to not block the client for long periods
+ *
+ * - If extensive processing or blocking calls are required to process the message, it is best to
+ *   simply place a copy of the RESP on a queue and then return quickly, and then process the message
+ *   asynchronously in a background thread.
  *
  * \param redis             Pointer to a Redis instance.
  * \param f                 The function that processes a single argument of type RESP pointer.
@@ -786,20 +786,22 @@ RESP *redisxGetAttributes(Redis *redis) {
  * Sets a user-defined function to process push messages for a specific Redis instance. The function's
  * implementation must follow a simple set of rules:
  *
- * <ul>
- * <li>the implementation should not destroy the RESP data. The RESP will be destroyed automatically
- * after the call returns. However, the call may retain any data from the RESP itself, provided
- * the data is de-referenced from the RESP before return.<li>
- * <li>The call will have exclusive access to the client. As such it should not try to obtain a
- * lock or release the lock itself.</li>
- * <li>The implementation should not block (aside from maybe a quick mutex unlock) and return quickly,
- * so as to not block the client for long periods</li>
- * <li>If extensive processing or blocking calls are required to process the message, it is best to
- * simply place a copy of the RESP on a queue and then return quickly, and then process the message
- * asynchronously in a background thread.</li>
- * <li>The client on which the push is originated will be locked, thus the implementation should
- * avoid getting exclusive access to the client</li>
- * </ul>
+ * - the implementation should not destroy the RESP data. The RESP will be destroyed automatically
+ *   after the call returns. However, the call may retain any data from the RESP itself, provided
+ *   the data is de-referenced from the RESP before return.
+ *
+ * - The call will have exclusive access to the client. As such it should not try to obtain a
+ *   lock or release the lock itself.
+ *
+ * - The implementation should not block (aside from maybe a quick mutex unlock) and return quickly,
+ *   so as to not block the client for long periods
+ *
+ * - If extensive processing or blocking calls are required to process the message, it is best to
+ *   simply place a copy of the RESP on a queue and then return quickly, and then process the message
+ *   asynchronously in a background thread.
+ *
+ * - The client on which the push is originated will be locked, thus the implementation should
+ *   avoid getting exclusive access to the client
  *
  * @param redis   Redis instance
  * @param func    Function to use for processing push messages from the given Redis instance, or NULL

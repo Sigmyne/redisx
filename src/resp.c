@@ -662,16 +662,14 @@ static XField *respMap2XField(const char *name, const RedisMap *map, int n) {
 /**
  * Converts a RESP to the xchange representation as an appropriate XField.
  *
- * <ul>
- * <li>RESP3_NULL values are converted to NULL.</li>
- * <li>Scalar values are converted to an XField with the equivalent type.</li>
- * <li>Homogeneous arrays are converted to a field with a 1D array of corresponding xchange type.</li>
- * <li>Heterogeneous arrays are converted to a field with a 1D array of X_FIELD type (containing an array of fields).</li>
- * <li>Maps with string keywords are converted to an X_STRUCT.</li>
- * <li>Maps with non-string keywords are added under a sub-structure named '.non-string-keys' as indexed structures
- * with separate 'key' and 'value' fields.</li>
- * <li>The original RESP type (single character) is preserved as a 0-terminated string in XField.subtype field.</li>
- * </ul>
+ *  - RESP3_NULL values are converted to NULL.
+ *  - Scalar values are converted to an XField with the equivalent type.
+ *  - Homogeneous arrays are converted to a field with a 1D array of corresponding xchange type.
+ *  - Heterogeneous arrays are converted to a field with a 1D array of X_FIELD type (containing an array of fields).
+ *  - Maps with string keywords are converted to an X_STRUCT.
+ *  - Maps with non-string keywords are added under a sub-structure named '.non-string-keys' as indexed structures
+ *    with separate 'key' and 'value' fields.
+ *  - The original RESP type (single character) is preserved as a 0-terminated string in XField.subtype field.
  *
  * @param name    The name to assign to the field
  * @param resp    The RESP data to convert
